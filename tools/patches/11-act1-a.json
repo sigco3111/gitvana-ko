@@ -1,0 +1,184 @@
+[
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "title",
+    "expect": "The Spark",
+    "set": "불꽃"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "Something from nothing",
+    "set": "무에서 유를 만들다"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "You arrive at the Monastery",
+    "set": "비 오는 화요일, 당신은 버전 관리 수도원의 문 앞에 도착합니다. 세미콜론을 발명했다고 주장하는 노련한 수석 수도승이 문을 막고 있습니다.\n\n\"들어오기 전에,\" 그가 낭랑하게 말합니다. \"무에서 유를 만들 수 있음을 증명해야 하네. 저장소를 만들고, 파일을 쓰고, 커밋하게. 우주도 처음엔 아무것도 없었으니까.\"\n\n그는 잠시 멈춥니다. \"그리고 부엌에 장바구니 목록이 급히 필요하다네. 긴 사연이야. 묻지 말게.\""
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "git init creates",
+    "set": "git init은 현재 디렉터리에 새 Git 저장소를 만듭니다. 수도원을 세우는 일과 같다고 보면 됩니다. 누군가 첫걸음을 떼기 전까지는 아무것도 추적되지 않습니다. git add는 파일을 스테이징하여 다음 커밋에 포함되도록 표시합니다. git commit은 스테이징된 모든 내용의 영구적인 스냅샷을 저장합니다."
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Initialize a new git repository",
+    "set": "'git init'으로 새 git 저장소를 만든다"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Create a file (any name",
+    "set": "아무 이름이나 내용으로 파일을 하나 만든다"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Stage the file with 'git add'",
+    "set": "'git add'로 파일을 스테이징한다"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "briefing.objectives.3",
+    "expect": "Create your first commit",
+    "set": "첫 커밋을 만든다"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The Head Monk leans in",
+    "set": "수석 수도승이 은밀하게 몸을 기울입니다: 'git init'부터 시작하게. 그다음 파일을 하나 만들게. 아무 파일이나. echo \"hello\" > hello.txt 면 충분하지."
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A passing monk drops",
+    "set": "지나가던 수도승이 두루마리를 발치에 떨어뜨립니다: 'git add는 스테이징합니다. git commit -m \"메시지\"는 저장합니다. 그것이 길이지.'"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "hints.2.text",
+    "expect": "The monastery cat walks",
+    "set": "수도원 고양이가 키보드를 밟고 지나가다 무심코 입력합니다: git init && echo \"hello\" > hello.txt && git add hello.txt && git commit -m \"First commit\""
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "tips.0",
+    "expect": "Create files with",
+    "set": "파일 만들기: echo \"내용\" > 파일명.txt"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "tips.1",
+    "expect": "Type 'help' anytime",
+    "set": "언제든 'help'를 입력하면 사용 가능한 명령어를 볼 수 있습니다"
+  },
+  {
+    "file": "src/levels/act1-basics/01-spark.json",
+    "type": "json",
+    "path": "tips.2",
+    "expect": "Made a mistake?",
+    "set": "실수했나요? UNDO 버튼을 누르거나 'undo'를 입력하세요"
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "title",
+    "expect": "The Monastery Ledger",
+    "set": "수도원 장부"
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "Not everything belongs",
+    "set": "모든 것이 성스러운 두루마리에 들어가는 것은 아니다"
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "The monastery bookkeeper",
+    "set": "수도원의 회계 수도승은 모든 것을 세 번씩 확인하는 초조한 수도승인데, 파일 세 개를 건네며 걱정스러운 얼굴을 합니다.\n\n\"data.txt와 config.txt는 반드시 저장소에 넣어야 하네. 그런데 temp.log 파일 말인데? 그건 쓰레기야. 디버그 출력, 디지털 폐기물이지. 그걸 커밋하면 수석 수도승이 칫솔로 명상홀을 청소하게 만들 걸세.\"\n\n그는 주위를 둘러봅니다. \"그 칫솔 말이야. 그 벌에는 아주 까다로운 사람이라네.\""
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "git add lets you choose",
+    "set": "git add를 쓰면 다음 커밋에 넣을 파일을 정확히 고를 수 있습니다. 이를 '선택적 스테이징'이라고 합니다. 작업 디렉터리의 모든 것을 커밋할 필요는 없고, 명시적으로 추가한 파일만 커밋하면 됩니다. 이렇게 임시 파일이나 로그 같은 잡동사니를 저장소 기록에서 빼 둘 수 있습니다."
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Stage data.txt and config.txt",
+    "set": "data.txt와 config.txt를 스테이징한다 (temp.log는 제외)"
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Commit the staged files",
+    "set": "스테이징한 파일을 커밋한다"
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "temp.log must remain",
+    "set": "temp.log는 작업 디렉터리에 그대로 두되 추적하지 않는다"
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The bookkeeper whispers",
+    "set": "회계 수도승이 속삭입니다: 'git status'로 상태를 확인하세요. 그다음 원하는 파일만 git add 하세요. temp.log는 절대 안 됩니다. 절대로요."
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A note taped",
+    "set": "수도원 게시판에 붙은 쪽지: 'git add data.txt config.txt — 여러 파일을 한 번에 추가할 수 있습니다. 그다음 커밋하세요.'"
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "hints.2.text",
+    "expect": "The monastery cat, looking smug",
+    "set": "수도원 고양이가 의기양양하게 입력합니다: git add data.txt config.txt && git commit -m \"Add monastery records\""
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "tips.0",
+    "expect": "Use 'git status' to see",
+    "set": "'git status'로 파일이 추적, 스테이징, 미추적 중 무엇인지 볼 수 있습니다"
+  },
+  {
+    "file": "src/levels/act1-basics/02-ledger.json",
+    "type": "json",
+    "path": "tips.1",
+    "expect": "You can stage multiple files",
+    "set": "여러 파일을 한 번에 스테이징할 수 있습니다: git add 파일1.txt 파일2.txt"
+  }
+]
