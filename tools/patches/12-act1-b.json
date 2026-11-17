@@ -1,0 +1,331 @@
+[
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "title",
+    "expect": "Reading the Tea Leaves",
+    "set": "찻잎 읽기"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "The history holds the truth",
+    "set": "역사가 진실을 품고 있다"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "The monastery quartermaster",
+    "set": "수도원 식량 담당 수도승이 눈을 부릅뜨고 서기실로 뛰어들어옵니다. \"누군가 가격표를 망쳐 놨어! 빵이 10코인이었는데 지금은 1000이라고 적혀 있다고! 부엌 수도승들이 공공연히 반란을 일으키고 있어!\"\n\n그는 장부를 당신의 책상에 쾅 내려놓습니다. \"가격표는 네 번의 커밋에 걸쳐 바뀌었네. 버그를 들여온 커밋을 찾아서, 빵 가격을 다시 10으로 고치고, 수정 사항을 커밋하게.\"\n\n수도원 고양이가 가격표 위에 앉아 있습니다. 고양이는 빵 가격에는 관심이 없습니다. 생선을 먹으니까요."
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "git log shows the history",
+    "set": "git log는 모든 커밋의 기록을 보여 줍니다. 누가 무엇을 언제 바꿨는지 알 수 있습니다. git diff는 두 커밋 사이의 변경 사항을 비교합니다. 둘을 함께 쓰면 탐정의 도구가 됩니다. 무언가 망가졌을 때 기록을 거슬러 올라가 문제가 정확히 언제, 어디서 들어왔는지 찾을 수 있습니다."
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Use 'git log' to examine",
+    "set": "'git log'로 커밋 기록을 살펴본다"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Find the commit that changed bread",
+    "set": "빵 가격을 10에서 1000으로 바꾼 커밋을 찾는다"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Fix prices.txt so bread",
+    "set": "빵 가격이 다시 10이 되도록 prices.txt를 고친다"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "briefing.objectives.3",
+    "expect": "Commit the fix with a message",
+    "set": "'Fix'가 들어간 메시지로 수정 사항을 커밋한다"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The quartermaster paces",
+    "set": "식량 담당 수도승이 초조하게 서성입니다: 'git log --oneline'으로 모든 커밋을 보게. 그다음 'git diff HEAD~2 HEAD~1'로 의심스러운 커밋에서 무엇이 바뀌었는지 비교하게."
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A monk passing through mutters",
+    "set": "지나가던 수도승이 중얼거립니다: '세 번째 커밋인 \"Update prices\"에서 부패가 시작됐네. 파일을 고쳐 1000을 다시 10으로 바꾸고, Fix가 들어간 메시지로 추가하고 커밋하게.'"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "hints.2.text",
+    "expect": "The monastery cat knocks over",
+    "set": "수도원 고양이가 잉크병을 엎지르자, 신기하게도 글자가 나타납니다: prices.txt를 고쳐 \"bread: 1000\"을 \"bread: 10\"으로 바꾸고, 그다음 git add prices.txt && git commit -m \"Fix bread price\""
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "tips.0",
+    "expect": "Use 'git log --oneline'",
+    "set": "'git log --oneline'으로 커밋 기록을 간단히 볼 수 있습니다"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "tips.1",
+    "expect": "Edit files with: edit filename.txt",
+    "set": "파일 편집: edit 파일명.txt"
+  },
+  {
+    "file": "src/levels/act1-basics/03-tea-leaves.json",
+    "type": "json",
+    "path": "tips.2",
+    "expect": "Use 'git diff' to see",
+    "set": "'git diff'로 작업 디렉터리에서 무엇이 바뀌었는지 볼 수 있습니다"
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "title",
+    "expect": "The Undo Ladder",
+    "set": "되돌리기 사다리"
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "Mistakes are just commits",
+    "set": "실수는 아직 되돌려지지 않은 커밋일 뿐이다"
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "Brother Fumblefingers has done it again",
+    "set": "손가락이 서툰 형제가 또 일을 저질렀습니다. 수도원 규칙을 의미 없는 \"WRONG\"이라는 메시지로 커밋해 버린 것입니다. 수석 수도승은 전혀 즐겁지 않습니다.\n\n\"커밋 자체는 있지,\" 수석 수도승이 콧등을 누르며 말합니다. \"변경 내용은 괜찮아. 문제는 메시지야. 이 수도회의 얼굴에 먹칠이지. 그 커밋을 되돌리되 — 부드럽게 해야 하네. 변경 사항은 스테이징된 채로 남겨 두고, 올바른 메시지로 다시 커밋하게.\"\n\n그는 화분 뒤에 숨으려는 손가락 서툰 형제를 노려봅니다."
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "git reset --soft HEAD~1",
+    "set": "git reset --soft HEAD~1은 마지막 커밋을 되돌리되 모든 변경 사항을 스테이징된 상태로 유지합니다. '그 커밋만 다시 하고 싶지만 작업은 잃고 싶지 않다'는 뜻입니다. 변경 사항은 스테이징 영역에 남아, 더 나은 메시지로(또는 다른 파일 구성으로) 다시 커밋할 수 있습니다."
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Use 'git reset --soft HEAD~1'",
+    "set": "'git reset --soft HEAD~1'로 잘못된 커밋을 되돌린다"
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Verify your changes are still staged",
+    "set": "변경 사항이 아직 스테이징되어 있는지 'git status'로 확인한다"
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Recommit with the message",
+    "set": "'Add monastery rules' 메시지로 다시 커밋한다"
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The Head Monk sighs",
+    "set": "수석 수도승이 한숨을 쉽니다: 'git reset --soft HEAD~1'은 마지막 커밋을 되돌리되 변경 사항은 스테이징된 상태로 둡니다. 그다음 올바른 메시지로 다시 커밋하면 됩니다."
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "Brother Fumblefingers mouths",
+    "set": "화분 뒤의 손가락 서툰 형제가 입모양으로 말합니다: '--soft로 되돌리고, commit -m \"Add monastery rules\"로 다시 커밋하게. 제발. 내 평판이 달려 있다네.'"
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "hints.2.text",
+    "expect": "The monastery cat types with one paw",
+    "set": "수도원 고양이가 발 하나로 입력합니다: git reset --soft HEAD~1 && git commit -m \"Add monastery rules\""
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "tips.0",
+    "expect": "git reset --soft keeps",
+    "set": "git reset --soft는 변경 사항을 스테이징된 채로 두고 커밋만 제거합니다"
+  },
+  {
+    "file": "src/levels/act1-basics/04-undo.json",
+    "type": "json",
+    "path": "tips.1",
+    "expect": "Use 'git log --oneline'",
+    "set": "'git log --oneline'으로 커밋이 실제로 되돌려졌는지 확인할 수 있습니다"
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "title",
+    "expect": "Branching Realities",
+    "set": "갈라지는 현실들"
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "One repo, many timelines",
+    "set": "하나의 저장소, 여러 개의 타임라인"
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "The monastery's philosophy instructor",
+    "set": "수도원의 철학 교사는 온통 은유로만 말하는 수도승인데, 당신을 갈라지는 길의 정원으로 부릅니다.\n\n\"상상해 보게,\" 그가 분재를 가리키며 말합니다. \"한 사람이 두 가지 삶을 동시에 사는 거야. 한 삶에서는 제빵사가 되고, 다른 삶에서는 시인이 되는 거지. Git 브랜치가 바로 그것이네. 서로 방해하지 않고 다른 작업이 일어나는 병렬의 현실이지.\"\n\n그는 분재의 가지 하나를 다듬습니다. \"기능 브랜치를 두 개 만들게. 각각에 다른 커밋을 하고, main으로 돌아오게. 각 브랜치가 저마다의 진실을 품고 있는 것을 지켜보게.\"\n\n수도원 고양이가 분재 나무 위에 앉아 있습니다. 어떻게 올라갔는지는 아무도 모릅니다."
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "Branches let you work",
+    "set": "브랜치를 쓰면 서로 영향을 주지 않고 다른 작업을 할 수 있습니다. git branch는 새 브랜치를 만들고, git checkout은 그 브랜치로 전환합니다. 각 브랜치는 만들어진 지점부터 갈라지는 고유의 커밋 기록을 가집니다. 브랜치 사이를 자유롭게 오갈 수 있습니다."
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Create a branch called 'feature-a'",
+    "set": "'feature-a'라는 브랜치를 만든다"
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Switch to feature-a and make",
+    "set": "feature-a로 전환해 최소 한 번 커밋한다"
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Create a branch called 'feature-b'",
+    "set": "main에서 'feature-b'라는 브랜치를 만든다"
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "briefing.objectives.3",
+    "expect": "Switch to feature-b and make",
+    "set": "feature-b로 전환해 최소 한 번 커밋한다"
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "briefing.objectives.4",
+    "expect": "Return to main and merge",
+    "set": "main으로 돌아와 기능 브랜치 중 하나를 병합한다"
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The philosophy monk strokes",
+    "set": "철학 수도승이 수염을 쓰다듬습니다: 'git branch feature-a'는 브랜치를 만듭니다. 'git checkout feature-a'는 그곳으로 전환합니다. 그다음 파일을 만들고 커밋하게."
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A passing monk sketches",
+    "set": "지나가던 수도승이 모래 위에 그립니다: feature-a에서 커밋한 뒤 'git checkout main'으로 돌아오게. 그다음 'git branch feature-b', 'git checkout feature-b'로 옮겨 무언가 커밋하고, 다시 'git checkout main'으로 돌아오게."
+  },
+  {
+    "file": "src/levels/act1-basics/05-branching.json",
+    "type": "json",
+    "path": "hints.2.text",
+    "expect": "The monastery cat meows the solution",
+    "set": "수도원 고양이가 정답을 야옹거리며 알려 줍니다: git checkout -b feature-a && echo \"feature a\" > a.txt && git add a.txt && git commit -m \"Add feature a\" && git checkout main && git checkout -b feature-b && echo \"feature b\" > b.txt && git add b.txt && git commit -m \"Add feature b\" && git checkout main"
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "title",
+    "expect": "The Merge Crucible",
+    "set": "병합의 시험장"
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "The Head Monk's final test",
+    "set": "수석 수도승의 최후 시험"
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "The Head Monk stands before",
+    "set": "수석 수도승이 팔짱을 끼고 내면의 문 앞에 서 있습니다. 그의 뒤 벽에는 두 개의 두루마리가 걸려 있습니다. 서로 소통하지 않는 두 수도승이 고친 수도원의 주간 식단표입니다.\n\n\"'good-changes' 브랜치에서 월요일 식사를 피자로 바꿨지. 그런데 'bad-changes' 브랜치에서는 여동생 수도승이 제멋대로 월요일 칸에 쓰레기 같은 글을 적어 넣었네.\"\n\n그는 당신을 똑바로 쏘아봅니다. \"좋은 변경은 main에 병합하게. 그건 순조로울 걸세. 그다음은 나쁜 브랜치인데, 병합은 하되 안에 있는 끔찍한 내용을 보면 ABORT 하게. 어떤 병합은 이루어지면 안 되는 법이지.\"\n\n수도원 고양이가 두 식단표를 모두 먹고 있습니다. 충돌은 없다고 합니다."
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "When two branches modify",
+    "set": "두 브랜치가 같은 파일을 수정하면 Git은 자동으로 병합할 수 없습니다. 그러면 충돌이 생기고, 파일에 두 버전을 <<<<<<< 와 >>>>>>> 표시로 함께 적어 둡니다. 충돌을 풀려면 파일을 직접 고친 뒤 스테이징하고 커밋해야 합니다. 병합이 잘못되면 git merge --abort로 취소하고 이전 상태로 되돌릴 수 있습니다."
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Merge the 'good-changes' branch",
+    "set": "'good-changes' 브랜치를 main에 병합한다 (충돌 없이)"
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Attempt to merge 'bad-changes'",
+    "set": "'bad-changes' 병합을 시도해 충돌을 확인하고 'git merge --abort'로 취소한다"
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Delete the bad-changes branch",
+    "set": "bad-changes 브랜치를 삭제한다 (git branch -d bad-changes)"
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "briefing.objectives.3",
+    "expect": "The final menu.txt must contain",
+    "set": "최종 menu.txt에는 'Pizza'가 있어야 하고 'GARBAGE'는 없어야 한다"
+  },
+  {
+    "file": "src/levels/act1-basics/06-boss.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The Head Monk nods toward",
+    "set": "수석 수도승이 두루마리를 가리킵니다: '현명하게 병합하라. 병합할 가치가 있는 브랜치가 있고, 버려야 할 브랜치도 있다. 필요한 도구는 모두 갖추었다.'"
+  }
+]
