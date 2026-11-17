@@ -99,7 +99,7 @@ src/
 ├── components/   # Svelte UI 컴포넌트 (terminal, graph, level, docs, landing ...)
 ├── i18n/         # 언어 파일: en/, es/, fr/, pt-BR/, ko/ (ko는 이 번역판에서 추가)
 ├── lib/          # 게임 엔진 (git 엔진, 셸, 레벨 로더, 오디오)
-├── levels/       # 35개 레벨 JSON
+├── levels/       # 38개 레벨 JSON
 ├── docs/         # 명령어 문서와 개념 가이드
 └── main.ts       # 진입점
 ```
