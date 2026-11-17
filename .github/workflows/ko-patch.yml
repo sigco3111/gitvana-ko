@@ -1,0 +1,46 @@
+name: Korean patch (일괄 패치)
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 커밋 메시지 (한글화 보완: ...)
+        required: true
+        default: "한글화 보완: 이미지 경로·레벨 수 정정"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ko-patch
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Apply patch
+        run: python3 tools/ko_patch.py
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Build (base path /gitvana-ko/)
+        run: bun run build
+        env:
+          GITHUB_ACTIONS: "true"
+      - name: Commit and push (build passed)
+        env:
+          MSG: ${{ inputs.message }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "변경 없음"
+            exit 0
+          fi
+          git commit -m "$MSG"
+          git push
