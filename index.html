@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <title>Gitvana (한국어판) — 놀이로 배우는 git | 무료 브라우저 게임</title>
+    <meta name="description" content="놀이로 배우는 git. 레트로 터미널에 실제 git 명령어를 입력해 보세요. git init부터 병합 충돌, 재해 복구까지 35개 레벨. 영원히 무료, 설치 필요 없음. 원작: pixari/gitvana (MIT)." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://sigco3111.github.io/gitvana-ko/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Gitvana",
+        "inLanguage": ["ko", "en", "es", "fr", "pt-BR"],
+        "url": "https://sigco3111.github.io/gitvana-ko/",
+        "description": "A browser game that teaches git through real terminal commands. 35 levels from init to mastery. Korean translation of pixari/gitvana (MIT).",
+        "applicationCategory": "EducationalGame",
+        "operatingSystem": "Web Browser",
+        "offers": { "@type": "Offer", "price": "0" },
+        "author": { "@type": "Person", "name": "Raffaele Pizzari", "url": "https://pixari.dev" },
+        "isBasedOn": "https://github.com/pixari/gitvana"
+      }
+    </script>
+    <meta property="og:title" content="Gitvana (한국어판) — git의 깨달음에 도달하라" />
+    <meta property="og:description" content="놀이로 배우는 git. 35개 레벨의 터미널 퍼즐 게임. 원작 pixari/gitvana 한국어판." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sigco3111.github.io/gitvana-ko/" />
+    <meta property="og:image" content="https://sigco3111.github.io/gitvana-ko/og-default.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Gitvana (한국어판) — git의 깨달음에 도달하라" />
+    <meta name="twitter:description" content="놀이로 배우는 git. 35개 레벨의 터미널 퍼즐 게임." />
+    <meta name="twitter:image" content="https://sigco3111.github.io/gitvana-ko/og-default.png" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body, #app { height: 100%; width: 100%; overflow: hidden; background: #0a0a0a; }
+      html { min-height: 400px; min-width: 600px; }
+      .mobile-fallback { display: none; }
+      /* Press Start 2P has no Hangul glyphs: use Noto Sans KR for Korean text */
+      html:lang(ko), html:lang(ko) * { font-family: 'JetBrains Mono', 'Noto Sans KR', monospace !important; }
+      @media (max-width: 599px), (max-height: 399px) {
+        html { min-height: unset; min-width: unset; }
+        #app { display: none !important; }
+        .mobile-fallback { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; width: 100vw; background: #0a0a0a; color: #c2c3c7; font-family: 'JetBrains Mono', 'Consolas', monospace; text-align: center; padding: 32px; }
+        .mobile-fallback h1 { font-family: 'Press Start 2P', monospace; font-size: 18px; color: #ffa300; margin-bottom: 16px; line-height: 1.5; }
+        .mobile-fallback p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; color: #5f574f; }
+        .mobile-fallback .emoji { font-size: 48px; margin-bottom: 20px; }
+        .mobile-fallback a { color: #29adff; text-decoration: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mobile-fallback">
+      <div class="emoji">🖥️</div>
+      <h1>GITVANA</h1>
+      <p>Gitvana는 키보드와 더 넓은 화면이 필요합니다.<br/>데스크톱이나 노트북에서 방문해 주세요.</p>
+      <p>수도원의 터미널은 주머니에 들어가지 않습니다.<br/>수도승들이 시도는 했지만 결과가 좋지 않았습니다.</p>
+      <p><a href="https://sigco3111.github.io/gitvana-ko/">sigco3111.github.io/gitvana-ko</a></p>
+    </div>
+    <div id="app"></div>
+    <script>
+      // Clean up stale service workers from old PWA build
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs) {
+          for (var r of regs) { r.unregister(); }
+        });
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (var n of names) { caches.delete(n); }
+          });
+        }
+      }
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
