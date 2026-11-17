@@ -1,0 +1,394 @@
+[
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "title",
+    "expect": "The Reflog Remembers",
+    "set": "리플로그가 기억한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "Nothing is ever truly lost",
+    "set": "수도원에서는 진정으로 잃어버리는 것이 없다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "Brother Linus was working on a secret",
+    "set": "링거스 형제는 비밀 기능을 작업하고 있었습니다. 브랜치 이름은 'secret-feature'였습니다. 그는 그 브랜치에 보물 지도 커밋을 하나 넣었습니다. 그리고 — 여기가 중요합니다 — 그 브랜치를 지웠습니다.\n\n\"사라졌어요.\" 그가 터미널을 노려보며 말합니다. \"병합하기 전에 브랜치를 지웠어요. 보물 지도가… 영영 잃어버렸습니다.\"\n\n구석에서 수석 수도승이 웃습니다. \"잃어버려? 잃어버려? 젊은 수도승, Git에서는 아무것도 잃어버리지 않는다네. 리플로그가 모두 기억하지.\"\n\n그가 머리 옆을 두드립니다. \"Git은 HEAD가 움직인 모든 자리를 기록한다네. 모든 체크아웃, 모든 커밋, 모든 브랜치 전환을. 그 커밋은 아직 허공에 떠 있어. 리플로그에서 해시를 찾아 다시 브랜치를 붙여 주기만 하면 되네.\"\n\n수석 수도승의 눈이 반짝입니다. \"가서 보물을 되찾게.\""
+  },
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "The reflog (reference log) records",
+    "set": "리플로그(참조 로그)는 HEAD가 가 있었던 모든 위치를 기록합니다. 브랜치를 지워도 커밋은 그대로 남아 있고, 단지 그것을 가리키는 브랜치가 없을 뿐입니다. git reflog로 사라진 커밋의 해시를 찾은 뒤, 그 해시 위치에 새 브랜치를 만드세요."
+  },
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Use git reflog to find the lost commit",
+    "set": "git reflog로 사라진 커밋을 찾는다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Create a new branch called 'recovered'",
+    "set": "그 커밋 위치에 'recovered'라는 새 브랜치를 만든다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Checkout the recovered branch to verify",
+    "set": "recovered 브랜치로 체크아웃해 보물을 확인한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The monastery archivist whispers",
+    "set": "수도원 기록관이 속삭입니다: 'git reflog는 HEAD가 머물렀던 모든 곳을 보여 주네. \"Add treasure\"라고 적힌 항목을 찾게. 그 옆의 해시가 필요한 것이라네.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/19-reflog.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A dusty scroll reads",
+    "set": "먼지 쌓인 두루마리: '리플로그에서 해시를 찾게. 그다음 그 해시 위치에 브랜치를 만들고 체크아웃하게.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "title",
+    "expect": "Force Push Recovery",
+    "set": "강제 푸시에서 복구하기"
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "Someone overwrote your work",
+    "set": "누군가 당신의 작업을 덮어썼지만 리플로그는 알고 있다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "You come back from lunch",
+    "set": "점심을 먹고 돌아오니 세 커밋 분량의 정성스러운 작업이 사라져 있습니다. git log에는 첫 커밋만 보입니다. 누군가(링거스 형제는 자기가 아니라고 맹세합니다) 브랜치에 강제 푸시를 해서 덮어쓴 것입니다.\n\nv2와 v3 변경이 브랜치에서 사라졌습니다. 지금 상태는 v1으로 되돌아가 있습니다. 당신은 믿기지 않는 듯 화면을 바라봅니다.\n\n하지만 잠깐. 수석 수도승의 가르침을 기억하세요. \"리플로그는 모든 것을 기억한다.\" 로컬 리플로그에는 HEAD가 그 커밋들을 가리키던 기록이 아직 남아 있습니다. 커밋은 여전히 객체 저장소에 있지만 어떤 브랜치로도 닿지 않을 뿐입니다.\n\n리플로그를 뒤져 v3 커밋을 찾고, 죽은 작업을 되살릴 시간입니다."
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "When someone force-pushes",
+    "set": "누군가 강제 푸시를 하거나 실수로 reset을 하면, 커밋은 로컬 저장소에서 즉시 사라지지 않습니다. 리플로그가 HEAD가 가리킨 위치를 기록하고 있어서, 그곳에서 '사라진' 커밋을 찾아 새 브랜치로 되살릴 수 있습니다."
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Use git reflog to find the lost v3 commit",
+    "set": "git reflog로 사라진 v3 커밋을 찾는다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Create a branch called 'recovered'",
+    "set": "그 커밋에 'recovered'라는 브랜치를 만든다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Verify your work is restored",
+    "set": "작업이 복구되었는지 확인한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The monastery backup monk hints",
+    "set": "수도원 백업 수도승이 힌트를 줍니다: 'git reflog에 그 커밋들을 만들던 때의 항목이 보일 걸세. v3 커밋의 해시를 찾게.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/20-force-push.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A note on the backup drive reads",
+    "set": "백업 드라이브의 메모: '리플로그는 모든 것을 기억한다. 사라진 커밋을 찾아 브랜치 이름을 붙여 주게.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "title",
+    "expect": "Who Wrote This?",
+    "set": "누가 이걸 썼을까?"
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "The ancient art of git blame",
+    "set": "git blame의 오래된 기술"
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "The monastery's codebase has a bug",
+    "set": "수도원 코드베이스에 버그가 있습니다. code.txt 2번째 줄에 아주 크고 분명한 글씨로 \"BUG HERE\"라고 적혀 있습니다. 그런데도 네 명의 수도승이 한 커밋씩 남긴 뒤에도 아무도 알아채지 못했습니다.\n\n수석 수도승에게는 답이 필요합니다. \"누가 이 버그를 넣었지? 이름이 필요하네. 화내는 게 아니라, 그냥… 이야기를 좀 나누고 싶어서.\" 그가 손가락 마디를 우득 꺾습니다.\n\n다행히 Git에는 바로 이런 일을 위한 도구가 있습니다. git blame입니다. 파일의 각 줄을 마지막으로 수정한 사람과 커밋을 보여 줍니다. 범인을 찾고, 버그를 고치고, 수정 커밋을 만드세요.\n\nAlice가 1번 줄을 썼습니다. Bob이 4번 줄을 추가했습니다. Charlie는… 글쎄요, Charlie에게는 설명할 것이 있겠죠. Dave는 5번 줄을 추가했고 자기는 결백하다고 주장합니다.\n\n수도원의 탐정 작업이 시작됩니다."
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "git blame shows the commit and author",
+    "set": "git blame은 파일의 각 줄에 책임이 있는 커밋과 작성자를 보여 줍니다. 누가 무엇을 언제 바꿨는지 이해하는 데 매우 유용합니다. 이것으로 버그의 출처를 추적한 뒤 고치세요."
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Use git blame on code.txt",
+    "set": "code.txt에 git blame을 써서 버그를 넣은 사람을 찾는다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Fix line 2 to remove the bug",
+    "set": "2번째 줄을 고쳐 버그를 없앤다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Commit the fix",
+    "set": "수정 사항을 커밋한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The detective cat sniffs",
+    "set": "탐정 고양이가 증거를 킁킁거립니다: 'git blame code.txt는 각 줄을 마지막으로 건드린 사람을 보여 주네. 2번째 줄을 보게.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/21-blame.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A magnifying glass reveals",
+    "set": "돋보기가 드러냅니다: '범인을 찾고, 줄을 고치고, 수정을 커밋하게. 표준 탐정 절차라네.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "title",
+    "expect": "The Bisect Hunt",
+    "set": "이분 탐색 사냥"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "Binary search through time",
+    "set": "시간 자체에 대한 이진 탐색"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "Something broke. The monastery",
+    "set": "무언가 망가졌습니다. 수도원의 테스트 스위트는 \"FAIL\"이라고 말하지만, 언제부터 실패했는지 아무도 모릅니다. 커밋은 여덟 개입니다. 하나씩 확인하면 끝이 없을 겁니다(여덟 단계이긴 하지만, 수도승들은 참을성이 없으니까요).\n\n수석 수도승이 \"이분법의 기술\"이라는 오래된 두루마리를 꺼냅니다. \"이진 탐색이라네.\" 그가 경건하게 말합니다. \"나누어 정복하라. Git이 이것을 자동으로 할 수 있다네.\"\n\n당신은 Git에게 알려 줍니다. 현재 커밋은 나쁨(테스트 실패)이고, 첫 커밋은 좋음(테스트 통과)입니다. Git은 가운데 커밋을 고릅니다. 당신이 그것이 좋은지 나쁜지 확인하면, Git은 범위를 좁힙니다. 단 세 단계 만에 모든 것을 망가뜨린 정확한 커밋을 찾을 수 있습니다.\n\n테스트 파일은 단순합니다. \"PASS\"라고 적혀 있으면 커밋은 좋음이고, \"FAIL\"이라고 적혀 있으면 나쁨입니다. 문제는 5번 커밋에서 시작되었습니다.\n\n망가뜨린 커밋을 찾은 다음, 되돌려서 테스트를 고치세요."
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "git bisect performs a binary search",
+    "set": "git bisect는 커밋 역사를 이진 탐색해 어느 커밋이 버그를 넣었는지 찾습니다. 'git bisect start'로 시작하고, 현재 상태를 나쁨으로, 오래된 알려진 좋음 상태를 좋음으로 표시하세요. 그러면 Git이 테스트할 중간 지점을 차례로 체크아웃해 줍니다."
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Start a bisect session",
+    "set": "bisect 세션을 시작한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Mark the current commit as bad",
+    "set": "현재 커밋을 나쁨으로, 첫 커밋을 좋음으로 표시한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Test each midpoint commit",
+    "set": "각 중간 커밋을 test.txt로 확인한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "briefing.objectives.3",
+    "expect": "Let bisect identify the breaking commit",
+    "set": "bisect가 망가뜨린 커밋을 찾도록 한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "briefing.objectives.4",
+    "expect": "Reset bisect and revert the bad commit",
+    "set": "bisect를 리셋하고 나쁜 커밋을 되돌린다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The monastery librarian suggests",
+    "set": "수도원 사서가 제안합니다: 'git bisect start를 실행하고, 현재를 나쁨으로, 첫 커밋을 좋음으로 표시하게. 그 뒤로는 Git이 안내해 줄 걸세.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/22-bisect.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A search manual reads",
+    "set": "검색 안내서: '중간 지점마다 test.txt를 확인해 좋음이나 나쁨으로 표시하게. 범인을 찾으면 bisect를 리셋하고 피해를 되돌리게.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "title",
+    "expect": "Diff Detective",
+    "set": "차이 탐정"
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "Compare branches, combine the truth",
+    "set": "브랜치를 비교하고 진실을 합친다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "The monastery's quarterly report is a mess",
+    "set": "수도원의 분기 보고서가 엉망입니다. 브랜치가 세 개이고, 진실의 버전도 세 가지입니다.\n\nmain에는 원본 보고서가 있습니다. Q1: 100, Q2: 200, Q3: 300, Q4: 400.\n\n브랜치 'update-a'는 Q1을 150으로 고쳤습니다. 브랜치 'update-b'는 Q2를 250으로, Q3를 350으로 고쳤습니다. 두 브랜치 모두 옳습니다. 단지 서로 다른 분기를 고쳤을 뿐입니다.\n\n수석 수도승은 모든 올바른 숫자가 합쳐진 최종 보고서를 main에 원합니다. \"diff를 써 보게.\" 그가 말합니다."
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "git diff can compare branches",
+    "set": "git diff는 브랜치끼리 비교할 수 있습니다. 'git diff main..update-a'는 무엇이 바뀌었는지 보여 줍니다. 브랜치 사이의 diff를 살펴보면 각 브랜치가 무엇을 고쳤는지 알 수 있고, 그 변경을 손으로 합쳐 올바른 최종 상태를 만들 수 있습니다."
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Use git diff to examine changes",
+    "set": "git diff로 update-a와 update-b의 변경을 살펴본다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Create the correct combined report on main",
+    "set": "main에 올바르게 합쳐진 보고서를 만든다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Commit the final version",
+    "set": "최종본을 커밋한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The report auditor suggests",
+    "set": "보고서 감사관이 제안합니다: 'git diff main..update-a와 git diff main..update-b를 실행해 각 브랜치가 무엇을 바꿨는지 보게.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/23-diff-detective.json",
+    "type": "json",
+    "path": "hints.1.text",
+    "expect": "A sticky note on the report reads",
+    "set": "보고서 위의 포스트잇: '각 브랜치는 서로 다른 분기를 고쳤다. 두 브랜치의 올바른 값을 하나의 확정 보고서로 합치게.'"
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "title",
+    "expect": "The Cold Case",
+    "set": "오래된 미제 사건"
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "subtitle",
+    "expect": "Bisect, blame, revert",
+    "set": "bisect, blame, revert — 수도원의 가장 오래된 수수께끼를 풀어라"
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "briefing.narrative",
+    "expect": "The monastery's ancient codebase",
+    "set": "수도원의 오래된 코드베이스에 아무도 찾지 못한 버그가 있습니다. 커밋에 커밋이 쌓이는 동안 여러 수도승의 변경 아래 묻혀 있었습니다.\n\n수석 수도승이 \"미제 사건\"이라고 적힌 먼지 쌓인 파일을 엽니다. \"커밋이 열 개. 작성자는 여러 명. 중간 어딘가에서 누군가 신성한 테스트를 망가뜨렸네. 테스트 파일은 PASS라고 적혀 있어야 하는데 FAIL이라고 적혀 있다네.\"\n\n그가 사건 파일을 책상 너머로 밀어 줍니다. \"bisect로 언제 망가졌는지 찾고, blame으로 누가 했는지 찾고, revert로 고치게. 표준 탐정 절차라네.\"\n\n수도원 고양이가 책상 위로 뛰어올라 파일을 바닥으로 밀어 버립니다. 종이가 사방으로 흩어집니다. 고양이는 \"시간이 가고 있어, 탐정\"이라고 말하는 듯 당신을 봅니다.\n\n이것이 최종 수사입니다. 탐정 도구 상자의 모든 도구. 하나의 미제 사건. 해결하세요."
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "briefing.concept",
+    "expect": "Combining bisect, blame, and revert",
+    "set": "bisect, blame, revert를 함께 쓰면 완전한 수사 도구 상자가 됩니다. bisect는 커밋 범위를 좁히고, blame은 누가 무엇을 바꿨는지 알려 주고, revert는 피해를 깔끔하게 되돌립니다. 이 셋을 합치면 어떤 코드 수수께끼든 풀 수 있습니다."
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "briefing.objectives.0",
+    "expect": "Use bisect to find the commit that introduced the bug",
+    "set": "bisect로 버그를 넣은 커밋을 찾는다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "briefing.objectives.1",
+    "expect": "Use blame to understand what changed",
+    "set": "blame으로 무엇이 바뀌었는지 파악한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "briefing.objectives.2",
+    "expect": "Revert the bad commit to fix the codebase",
+    "set": "나쁜 커밋을 revert해 코드베이스를 고친다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "briefing.objectives.3",
+    "expect": "Verify the test passes again",
+    "set": "테스트가 다시 통과하는지 확인한다"
+  },
+  {
+    "file": "src/levels/act4-rewriting/24-boss.json",
+    "type": "json",
+    "path": "hints.0.text",
+    "expect": "The cold case file has a note",
+    "set": "미제 사건 파일의 메모: '표준 수사 절차: 범위를 좁히고, 용의자를 찾고, 피해를 되돌리게. 필요한 수사 도구는 모두 갖고 있네.'"
+  }
+]
