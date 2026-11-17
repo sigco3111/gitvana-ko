@@ -1,0 +1,14 @@
+name: guide-list
+on:
+  workflow_dispatch:
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: list guides
+        run: |
+          echo '## GUIDES' >> $GITHUB_STEP_SUMMARY
+          grep -nE "^ *id: |^ *title: " src/docs/guides/index.ts >> $GITHUB_STEP_SUMMARY
+          echo '## TOTAL' >> $GITHUB_STEP_SUMMARY
+          wc -l src/docs/guides/index.ts >> $GITHUB_STEP_SUMMARY
