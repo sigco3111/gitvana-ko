@@ -1,0 +1,13 @@
+name: cmd-read
+on:
+  workflow_dispatch:
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: read batch
+        run: |
+          echo 'BEGIN' >> $GITHUB_STEP_SUMMARY
+          awk "/name: 'commit'/{f=1} /name: 'rebase'/{f=0} f" src/docs/commands/index.ts >> $GITHUB_STEP_SUMMARY
+          echo 'END' >> $GITHUB_STEP_SUMMARY
