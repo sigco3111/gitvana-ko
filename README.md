@@ -18,6 +18,18 @@
 
 ---
 
+## 실행 화면
+
+실제 배포 주소(<https://sigco3111.github.io/gitvana-ko/>)에서 직접 플레이하며 캡처한 화면입니다.
+
+| 랜딩 페이지 | 레벨 소개 (1막 1레벨 「불꽃」) | 레벨 클리어 (별 3개) |
+| --- | --- | --- |
+| ![랜딩 페이지](screenshots/01-landing.png) | ![레벨 소개](screenshots/02-level-intro.png) | ![스테이지 클리어](screenshots/03-stage-clear.png) |
+
+배포 검증: 2026-11-17 실제 배포 주소에서 1레벨을 실제 git 명령어로 클리어했습니다 (`git init` → 파일 생성 → `git add` → `git commit` → 「스테이지 클리어!」 별 3개). 한국어 레벨 소개·목표·클리어 화면이 배포 빌드에 정상 표시됨을 확인했습니다.
+
+---
+
 ## 이 저장소는 무엇인가요?
 
 이 저장소는 [pixari/gitvana](https://github.com/pixari/gitvana) (MIT 라이선스)의 **한국어 번역판**입니다. 원작의 게임 코드를 바탕으로 한국어 로케일(`src/i18n/ko/`)을 추가하고, 기본 언어를 한국어로 설정했습니다. 원작은 영어, 스페인어, 프랑스어, 브라질 포르투갈어를 지원합니다. 언어는 게임 안에서 언제든 바꿀 수 있습니다.
@@ -66,6 +78,7 @@ Gitvana는 38개의 점점 어려워지는 레벨을 통해 git을 가르치는 
 | 문서 `docs-guides.json` (가이드 11개) | 번역 완료 |
 | 변경 기록 `ChangelogPage.svelte` | 번역 완료 |
 | 개발 블로그 `DevBlogPage.svelte` | 번역 완료 |
+| 신규 플레이 튜토리얼 오버레이 (The Way of the Terminal) | 영문 표시 — 미번역 |
 
 명령어 자체(`git commit`, `edit <file>` 등)는 번역하지 않았습니다. 설명 문구만 번역했습니다.
 
