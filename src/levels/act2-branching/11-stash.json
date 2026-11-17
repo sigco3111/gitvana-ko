@@ -2,41 +2,100 @@
   "id": "act2-11-stash",
   "act": 2,
   "order": 11,
-  "title": "Stash & Dash",
-  "subtitle": "Hide your work, fix the fire, come back",
+  "title": "보관하고 달려라",
+  "subtitle": "작업은 숨기고, 불을 끄고, 돌아와라",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "You're in the middle of writing a new feature — app.txt has uncommitted changes, a work in progress. Suddenly, the monastery alarm bell rings.\n\n\"CRITICAL BUG IN PRODUCTION!\" shouts a monk running past with his robe on fire (metaphorically). \"Drop everything and fix it! But DON'T lose your feature work!\"\n\nThe Head Monk appears at your shoulder. \"Stash your uncommitted changes. Switch to a new branch, fix the bug, come back, and recover your work. A good monk never loses a single line of code.\"\n\nThe monastery cat has already stashed three mice under the meditation cushion. It understands the concept intuitively.",
-    "concept": "git stash temporarily saves your uncommitted changes and cleans your working directory. It's like putting your work-in-progress in a drawer. You can then switch branches, do other work, and later use git stash pop to restore your changes exactly where you left off.",
+    "narrative": "당신은 새 기능을 쓰는 도중입니다. app.txt에는 커밋하지 않은 변경이 있고 아직 작업 중입니다. 그때 갑자기 수도원의 경보종이 울립니다.\n\n\"운영 환경에 치명적인 버그가 생겼어요!\" 승복에 불이 붙은 듯(비유적으로) 소리치며 수도승이 달려갑니다. \"다 내려놓고 고치세요! 그래도 기능 작업은 잃으면 안 돼요!\"\n\n수석 수도승이 당신의 어깨 너머에 나타납니다. \"커밋하지 않은 변경은 보관하게. 새 브랜치로 옮겨 버그를 고치고, 돌아와서 작업을 되찾게. 훌륭한 수도승은 코드 한 줄도 잃지 않는 법이지.\"\n\n수도원 고양이는 이미 명상용 방석 밑에 쥐 세 마리를 숨겨 두었습니다. 그 개념은 본능적으로 알고 있는 듯합니다.",
+    "concept": "git stash는 커밋하지 않은 변경을 잠시 보관하고 작업 디렉터리를 깨끗하게 만듭니다. 진행 중인 작업을 서랍에 넣어 두는 것과 같습니다. 그다음 브랜치를 옮겨 다른 일을 하고, 나중에 git stash pop으로 떠났던 자리 그대로 변경을 되돌릴 수 있습니다.",
     "objectives": [
-      "Stash your current uncommitted changes with 'git stash'",
-      "Create and switch to a new branch called 'bugfix'",
-      "Make a commit on the bugfix branch (fix something)",
-      "Switch back to main and restore your stashed changes with 'git stash pop'",
-      "Your WIP changes ('new feature WIP') should be back in app.txt"
+      "'git stash'로 커밋하지 않은 현재 변경을 보관한다",
+      "'bugfix'라는 새 브랜치를 만들고 그곳으로 전환한다",
+      "bugfix 브랜치에서 버그를 고치는 커밋을 한다",
+      "main으로 돌아와 'git stash pop'으로 보관한 변경을 되돌린다",
+      "진행 중이던 변경('new feature WIP')이 app.txt에 돌아와 있어야 한다"
     ],
-    "newCommands": ["git stash", "git stash pop", "git stash list"]
+    "newCommands": [
+      "git stash",
+      "git stash pop",
+      "git stash list"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "version 1" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "v1" } },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "version 1\nnew feature WIP" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "version 1"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "v1"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "version 1\nnew feature WIP"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "branch-exists", "params": { "name": "bugfix" } },
-      { "type": "commit-count", "params": { "min": 2 } },
-      { "type": "commit-count", "params": { "branch": "bugfix", "min": 2 } },
-      { "type": "file-content", "params": { "path": "app.txt", "contains": "new feature WIP" } },
-      { "type": "head-at", "params": { "branch": "main" } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "branch-exists",
+        "params": {
+          "name": "bugfix"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 2
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "branch": "bugfix",
+          "min": 2
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "app.txt",
+          "contains": "new feature WIP"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "branch": "main"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
@@ -46,24 +105,27 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 3,
-      "text": "The Head Monk gestures calmly: 'git stash saves your uncommitted work. Then git checkout -b bugfix to create and switch to the fix branch.'",
+      "text": "수석 수도승이 차분하게 손짓합니다: 'git stash로 커밋하지 않은 작업을 보관하게. 그다음 git checkout -b bugfix로 수정 브랜치를 만들고 옮겨 가게.'",
       "penalty": 0.25
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 5,
-      "text": "A monk with soot on his face (the metaphorical fire got out of hand) shouts: 'On bugfix, make a file and commit. Then git checkout main && git stash pop to get your work back!'",
+      "text": "얼굴에 그을음이 묻은 수도승(비유적으로 불길이 번졌네요)이 외칩니다: 'bugfix에서 파일을 만들고 커밋하게. 그다음 git checkout main && git stash pop 으로 작업을 되찾게!'",
       "penalty": 0.5
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat types between naps: git stash && git checkout -b bugfix && echo \"fixed\" > fix.txt && git add fix.txt && git commit -m \"Fix critical bug\" && git checkout main && git stash pop",
+      "text": "고양이가 낮잠 사이에 입력합니다: git stash && git checkout -b bugfix && echo \"fixed\" > fix.txt && git add fix.txt && git commit -m \"Fix critical bug\" && git checkout main && git stash pop",
       "penalty": 1
     }
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 10, "three": 8 }
+      "maxCommands": {
+        "two": 10,
+        "three": 8
+      }
     },
     "achievement": "stash-master"
   }

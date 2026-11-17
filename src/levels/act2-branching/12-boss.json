@@ -2,64 +2,242 @@
   "id": "act2-12-boss",
   "act": 2,
   "order": 12,
-  "title": "The Triage",
-  "subtitle": "The Head Monk's gauntlet",
+  "title": "분류 시험",
+  "subtitle": "수석 수도승의 시련",
   "difficulty": "advanced",
   "mode": "strict",
   "briefing": {
-    "narrative": "The Head Monk sits cross-legged in the Grand Repository, surrounded by scrolls and three branching diagrams drawn in ink.\n\n\"Three feature branches,\" he says. \"Each a mix of brilliance and catastrophe. The 'auth' branch has a good login system but also a commit that drops the database. The 'ui' branch has beautiful CSS but also a commit that replaces all text with wingdings. The 'api' branch... well, it's actually fine, just merge it.\"\n\nHe unfurls a final scroll. \"Cherry-pick the good, revert the bad, stash if you must, and when the dust settles — tag the result as v3.0. This is your trial. The cat will judge your work.\"\n\nThe monastery cat puts on reading glasses. It is ready to judge.",
-    "concept": "Real-world git work requires combining multiple skills: cherry-picking specific commits, reverting bad ones, managing stashes, and tagging releases. This level tests your ability to triage a messy repository and produce a clean, tagged release.",
+    "narrative": "수석 수도승이 대서고 한가운데 가부좌를 틀고 앉아 있습니다. 둘레에는 두루마리와 먹으로 그린 세 개의 분기도가 놓여 있습니다.\n\n\"기능 브랜치가 세 개 있네.\" 그가 말합니다. \"각각 뛰어난 부분과 재앙이 섞여 있지. 'auth' 브랜치에는 좋은 로그인 시스템이 있지만 데이터베이스를 날려 버리는 커밋도 있어. 'ui' 브랜치에는 아름다운 CSS가 있지만 모든 글자를 wingdings로 바꿔 버리는 커밋도 있고. 'api' 브랜치는... 사실 괜찮아. 그냥 병합하게.\"\n\n그는 마지막 두루마리를 펼칩니다. \"좋은 것은 체리픽하고, 나쁜 것은 되돌리고, 필요하면 보관하게. 먼지가 가라앉으면 결과에 v3.0 태그를 달게. 이것이 자네의 시험이야. 고양이가 자네의 작업을 심판할 걸세.\"\n\n수도원 고양이는 돋보기 안경을 씁니다. 심판할 준비가 되었습니다.",
+    "concept": "실제 git 작업은 여러 기술을 함께 써야 합니다. 특정 커밋을 체리픽하고, 잘못된 것을 되돌리고, 보관을 관리하고, 릴리스에 태그를 다는 것입니다. 이 레벨은 어지러운 저장소를 분류해 깔끔하게 태그된 릴리스를 만드는 능력을 시험합니다.",
     "objectives": [
-      "Merge the 'api' branch into main",
-      "Cherry-pick the good commit from 'auth' (the login system, NOT the database drop)",
-      "Cherry-pick the good commit from 'ui' (the CSS, NOT the wingdings)",
-      "Tag the final result as 'v3.0' (annotated tag with a message)"
+      "'api' 브랜치를 main에 병합한다",
+      "'auth'의 좋은 커밋(로그인 시스템, 데이터베이스 삭제 커밋은 제외)을 체리픽한다",
+      "'ui'의 좋은 커밋(CSS, wingdings 커밋은 제외)을 체리픽한다",
+      "최종 결과에 메시지가 있는 주석 태그 'v3.0'을 단다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "Monastery App v2.9" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "Base app v2.9" } },
-      { "command": "branch", "args": { "name": "auth" } },
-      { "command": "branch", "args": { "name": "ui" } },
-      { "command": "branch", "args": { "name": "api" } },
-      { "command": "checkout", "args": { "ref": "auth" } },
-      { "command": "writeFile", "args": { "path": "login.txt", "content": "secure login system" } },
-      { "command": "add", "args": { "path": "login.txt" } },
-      { "command": "commit", "args": { "message": "Add login system" } },
-      { "command": "writeFile", "args": { "path": "db.txt", "content": "DROP TABLE everything;" } },
-      { "command": "add", "args": { "path": "db.txt" } },
-      { "command": "commit", "args": { "message": "Oops: drop database" } },
-      { "command": "checkout", "args": { "ref": "ui" } },
-      { "command": "writeFile", "args": { "path": "style.css", "content": "body { font-family: sans-serif; color: #333; }" } },
-      { "command": "add", "args": { "path": "style.css" } },
-      { "command": "commit", "args": { "message": "Add beautiful CSS" } },
-      { "command": "writeFile", "args": { "path": "fonts.txt", "content": "WINGDINGS EVERYWHERE" } },
-      { "command": "add", "args": { "path": "fonts.txt" } },
-      { "command": "commit", "args": { "message": "Oops: wingdings font" } },
-      { "command": "checkout", "args": { "ref": "api" } },
-      { "command": "writeFile", "args": { "path": "api.txt", "content": "GET /monks - list all monks\nPOST /meditation - start session\nDELETE /attachments - achieve enlightenment" } },
-      { "command": "add", "args": { "path": "api.txt" } },
-      { "command": "commit", "args": { "message": "Add REST API" } },
-      { "command": "checkout", "args": { "ref": "main" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "Monastery App v2.9"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Base app v2.9"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "auth"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "ui"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "api"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "auth"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "login.txt",
+          "content": "secure login system"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "login.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add login system"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "db.txt",
+          "content": "DROP TABLE everything;"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "db.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Oops: drop database"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "ui"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "style.css",
+          "content": "body { font-family: sans-serif; color: #333; }"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "style.css"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add beautiful CSS"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "fonts.txt",
+          "content": "WINGDINGS EVERYWHERE"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "fonts.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Oops: wingdings font"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "api"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "api.txt",
+          "content": "GET /monks - list all monks\nPOST /meditation - start session\nDELETE /attachments - achieve enlightenment"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "api.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add REST API"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "tag-exists", "params": { "name": "v3.0" } },
-      { "type": "file-exists", "params": { "path": "api.txt" } },
-      { "type": "file-exists", "params": { "path": "login.txt" } },
-      { "type": "file-exists", "params": { "path": "style.css" } },
-      { "type": "file-not-exists", "params": { "path": "db.txt" } },
-      { "type": "file-not-exists", "params": { "path": "fonts.txt" } },
-      { "type": "file-content", "params": { "path": "app.txt", "contains": "Monastery App" } },
-      { "type": "head-at", "params": { "branch": "main" } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "tag-exists",
+        "params": {
+          "name": "v3.0"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "api.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "login.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "style.css"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "db.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "fonts.txt"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "app.txt",
+          "contains": "Monastery App"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "branch": "main"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
@@ -69,13 +247,16 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 8,
-      "text": "The Head Monk offers a clue: 'Not all commits on a branch are worth taking. Examine each branch with git log. Cherry-pick only the good. Tag when you are done.'",
+      "text": "수석 수도승이 단서를 줍니다: '브랜치의 모든 커밋을 가져갈 만한 것은 아니다. git log로 각 브랜치를 살펴보고 좋은 것만 체리픽하게. 끝나면 태그를 달게.'",
       "penalty": 0.5
     }
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 16, "three": 10 }
+      "maxCommands": {
+        "two": 16,
+        "three": 10
+      }
     },
     "achievement": "act2-complete"
   }

@@ -2,51 +2,175 @@
   "id": "act2-08-tags",
   "act": 2,
   "order": 8,
-  "title": "Marking Milestones",
-  "subtitle": "Some commits deserve a name",
+  "title": "이정표 표시하기",
+  "subtitle": "어떤 커밋은 이름을 가질 자격이 있다",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "The monastery's release manager — a monk who wears a different colored robe for every version number — is in a state of distress.\n\n\"We have SIX commits in this repository,\" he says, clutching a color chart, \"and NOT A SINGLE TAG. How are future monks supposed to know which commit was the v1.0 release? Or the v2.0 release? Are we ANIMALS?\"\n\nHe calms himself. \"Tag the third commit as v1.0 — that's when the monastery website first launched. Then tag HEAD as v2.0 with an annotated tag and a message. Annotated tags are the formal ones. They have history. Gravitas.\"\n\nThe monastery cat is wearing a tiny version badge. It reads 'v9.0'. Nobody gave it that badge.",
-    "concept": "Tags are permanent labels for specific commits — like bookmarks in history. Lightweight tags (git tag v1.0 <commit>) are simple pointers. Annotated tags (git tag -a v2.0 -m 'message') include metadata like the tagger's name and date. Use tags for releases and milestones.",
+    "narrative": "수도원의 릴리스 담당 수도승은 버전 번호마다 다른 색 승복을 입는 사람인데, 지금 크게 당황해 있습니다.\n\n\"이 저장소에 커밋이 여섯 개나 있는데,\" 그가 색상표를 움켜쥐며 말합니다. \"태그가 단 하나도 없어요! 앞으로 올 수도승들이 어느 커밋이 v1.0 릴리스인지 어떻게 알겠어요? 아니면 v2.0? 우리가 동물입니까?\"\n\n그가 마음을 가라앉힙니다. \"세 번째 커밋에 v1.0 태그를 달게. 수도원 웹사이트가 처음 공개된 때니까. 그다음 HEAD에는 메시지가 담긴 주석 태그로 v2.0을 달게. 주석 태그는 공식적인 것이지. 이력이 있고, 무게가 있어요.\"\n\n수도원 고양이는 작은 버전 배지를 달고 있습니다. 배지에는 'v9.0'이라고 적혀 있습니다. 아무도 그 배지를 준 적이 없습니다.",
+    "concept": "태그는 특정 커밋에 붙이는 영구적인 이름표입니다. 역사 속의 책갈피와 같습니다. 가벼운 태그(git tag v1.0)는 단순한 포인터이고, 주석 태그(git tag -a v2.0 -m '메시지')는 태그를 만든 사람의 이름과 날짜 같은 정보를 함께 담습니다. 릴리스와 이정표에 태그를 사용하세요.",
     "objectives": [
-      "Use 'git log --oneline' to find the commits",
-      "Tag the 3rd commit from HEAD (HEAD~3) as 'v1.0'",
-      "Tag the current HEAD as 'v2.0' with an annotated tag"
+      "'git log --oneline'으로 커밋을 찾는다",
+      "HEAD에서 세 번째 커밋(HEAD~3)에 'v1.0'이라는 태그를 단다",
+      "현재 HEAD에 주석 태그 'v2.0'을 단다"
     ],
-    "newCommands": ["git tag <name>", "git tag <name> <commit>", "git tag -a <name> -m '<message>'"]
+    "newCommands": [
+      "git tag <name>",
+      "git tag <name> <commit>",
+      "git tag -a <name> -m '<message>'"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "v0.1 - just an idea" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "Initial idea" } },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "v0.2 - basic structure" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "Add structure" } },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "v1.0 - first release!" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "First release" } },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "v1.1 - bug fixes" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "Bug fixes" } },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "v1.2 - more fixes" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "More fixes" } },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "v2.0 - major update" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "Major update" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "v0.1 - just an idea"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial idea"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "v0.2 - basic structure"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add structure"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "v1.0 - first release!"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "First release"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "v1.1 - bug fixes"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Bug fixes"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "v1.2 - more fixes"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "More fixes"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "v2.0 - major update"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Major update"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "tag-exists", "params": { "name": "v1.0" } },
-      { "type": "tag-exists", "params": { "name": "v2.0" } },
-      { "type": "head-at", "params": { "target": "main" } },
-      { "type": "commit-count", "params": { "branch": "main", "min": 6 } }
+      {
+        "type": "tag-exists",
+        "params": {
+          "name": "v1.0"
+        }
+      },
+      {
+        "type": "tag-exists",
+        "params": {
+          "name": "v2.0"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "target": "main"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "branch": "main",
+          "min": 6
+        }
+      }
     ]
   },
   "constraints": {
@@ -56,24 +180,27 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 2,
-      "text": "The release manager adjusts his robe: 'Use git log --oneline to see the commits. The third from the top is HEAD~3. Tag it with git tag v1.0 HEAD~3.'",
+      "text": "릴리스 담당 수도승이 승복을 고쳐 입습니다: 'git log --oneline'으로 커밋을 보게. 위에서 세 번째가 HEAD~3이네. 그것에 태그를 달게.",
       "penalty": 0.25
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 4,
-      "text": "A passing monk holds up two fingers: 'Lightweight tag: git tag v1.0 HEAD~3. Annotated tag: git tag -a v2.0 -m \"Release 2.0\". Two commands, two tags, two versions of enlightenment.'",
+      "text": "지나가던 수도승이 손가락 두 개를 듭니다: '가벼운 태그는 git tag v1.0 HEAD~3. 주석 태그는 git tag -a v2.0 -m \"Release 2.0\"'",
       "penalty": 0.5
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat bats at a version badge and types: git tag v1.0 HEAD~3 && git tag -a v2.0 -m \"Release 2.0\"",
+      "text": "수도원 고양이가 버전 배지를 툭 치며 입력합니다: git tag v1.0 HEAD~3 && git tag -a v2.0 -m \"Release 2.0\"",
       "penalty": 1
     }
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 5, "three": 3 }
+      "maxCommands": {
+        "two": 5,
+        "three": 3
+      }
     },
     "achievement": "tag-master"
   }

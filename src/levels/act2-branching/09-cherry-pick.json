@@ -2,17 +2,17 @@
   "id": "act2-09-cherry-pick",
   "act": 2,
   "order": 9,
-  "title": "The Cherry on Top",
-  "subtitle": "Pick only what you need",
+  "title": "체리 한 알",
+  "subtitle": "필요한 것만 골라라",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "The monastery's lead developer \u2014 a monk who insists that 'monk-driven development' is a valid methodology \u2014 has a problem.\n\n\"The hotfix branch is a disaster,\" he says, scrolling through commits. \"Three commits: debug logging, the ACTUAL fix, and then MORE debug logging. I need the fix on main, but if those debug files touch main, the Head Monk will assign me to latrine duty for a month.\"\n\nHe looks at you with desperate eyes. \"Cherry-pick ONLY the fix commit. Leave the debug garbage on the hotfix branch where it belongs.\"\n\nThe monastery cat is debugging by staring intensely at the screen. Its methodology is also valid.",
-    "concept": "git cherry-pick <commit> copies a single commit from one branch to another. Unlike merging (which brings ALL commits), cherry-picking lets you select exactly which commits you want. Use git log on the source branch to find the right commit hash.",
+    "narrative": "수도원의 수석 개발자는 '수도승 주도 개발'이야말로 정당한 방법론이라고 고집하는 수도승인데, 지금 문제가 생겼습니다.\n\n\"핫픽스 브랜치가 재앙이에요.\" 그가 커밋을 훑으며 말합니다. \"커밋이 세 개예요. 디버그 로깅, 진짜 수정, 그리고 또 디버그 로깅. 수정 사항은 main에 넣어야 하는데, 그 디버그 파일이 main에 닿으면 수석 수도승이 저를 한 달 동안 변소 청소 담당으로 보낼 겁니다.\"\n\n그는 절박한 눈으로 당신을 봅니다. \"수정 커밋만 체리픽하세요. 디버그 쓰레기는 있어야 할 핫픽스 브랜치에 그대로 두고요.\"\n\n수도원 고양이는 화면을 뚫어져라 쳐다보며 디버깅하고 있습니다. 그 방법론도 정당합니다.",
+    "concept": "git cherry-pick은 한 브랜치의 커밋 하나를 다른 브랜치로 복사합니다. 모든 커밋을 가져오는 병합과 달리, 필요한 커밋만 정확히 고를 수 있습니다. 원본 브랜치에서 git log로 알맞은 커밋 해시를 찾으세요.",
     "objectives": [
-      "Check the hotfix branch log to find the fix commit",
-      "Cherry-pick ONLY the commit that fixes app.js (the one with 'return 42')",
-      "Do NOT bring the debug files to main"
+      "핫픽스 브랜치의 로그를 확인해 수정 커밋을 찾는다",
+      "app.js를 고치는 커밋('return 42')만 체리픽한다",
+      "디버그 파일은 main에 가져오지 않는다"
     ],
     "newCommands": [
       "git cherry-pick <commit>",
@@ -165,18 +165,18 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 2,
-      "text": "The lead developer whispers: 'Use git log hotfix --oneline to see the commits on that branch. Find the one that says \"Fix: return correct value\" and note its hash.'",
+      "text": "수석 개발자가 속삭입니다: 'git log hotfix --oneline으로 그 브랜치의 커밋을 보세요. \"Fix: return correct value\"라고 적힌 것을 찾아 해시를 메모하세요.'",
       "penalty": 0.25
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 4,
-      "text": "A monk slides a note under the door: 'git cherry-pick <hash> \u2014 use the hash of the fix commit from git log hotfix. Only that one. The debug commits must stay where they are.'",
+      "text": "수도승이 문틈으로 쪽지를 밀어 넣습니다: 'git cherry-pick — git log hotfix에서 수정 커밋의 해시를 쓰세요. 그 하나만요. 디버그 커밋은 제자리에 있어야 합니다.'",
       "penalty": 0.5
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat, who apparently understands SHA hashes, types: git log hotfix --oneline (find the Fix commit hash), then git cherry-pick <that-hash>",
+      "text": "SHA 해시를 이해하는 듯한 수도원 고양이가 입력합니다: git log hotfix --oneline (Fix 커밋 해시를 찾고), 그다음 git cherry-pick ",
       "penalty": 1
     }
   ],
