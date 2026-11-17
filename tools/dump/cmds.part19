@@ -1,0 +1,29 @@
+    tip: 'If a teammate ever asks "why do my commits show up under the wrong name," the fix is almost always a missing or stale "git config user.email" -- check it with a bare "git config user.email" before reaching for anything more exotic.',
+    related: ['init', 'commit'],
+  },
+
+  clean: {
+    name: 'clean',
+    syntax: 'git clean -n | git clean -f [-d]',
+    description:
+      '"git clean" deletes untracked files from your working directory -- files git has never seen, not files you\'ve modified or deleted that it already knows about. That distinction is the whole point: "git reset"/"git restore" undo changes to tracked files; "git clean" removes files that were never tracked in the first place (stray build output, scratch notes, editor droppings). Because it only ever touches untracked content, anything it deletes is NOT recoverable through "git reflog" the way commits are -- clean is the one everyday git command that is genuinely, permanently destructive.',
+    options: [
+      { flag: '-n, --dry-run', description: 'List what would be deleted, without deleting anything' },
+      { flag: '-f, --force', description: 'Actually delete the files -- git refuses to run without this' },
+      { flag: '-d', description: 'Also remove untracked directories, not just files' },
+      { flag: '-x', description: 'Also remove files ignored by .gitignore (e.g. build/, dist/)' },
+    ],
+    examples: [
+      { command: 'git clean -n', output: 'Would remove build/\nWould remove scratch.txt', explanation: 'Always run this first -- see exactly what would go before you commit to deleting it' },
+      { command: 'git clean -f', explanation: 'Delete the untracked files the dry run just showed you' },
+      { command: 'git clean -fd', explanation: 'Also remove untracked directories, like an entire stray build/ folder left over from a failed build' },
+      { command: 'git clean -fx', explanation: 'Also wipe ignored files -- the "get me back to a truly fresh checkout" version, useful before a release build' },
+    ],
+    tip: 'This is not reflog-protected -- there is no undo. Make "-n" (or a "git status" glance) a habit before every "clean -f", no exceptions, especially the first few times you use it.',
+    related: ['status', 'reset', 'rm'],
+  },
+
+  mv: {
+    name: 'mv',
+    syntax: 'git mv <source> <destination>',
+    description:

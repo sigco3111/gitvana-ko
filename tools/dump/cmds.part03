@@ -1,0 +1,38 @@
+    syntax: 'git log [options]',
+    description:
+      '"git log" traverses the commit graph starting from HEAD, following parent pointers backward through history. Each entry shows the commit hash, author, date, and message. With "--graph", it visualizes the DAG structure of branches and merges as ASCII art. With "--oneline", it condenses each commit to a single line. The log is a read-only view of the commit chain -- your time machine for inspecting what happened and when.',
+    options: [
+      { flag: '--oneline', description: 'Show each commit as a single line (short hash + message)' },
+      { flag: '--graph', description: 'Draw a text-based graph of the branch structure' },
+      { flag: '-n, --max-count <number>', description: 'Show only the last n commits' },
+      { flag: '--all', description: 'Show commits from all branches, not just the current one' },
+    ],
+    examples: [
+      { command: 'git log --oneline', output: 'a1b2c3d Fix login bug\ne4f5g6h Add user model\n7c8d9e0 Initial commit', explanation: 'Quick overview of recent commits' },
+      {
+        command: 'git log --oneline --graph --all',
+        output: '* a1b2c3d (HEAD -> main) Fix login bug\n| * f1e2d3c (feature) WIP styling\n|/\n* e4f5g6h Add user model',
+        explanation: 'The beautiful branch visualization everyone screenshots',
+      },
+      { command: 'git log -3', explanation: 'Show only the last 3 commits' },
+      { command: 'git log --author="Ada"', explanation: 'Only show commits written by a specific person' },
+      { command: 'git log --grep="login"', explanation: 'Search commit messages for a keyword -- handy for finding "which commit touched login" months later' },
+    ],
+    tip: 'Alias "git log --oneline --graph --all" to something short like "git lg". You\'ll use it a hundred times a day.',
+    related: ['status', 'diff', 'show'],
+    seeAlso: ['what-is-a-commit', 'how-git-stores-data'],
+  },
+
+  diff: {
+    name: 'diff',
+    syntax: 'git diff [options] [<path>...]',
+    description:
+      '"git diff" computes the line-by-line differences between two states of your files. With no arguments, it compares the working directory to the staging area (unstaged changes). With "--staged", it compares the staging area to the last commit (what will be committed). With "HEAD", it shows all changes vs the last commit. Git computes diffs on the fly from snapshots -- it doesn\'t store diffs as its data model.',
+    options: [
+      { flag: '--staged', description: 'Show changes that are staged (ready to commit)' },
+      { flag: '--stat', description: 'Show a summary of changes (files changed, insertions, deletions)' },
+      { flag: 'HEAD', description: 'Compare working directory to the last commit' },
+    ],
+    examples: [
+      {
+        command: 'git diff',

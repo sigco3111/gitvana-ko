@@ -1,0 +1,29 @@
+      { command: 'git pull', output: 'Already up to date.', explanation: 'The most common outcome by far -- there was nothing new to bring in' },
+      {
+        command: 'git pull',
+        output: 'From origin\n   a1b2c3d..e4f5g6h  main     -> origin/main\nMerge made by the \'ort\' strategy.',
+        explanation: 'You had local commits too, so pull fetched and then created a real merge commit to combine both histories',
+      },
+    ],
+    tip: 'If you want more control, use "git fetch" + "git merge" separately. "git pull" is convenient but can surprise you with merge conflicts if you\'re not expecting diverged history.',
+    related: ['fetch', 'push', 'merge', 'remote'],
+    seeAlso: ['remotes-and-collaboration'],
+  },
+
+  config: {
+    name: 'config',
+    syntax: 'git config [--global] <key> <value> | git config --list',
+    description:
+      '"git config" reads and writes the settings that control how git behaves, at three possible scopes: local (this repo only, stored in .git/config -- the default when you give no scope flag), global (this user, stored in ~/.gitconfig, applies to every repo you touch), and system (every user on the machine, rarely touched). A more specific scope always wins -- a local setting overrides a global one. The two settings you\'ll set almost immediately after creating your very first repo are your name and email: git stamps every single commit with whatever "user.name" and "user.email" are configured at the moment you commit.',
+    options: [
+      { flag: '--global', description: 'Apply to every repo for the current user (~/.gitconfig)' },
+      { flag: '--local', description: 'Apply to this repo only (the default when no scope flag is given)' },
+      { flag: '-l, --list', description: 'Show every currently active setting' },
+      { flag: '--unset <key>', description: 'Remove a setting' },
+    ],
+    examples: [
+      { command: 'git config --global user.name "Ada Lovelace"', explanation: 'Set the name attached to every commit you make, on every repo on this machine' },
+      { command: 'git config --global user.email "ada@example.com"', explanation: 'Set the email attached to every commit -- usually the very first git command anyone runs, right after installing it' },
+      { command: 'git config --list', output: 'user.name=Ada Lovelace\nuser.email=ada@example.com\ncore.editor=vim', explanation: 'See every active setting -- handy for confirming what\'s actually in effect before you go digging through config files' },
+      { command: 'git config alias.co checkout', explanation: 'Define a shortcut -- "git co" now behaves exactly like "git checkout"' },
+    ],

@@ -1,0 +1,31 @@
+      { flag: '--cached', description: 'Remove from the staging area / index only -- keep the file on disk (useful for untracking files)' },
+      { flag: '-f, --force', description: 'Force removal even if the file has local modifications' },
+      { flag: '-r, --recursive', description: 'Recursively remove a directory and all its contents' },
+    ],
+    examples: [
+      { command: 'git rm secret.txt', output: 'rm \'secret.txt\'', explanation: 'Delete the file from disk and stage the removal' },
+      { command: 'git rm --cached .env', output: 'rm \'.env\'', explanation: 'Stop tracking .env but keep it on disk (pair with .gitignore)' },
+      { command: 'git rm -r old-folder/', explanation: 'Recursively remove a directory from git' },
+      { command: 'git rm "*.log"', explanation: 'Remove all .log files (quote the glob so your shell doesn\'t expand it)' },
+    ],
+    tip: 'The most common use of "git rm --cached" is when you accidentally committed a file that should be in .gitignore (like .env or node_modules). Remove it from tracking with --cached, add it to .gitignore, then commit. The file stays on your machine but git forgets about it.',
+    related: ['add', 'status', 'reset', 'commit'],
+    seeAlso: ['the-three-areas'],
+  },
+
+  reset: {
+    name: 'reset',
+    syntax: 'git reset [--soft|--mixed|--hard] [<commit>] | git reset [HEAD] <file>',
+    description:
+      '"git reset" moves the current branch pointer to a different commit. The three modes control what happens to the changes between the old and new positions. "--soft" keeps them staged. "--mixed" (default) unstages them but keeps the files modified. "--hard" discards everything. When used with a file path instead of a commit, it doesn\'t move the branch pointer -- it just copies that file from the specified commit (or HEAD) into the staging area, effectively unstaging it.',
+    options: [
+      { flag: '--soft', description: 'Move HEAD back but keep changes staged (gentle undo)' },
+      { flag: '--mixed', description: 'Move HEAD back and unstage changes (default -- keeps files intact)' },
+      { flag: '--hard', description: 'Move HEAD back and DELETE all changes (destructive -- no undo!)' },
+      { flag: 'HEAD~N', description: 'Target: N commits before the current HEAD' },
+      { flag: '<file>', description: 'Unstage a specific file (without moving HEAD)' },
+    ],
+    examples: [
+      { command: 'git reset', explanation: 'Unstage all staged changes (keep the file modifications)' },
+      { command: 'git reset HEAD README.md', output: 'Unstaged changes after reset:\n\tREADME.md', explanation: 'Unstage README.md (keep the file changes)' },
+      { command: 'git reset app.ts', explanation: 'Unstage app.ts without the HEAD prefix' },

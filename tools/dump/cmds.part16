@@ -1,0 +1,31 @@
+        explanation: 'Show remote names with their URLs -- fetch and push can technically point elsewhere, though they\'re usually the same',
+      },
+      { command: 'git remote add origin https://github.com/you/repo.git', explanation: 'Add a remote named "origin"' },
+      { command: 'git remote add upstream https://github.com/original-author/repo.git', explanation: 'The classic fork workflow: "origin" is your fork, "upstream" is the original repo you forked from' },
+      { command: 'git remote remove upstream', explanation: 'Remove a remote named "upstream"' },
+    ],
+    tip: '"origin" is just a convention -- it\'s the default name for the remote you cloned from. You can name remotes whatever you want and have multiple remotes (e.g., "origin" for your fork and "upstream" for the original repo).',
+    related: ['push', 'fetch', 'pull'],
+    seeAlso: ['remotes-and-collaboration'],
+  },
+
+  push: {
+    name: 'push',
+    syntax: 'git push [<remote>] [<branch>]',
+    description:
+      '"git push" uploads your local commits to a remote repository. It sends new commit objects and updates the remote branch ref to point to your latest commit. By default it pushes to "origin" and the current branch. Push only works if the remote branch can be fast-forwarded to your commits -- if someone else pushed first, you need to pull and merge before pushing.',
+    options: [
+      { flag: '-u, --set-upstream', description: 'Set the upstream tracking branch (so future "git push" works without arguments)' },
+      { flag: '-f, --force', description: 'Force-push even if the remote has diverged (DANGER: overwrites remote history)' },
+    ],
+    examples: [
+      { command: 'git push', output: 'To origin\n   a1b2c3d..e4f5g6h  main -> main', explanation: 'Push current branch to its upstream remote' },
+      { command: 'git push origin main', explanation: 'Push the "main" branch to the "origin" remote' },
+      { command: 'git push -u origin feature', output: 'To origin\n * [new branch]      feature -> feature', explanation: 'Push "feature" and set upstream tracking, in one step' },
+      {
+        command: 'git push',
+        output: 'To origin\n ! [rejected]        main -> main (non-fast-forward)\nerror: failed to push some refs to \'origin\'\nhint: Updates were rejected because the tip of your current branch is behind\nhint: its remote counterpart. Use --force to override.',
+        explanation: 'Someone else pushed first -- git refuses to overwrite their commits. Pull (or fetch + merge) their changes in, then push again',
+      },
+      { command: 'git push --force', explanation: 'Force-push anyway (use with extreme caution -- see the remotes and collaboration guide for why)' },
+    ],

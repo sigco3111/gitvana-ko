@@ -1,0 +1,29 @@
+        output: 'diff --git a/app.js b/app.js\nindex a1b2c3d..e4f5g6h 100644\n--- a/app.js\n+++ b/app.js\n@@ -1,3 +1,3 @@\n function login() {\n-  return false;\n+  return true;\n }',
+        explanation: 'Show unstaged changes -- lines starting with - are what left, + are what arrived',
+      },
+      { command: 'git diff --staged', explanation: 'Show what\'s staged and about to be committed' },
+      { command: 'git diff HEAD', explanation: 'Show all changes (staged + unstaged) vs last commit' },
+      { command: 'git diff --stat', output: ' app.js  | 2 +-\n readme.md | 5 +++++\n 2 files changed, 6 insertions(+), 1 deletion(-)', explanation: 'Just the shape of the change -- which files, how much -- without the line-by-line detail' },
+      { command: 'git diff main..feature', explanation: 'Compare two branches directly' },
+    ],
+    tip: 'Always run "git diff --staged" before committing. It\'s your last chance to catch that debug console.log you accidentally left in.',
+    related: ['status', 'add', 'commit', 'log'],
+    seeAlso: ['the-three-areas'],
+  },
+
+  branch: {
+    name: 'branch',
+    syntax: 'git branch [<name>] [<start-point>] [-d <name>]',
+    description:
+      'A branch is a 41-byte file in .git/refs/heads/ containing a commit hash -- nothing more. "git branch" lists, creates, or deletes these pointers. Creating a branch is nearly instant because git is just writing a hash to a file. When you commit, the current branch pointer advances to the new commit. Other branches remain unchanged. This is why branches in git are so cheap and why the "branch often" philosophy works.',
+    options: [
+      { flag: '-a, --all', description: 'List both local and remote branches' },
+      { flag: '-d, --delete <name>', description: 'Delete a branch (safe -- won\'t delete unmerged work)' },
+      { flag: '-D, --force-delete <name>', description: 'Force-delete a branch (even if unmerged -- dangerous!)' },
+      { flag: '<name> <start-point>', description: 'Create a new branch at the specified commit or ref instead of HEAD' },
+    ],
+    examples: [
+      { command: 'git branch', output: '* main\n  feature-login\n  hotfix', explanation: 'List all local branches -- the asterisk marks the one you\'re on' },
+      { command: 'git branch feature-login', explanation: 'Create a new branch called "feature-login" at HEAD' },
+      { command: 'git branch hotfix abc1234', explanation: 'Create a branch starting at a specific commit' },
+      { command: 'git branch -d feature-login', output: 'Deleted branch feature-login (was a1b2c3d).', explanation: 'Delete the branch after merging' },

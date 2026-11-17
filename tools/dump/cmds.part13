@@ -1,0 +1,29 @@
+      { command: 'git branch rescued HEAD@{2}', explanation: 'Found something you want back? Branch it off directly from the reflog entry\'s position' },
+      { command: 'git reset --hard HEAD@{1}', explanation: 'Or jump your current branch straight back to a past position' },
+    ],
+    tip: 'Lost a commit after a hard reset? Run "git reflog", find the hash of the commit you want, and "git reset --hard <hash>" to get it back. The reflog typically keeps entries for 90 days.',
+    related: ['reset', 'log', 'checkout', 'revert'],
+    seeAlso: ['the-reflog', 'refs-and-head'],
+  },
+
+  rebase: {
+    name: 'rebase',
+    syntax: 'git rebase <branch>',
+    description:
+      '"git rebase" replays your branch\'s commits on top of another branch, one at a time. Each replayed commit gets a new hash because its parent changed. The result is a linear history -- as if you started your work from the tip of the target branch. This produces cleaner logs than merge but rewrites commit hashes, making it unsafe for shared/pushed commits. Rebase your local feature branch; merge into shared branches.',
+    options: [
+      { flag: '<branch>', description: 'Replay current branch\'s commits on top of the specified branch' },
+      { flag: '--continue', description: 'Continue the rebase after resolving conflicts' },
+      { flag: '--abort', description: 'Abort the rebase and return to the original state' },
+    ],
+    examples: [
+      { command: 'git rebase main', output: 'Successfully rebased and updated refs/heads/feature.', explanation: 'Replay current branch\'s commits on top of main' },
+      {
+        command: 'git rebase main',
+        output: 'CONFLICT (content): Merge conflict in config.txt\nResolve conflicts and run "git rebase --continue"',
+        explanation: 'Each replayed commit can conflict individually -- fix the file, "git add" it, then continue',
+      },
+      { command: 'git rebase --continue', output: 'Successfully rebased and updated refs/heads/feature.', explanation: 'Continue after fixing a conflict during rebase' },
+      { command: 'git rebase --abort', output: 'Rebase aborted.', explanation: 'Give up and go back to exactly where you started, as if the rebase never happened' },
+    ],
+    tip: 'The golden rule: never rebase commits that have been pushed to a shared branch. Rebase rewrites commit hashes, which confuses everyone who already has the old ones.',

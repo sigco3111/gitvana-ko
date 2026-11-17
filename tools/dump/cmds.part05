@@ -1,0 +1,37 @@
+      { command: 'git branch -d unmerged-work', output: 'error: The branch \'unmerged-work\' is not fully merged.', explanation: 'Git refuses to delete a branch with unmerged commits -- use -D to force it, once you\'re sure you don\'t need that work' },
+    ],
+    tip: 'Creating a branch doesn\'t switch to it! Use "git switch" or "git checkout" after creating. Or use "git checkout -b <name>" to create and switch in one step.',
+    related: ['switch', 'checkout', 'merge', 'log'],
+    seeAlso: ['refs-and-head'],
+  },
+
+  checkout: {
+    name: 'checkout',
+    syntax: 'git checkout [-b <name>] <branch|commit> | git checkout <ref> -- <file>',
+    description:
+      '"git checkout" serves two distinct purposes: switching branches and restoring files. When given a branch name, it moves HEAD to that branch and updates the working directory. When given a commit hash, it puts you in "detached HEAD" state -- HEAD points directly to a commit, not a branch. With the "<ref> -- <file>" form, it restores a specific file from any commit without leaving your current branch. Modern git splits these duties into "switch" (branches) and "restore" (files) for clarity.',
+    options: [
+      { flag: '-b <name>', description: 'Create a new branch and switch to it' },
+      { flag: '<ref> -- <file>', description: 'Restore a file from a specific commit (requires both a ref and a path)' },
+      { flag: 'HEAD@{N}', description: 'Checkout the Nth previous HEAD position from the reflog' },
+    ],
+    examples: [
+      { command: 'git checkout main', explanation: 'Switch to the main branch' },
+      { command: 'git checkout -b new-feature', explanation: 'Create and switch to a new branch' },
+      { command: 'git checkout HEAD -- README.md', explanation: 'Restore README.md from the latest commit (overwrites working copy and stages it)' },
+      { command: 'git checkout abc1234 -- config.ts', explanation: 'Restore config.ts as it was at commit abc1234' },
+      {
+        command: 'git checkout HEAD@{2}',
+        output: 'Note: switching to \'HEAD@{2}\'.\n\nYou are in \'detached HEAD\' state...',
+        explanation: 'Jump to where HEAD was two moves ago (from the reflog) -- git warns you because you\'re no longer on a branch',
+      },
+    ],
+    tip: 'Prefer "git switch" for changing branches. The "checkout <ref> -- <file>" form is powerful for restoring individual files from any point in history without leaving your current branch.',
+    related: ['switch', 'branch', 'reset', 'log'],
+    seeAlso: ['refs-and-head', 'the-reflog', 'undoing-changes'],
+  },
+
+  switch: {
+    name: 'switch',
+    syntax: 'git switch [-b <name>] <branch>',
+    description:

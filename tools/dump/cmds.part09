@@ -1,0 +1,37 @@
+      { command: 'git reset --soft HEAD~1', output: 'HEAD is now at e4f5g6h', explanation: 'Undo last commit but keep changes staged' },
+      { command: 'git reset --mixed HEAD~3', explanation: 'Undo last 3 commits, keep files but unstage them' },
+      { command: 'git reset --hard HEAD~1', output: 'HEAD is now at e4f5g6h', explanation: 'Completely undo last commit and discard all changes' },
+    ],
+    tip: 'If you accidentally "git reset --hard" and lose work, don\'t panic. "git reflog" shows recent HEAD positions, and you can often recover with "git reset --hard <hash>". The reflog keeps entries for about 90 days.',
+    related: ['checkout', 'revert', 'log', 'reflog'],
+    seeAlso: ['the-three-areas', 'rewriting-history', 'undoing-changes'],
+  },
+
+  tag: {
+    name: 'tag',
+    syntax: 'git tag [<name>] [-a <name> -m <message>] [-d <name>]',
+    description:
+      'A tag is a named pointer to a specific commit, like a branch that never moves. Lightweight tags are simple pointers -- a file in .git/refs/tags/ containing a commit hash. Annotated tags are full git objects that store the tagger\'s name, email, date, and a message in addition to the commit reference. Tags are typically used to mark release points (v1.0, v2.3.1) so you can easily find important commits without memorizing hashes.',
+    options: [
+      { flag: '<name>', description: 'Create a lightweight tag at HEAD' },
+      { flag: '<name> <commit>', description: 'Create a lightweight tag at a specific commit' },
+      { flag: '-a, --annotate <name> -m, --message <msg>', description: 'Create an annotated tag with a message (includes tagger info and date)' },
+      { flag: '-d, --delete <name>', description: 'Delete a tag' },
+      { flag: '-l, --list', description: 'List all tags' },
+    ],
+    examples: [
+      { command: 'git tag', output: 'v1.0\nv1.1\nv2.0-beta', explanation: 'List all existing tags' },
+      { command: 'git tag v1.0', explanation: 'Create a lightweight tag "v1.0" at the current commit' },
+      { command: 'git tag v0.9 HEAD~3', explanation: 'Tag the commit three steps back' },
+      { command: 'git tag -a v2.0 -m "Major release"', explanation: 'Create an annotated tag with a message' },
+      { command: 'git tag -d v1.0-beta', output: 'Deleted tag \'v1.0-beta\'', explanation: 'Delete a tag you no longer need' },
+    ],
+    tip: 'Use annotated tags (-a) for releases and lightweight tags for temporary or personal bookmarks. Annotated tags store who created them and when, which matters when you\'re shipping software.',
+    related: ['log', 'commit', 'branch'],
+    seeAlso: ['refs-and-head'],
+  },
+
+  'cherry-pick': {
+    name: 'cherry-pick',
+    syntax: 'git cherry-pick <commit>',
+    description:
