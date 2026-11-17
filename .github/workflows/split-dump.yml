@@ -1,0 +1,24 @@
+name: split-dump
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: split files
+        run: |
+          mkdir -p tools/dump
+          split -C 2800 -d -a 2 src/components/changelog/ChangelogPage.svelte tools/dump/changelog.part
+          split -C 2800 -d -a 2 src/components/devblog/DevBlogPage.svelte tools/dump/devblog.part
+          split -C 2800 -d -a 2 src/docs/commands/index.ts tools/dump/commands.part
+          ls tools/dump | wc -l > tools/dump/INDEX.txt
+      - name: commit dump
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add tools/dump
+          git commit -m 'chore(tmp): split dump' || true
+          git push origin HEAD:main
