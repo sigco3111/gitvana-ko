@@ -2,66 +2,216 @@
   "id": "act3-15-rebase",
   "act": 3,
   "order": 15,
-  "title": "Rebase: The Straight Line",
-  "subtitle": "Linearize your history like a proper monk",
+  "title": "리베이스: 곧은 선",
+  "subtitle": "수도승답게 역사를 일직선으로 펴라",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "The monastery's git log looks like a plate of spaghetti. Branches diverge, merge, cross over, and loop back in ways that would make Escher weep.\n\nThe Head Monk calls a meeting. He projects the git graph onto the meditation hall wall. Several junior monks faint.\n\n\"From now on,\" he announces, \"we rebase. No more merge commits cluttering our history. Straight lines. Clean history. Like a well-raked zen garden.\"\n\nHe turns to you. \"Your feature branch has fallen behind main. Two new commits landed. Rebase your work on top, then fast-forward merge. Show them the straight line.\"\n\nThe cat nods approvingly. Even cats prefer linear history.",
-    "concept": "git rebase replays your branch's commits on top of another branch, creating a linear history. Unlike merge, it doesn't create a merge commit. After rebasing feature onto main, you can fast-forward merge for a perfectly straight history line.",
+    "narrative": "수도원의 git 로그는 스파게티 접시처럼 보입니다. 가지들이 갈라지고, 합쳐지고, 교차하고, 다시 돌아와서 에셔도 울고 갈 모양입니다.\n\n수석 수도승이 회의를 소집합니다. 명상홀 벽에 git 그래프를 투사하자 젊은 수도승 몇이 기절합니다.\n\n\"이제부터는 리베이스를 합니다.\" 그가 선언합니다. \"역사를 어지럽히는 병합 커밋은 더 이상 없어. 곧은 선. 깔끔한 역사. 잘 갈퀴질한 선종 정원처럼 말이야.\"\n\n그가 당신을 돌아봅니다. \"당신의 기능 브랜치가 main보다 뒤처졌어. 새 커밋이 두 개 들어왔네. 그 위로 작업을 리베이스한 뒤 fast-forward 병합하게. 곧은 선을 보여 주게.\"\n\n고양이도 고개를 끄덕입니다. 고양이조차 선형 역사를 좋아합니다.",
+    "concept": "git rebase는 브랜치의 커밋을 다른 브랜치 위에서 다시 재생해 선형 역사를 만듭니다. merge와 달리 병합 커밋을 만들지 않습니다. feature를 main 위로 리베이스한 뒤 fast-forward 병합하면 완벽하게 곧은 역사가 됩니다.",
     "objectives": [
-      "Rebase the feature branch onto main",
-      "Switch to main",
-      "Fast-forward merge feature into main"
+      "기능 브랜치를 main 위로 리베이스한다",
+      "main으로 전환한다",
+      "feature를 main에 fast-forward 병합한다"
     ],
-    "newCommands": ["git rebase <branch>"]
+    "newCommands": [
+      "git rebase <branch>"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "base.txt", "content": "base" } },
-      { "command": "add", "args": { "path": "base.txt" } },
-      { "command": "commit", "args": { "message": "Initial" } },
-      { "command": "branch", "args": { "name": "feature" } },
-      { "command": "checkout", "args": { "ref": "feature" } },
-      { "command": "writeFile", "args": { "path": "feature.txt", "content": "feature work" } },
-      { "command": "add", "args": { "path": "feature.txt" } },
-      { "command": "commit", "args": { "message": "Add feature" } },
-      { "command": "writeFile", "args": { "path": "feature.txt", "content": "feature work v2" } },
-      { "command": "add", "args": { "path": "feature.txt" } },
-      { "command": "commit", "args": { "message": "Improve feature" } },
-      { "command": "checkout", "args": { "ref": "main" } },
-      { "command": "writeFile", "args": { "path": "hotfix.txt", "content": "fix" } },
-      { "command": "add", "args": { "path": "hotfix.txt" } },
-      { "command": "commit", "args": { "message": "Hotfix on main" } },
-      { "command": "writeFile", "args": { "path": "update.txt", "content": "update" } },
-      { "command": "add", "args": { "path": "update.txt" } },
-      { "command": "commit", "args": { "message": "Update on main" } },
-      { "command": "checkout", "args": { "ref": "feature" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "base.txt",
+          "content": "base"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "base.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "feature"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "feature"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "feature.txt",
+          "content": "feature work"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "feature.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add feature"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "feature.txt",
+          "content": "feature work v2"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "feature.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Improve feature"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "hotfix.txt",
+          "content": "fix"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "hotfix.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Hotfix on main"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "update.txt",
+          "content": "update"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "update.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Update on main"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "feature"
+        }
+      }
     ],
     "head": "feature"
   },
   "targetState": {
     "validators": [
-      { "type": "head-at", "params": { "ref": "main" } },
-      { "type": "commit-count", "params": { "min": 5 } },
-      { "type": "no-merge-commits", "params": {} },
-      { "type": "staging-empty", "params": {} },
-      { "type": "file-exists", "params": { "path": "feature.txt" } },
-      { "type": "file-exists", "params": { "path": "hotfix.txt" } }
+      {
+        "type": "head-at",
+        "params": {
+          "ref": "main"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 5
+        }
+      },
+      {
+        "type": "no-merge-commits",
+        "params": {}
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "feature.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "hotfix.txt"
+        }
+      }
     ]
   },
   "constraints": {
     "maxCommands": 6
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "The zen garden raker pauses: 'While on feature, run git rebase main to replay your commits on top of main's latest.'", "penalty": 0.25 },
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "A scroll in the garden reads: 'git rebase main, then git checkout main, then git merge feature. Three steps to linear enlightenment.'", "penalty": 0.5 },
-    { "trigger": "manual", "text": "The cat rakes the garden for you: git rebase main && git checkout main && git merge feature", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "선종 정원의 갈퀴지기가 멈춥니다: 'feature에 있는 동안 git rebase main을 실행하게. 그러면 main의 최신 커밋 위로 자네의 커밋이 다시 재생될 걸세.'",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "정원의 두루마리: 'git rebase main, 그다음 git checkout main, 그다음 git merge feature. 선형 깨달음을 위한 세 단계.'",
+      "penalty": 0.5
+    },
+    {
+      "trigger": "manual",
+      "text": "고양이가 대신 정원을 갈퀴질합니다: git rebase main && git checkout main && git merge feature",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 5, "three": 3 } },
+    "stars": {
+      "maxCommands": {
+        "two": 5,
+        "three": 3
+      }
+    },
     "achievement": "straight-line"
   }
 }

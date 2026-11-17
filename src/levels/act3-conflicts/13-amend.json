@@ -2,49 +2,114 @@
   "id": "act3-13-amend",
   "act": 3,
   "order": 13,
-  "title": "The Amend Kata",
-  "subtitle": "One commit, three mistakes, zero excuses",
+  "title": "수정 카타",
+  "subtitle": "커밋 하나, 실수 세 개, 변명은 없다",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "You just made your first commit in the monastery's new project. You feel proud. You lean back. You sip your herbal tea.\n\nThen you notice three things at once:\n1. The commit message says \"Intial setup.\" INTIAL.\n2. You forgot to create the readme.md the Head Monk specifically asked for.\n3. There's a console.log('debug') sitting in app.js like a spiritual blemish.\n\nThe Head Monk hasn't pulled yet. There's still time. You can fix all three problems in ONE amend. The ancient texts call this \"The Amend Kata\" -- correcting your mistakes before anyone notices.\n\nBreathe. Focus. Amend.",
-    "concept": "git commit --amend is more powerful than just fixing a message. You can also add new files and change existing ones -- all folded into the same commit as if the mistake never happened. Stage your changes first, then amend.",
+    "narrative": "수도원의 새 프로젝트에서 첫 커밋을 방금 만들었습니다. 뿌듯해서 몸을 뒤로 기대고 허브차를 한 모금 마십니다.\n\n그런데 세 가지가 동시에 눈에 들어옵니다.\n1. 커밋 메시지가 \"Intial setup.\"입니다. INTIAL이라니.\n2. 수석 수도승이 특별히 부탁한 readme.md를 만드는 걸 잊었습니다.\n3. app.js에 console.log('debug')가 영적 흠집처럼 남아 있습니다.\n\n수석 수도승은 아직 pull을 하지 않았습니다. 시간은 있습니다. 한 번의 amend로 세 가지를 모두 고칠 수 있습니다. 고대 문헌은 이것을 \"수정 카타\"라고 부릅니다. 누가 알아채기 전에 실수를 바로잡는 것이지요.\n\n숨을 고르고, 집중하고, amend 하세요.",
+    "concept": "git commit --amend는 메시지만 고치는 것보다 강력합니다. 새 파일을 추가하거나 기존 파일을 바꾼 뒤 그 내용을 실수가 없었던 것처럼 같은 커밋에 합칠 수 있습니다. 먼저 변경 사항을 스테이징한 다음 amend 하세요.",
     "objectives": [
-      "Create a readme.md file",
-      "Fix the debug line in app.js",
-      "Amend the commit to fix the message, include readme.md, and update app.js"
+      "readme.md 파일을 만든다",
+      "app.js의 디버그 줄을 고친다",
+      "커밋을 amend 해서 메시지를 고치고, readme.md를 포함하고, app.js를 갱신한다"
     ],
-    "newCommands": ["git commit --amend -m '<message>'"]
+    "newCommands": [
+      "git commit --amend -m '<message>'"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "app.js", "content": "function hello() {\n  console.log('debug');\n  return 'hello';\n}" } },
-      { "command": "add", "args": { "path": "app.js" } },
-      { "command": "commit", "args": { "message": "Intial setup" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.js",
+          "content": "function hello() {\n  console.log('debug');\n  return 'hello';\n}"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.js"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Intial setup"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "commit-count", "params": { "min": 1, "max": 1 } },
-      { "type": "commit-message-contains", "params": { "message": "Initial setup" } },
-      { "type": "file-exists", "params": { "path": "readme.md" } },
-      { "type": "file-content", "params": { "path": "app.js", "notContains": "debug" } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 1,
+          "max": 1
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "message": "Initial setup"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "readme.md"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "app.js",
+          "notContains": "debug"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 8
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "The monastery cat stretches on a scroll that reads: 'First fix the files and stage them with git add. THEN amend.'", "penalty": 0.25 },
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "A monk whispers: 'Create readme.md, edit app.js to remove the debug line, git add both files, then git commit --amend -m \"Initial setup\".'", "penalty": 0.5 },
-    { "trigger": "manual", "text": "The cat does it for you: echo '# Readme' > readme.md && edit app.js to remove the debug line && git add app.js readme.md && git commit --amend -m \"Initial setup\"", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "수도원 고양이가 두루마리 위에서 기지개를 켭니다: '먼저 파일을 고치고 git add로 스테이징하게. 그다음에 amend 하게.'",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "수도승이 속삭입니다: 'readme.md를 만들고, app.js에서 디버그 줄을 지우고, 두 파일을 git add한 뒤 git commit --amend -m \"Initial setup\"을 하게.'",
+      "penalty": 0.5
+    },
+    {
+      "trigger": "manual",
+      "text": "고양이가 대신 해 줍니다: echo '# Readme' > readme.md && app.js에서 디버그 줄 삭제 && git add app.js readme.md && git commit --amend -m \"Initial setup\"",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 6, "three": 4 } },
+    "stars": {
+      "maxCommands": {
+        "two": 6,
+        "three": 4
+      }
+    },
     "achievement": "amend-kata"
   }
 }
