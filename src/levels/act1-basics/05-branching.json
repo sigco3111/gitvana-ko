@@ -2,40 +2,94 @@
   "id": "act1-05-branching",
   "act": 1,
   "order": 5,
-  "title": "Branching Realities",
-  "subtitle": "One repo, many timelines",
+  "title": "갈라지는 현실들",
+  "subtitle": "하나의 저장소, 여러 개의 타임라인",
   "difficulty": "beginner",
   "mode": "strict",
   "briefing": {
-    "narrative": "The monastery's philosophy instructor — a monk who speaks entirely in metaphors — summons you to the garden of forking paths.\n\n\"Imagine,\" he says, gesturing at a bonsai tree, \"that you could live two lives simultaneously. In one, you become a baker. In the other, a poet. Git branches are exactly this — parallel realities where different work happens without interfering.\"\n\nHe prunes a branch from the bonsai. \"Create two feature branches. Make different commits on each. Then return to main. Observe how each branch holds its own truth.\"\n\nThe monastery cat is sitting in the bonsai tree. Nobody knows how it got there.",
-    "concept": "Branches let you work on different things without affecting each other. git branch <name> creates a new branch. git checkout <name> switches to it. Each branch has its own commit history that diverges from the point where it was created. You can switch between branches freely.",
+    "narrative": "수도원의 철학 교사는 온통 은유로만 말하는 수도승인데, 당신을 갈라지는 길의 정원으로 부릅니다.\n\n\"상상해 보게,\" 그가 분재를 가리키며 말합니다. \"한 사람이 두 가지 삶을 동시에 사는 거야. 한 삶에서는 제빵사가 되고, 다른 삶에서는 시인이 되는 거지. Git 브랜치가 바로 그것이네. 서로 방해하지 않고 다른 작업이 일어나는 병렬의 현실이지.\"\n\n그는 분재의 가지 하나를 다듬습니다. \"기능 브랜치를 두 개 만들게. 각각에 다른 커밋을 하고, main으로 돌아오게. 각 브랜치가 저마다의 진실을 품고 있는 것을 지켜보게.\"\n\n수도원 고양이가 분재 나무 위에 앉아 있습니다. 어떻게 올라갔는지는 아무도 모릅니다.",
+    "concept": "브랜치를 쓰면 서로 영향을 주지 않고 다른 작업을 할 수 있습니다. git branch는 새 브랜치를 만들고, git checkout은 그 브랜치로 전환합니다. 각 브랜치는 만들어진 지점부터 갈라지는 고유의 커밋 기록을 가집니다. 브랜치 사이를 자유롭게 오갈 수 있습니다.",
     "objectives": [
-      "Create a branch called 'feature-a'",
-      "Switch to feature-a and make at least one commit",
-      "Create a branch called 'feature-b' (from main)",
-      "Switch to feature-b and make at least one commit",
-      "Return to main and merge one of the feature branches"
+      "'feature-a'라는 브랜치를 만든다",
+      "feature-a로 전환해 최소 한 번 커밋한다",
+      "main에서 'feature-b'라는 브랜치를 만든다",
+      "feature-b로 전환해 최소 한 번 커밋한다",
+      "main으로 돌아와 기능 브랜치 중 하나를 병합한다"
     ],
-    "newCommands": ["git branch <name>", "git checkout <name>"]
+    "newCommands": [
+      "git branch <name>",
+      "git checkout <name>"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "base.txt", "content": "The monastery stands eternal." } },
-      { "command": "add", "args": { "path": "base.txt" } },
-      { "command": "commit", "args": { "message": "Initial" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "base.txt",
+          "content": "The monastery stands eternal."
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "base.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "branch-exists", "params": { "name": "feature-a" } },
-      { "type": "branch-exists", "params": { "name": "feature-b" } },
-      { "type": "commit-count", "params": { "min": 2 } },
-      { "type": "commit-count", "params": { "branch": "feature-a", "min": 2 } },
-      { "type": "commit-count", "params": { "branch": "feature-b", "min": 2 } },
-      { "type": "head-at", "params": { "branch": "main" } }
+      {
+        "type": "branch-exists",
+        "params": {
+          "name": "feature-a"
+        }
+      },
+      {
+        "type": "branch-exists",
+        "params": {
+          "name": "feature-b"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 2
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "branch": "feature-a",
+          "min": 2
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "branch": "feature-b",
+          "min": 2
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "branch": "main"
+        }
+      }
     ]
   },
   "constraints": {
@@ -45,24 +99,27 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 4,
-      "text": "The philosophy monk strokes his beard: 'git branch feature-a creates the branch. git checkout feature-a switches to it. Then make a file and commit.'",
+      "text": "철학 수도승이 수염을 쓰다듬습니다: 'git branch feature-a'는 브랜치를 만듭니다. 'git checkout feature-a'는 그곳으로 전환합니다. 그다음 파일을 만들고 커밋하게.",
       "penalty": 0.25
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 7,
-      "text": "A passing monk sketches in the sand: 'After committing on feature-a, go back to main with git checkout main. Then git branch feature-b, git checkout feature-b, commit something, and git checkout main again.'",
+      "text": "지나가던 수도승이 모래 위에 그립니다: feature-a에서 커밋한 뒤 'git checkout main'으로 돌아오게. 그다음 'git branch feature-b', 'git checkout feature-b'로 옮겨 무언가 커밋하고, 다시 'git checkout main'으로 돌아오게.",
       "penalty": 0.5
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat meows the solution: git checkout -b feature-a && echo \"feature a\" > a.txt && git add a.txt && git commit -m \"Add feature a\" && git checkout main && git checkout -b feature-b && echo \"feature b\" > b.txt && git add b.txt && git commit -m \"Add feature b\" && git checkout main",
+      "text": "수도원 고양이가 정답을 야옹거리며 알려 줍니다: git checkout -b feature-a && echo \"feature a\" > a.txt && git add a.txt && git commit -m \"Add feature a\" && git checkout main && git checkout -b feature-b && echo \"feature b\" > b.txt && git add b.txt && git commit -m \"Add feature b\" && git checkout main",
       "penalty": 1
     }
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 14, "three": 11 }
+      "maxCommands": {
+        "two": 14,
+        "three": 11
+      }
     },
     "achievement": "branch-creator"
   }

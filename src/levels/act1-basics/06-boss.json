@@ -2,49 +2,151 @@
   "id": "act1-06-boss",
   "act": 1,
   "order": 6,
-  "title": "The Merge Crucible",
-  "subtitle": "The Head Monk's final test",
+  "title": "병합의 시험장",
+  "subtitle": "수석 수도승의 최후 시험",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "The Head Monk stands before the Inner Gate, arms crossed. Behind him, two scrolls hang on the wall — the monastery's weekly menu, edited by two monks who apparently never communicate.\n\n\"Brother Monday updated Monday's meal to Pizza on the 'good-changes' branch. Meanwhile, Sister Monday went rogue on the 'bad-changes' branch and wrote GARBAGE into Monday's slot.\"\n\nHe fixes you with a stare. \"Merge the good changes into main — that one should go smoothly. Then... the bad branch. Merge it too, but when you see the horror within, ABORT. Some merges are not meant to be.\"\n\nThe monastery cat is eating from both menus. It has no conflicts.",
-    "concept": "When two branches modify the same file, Git cannot automatically merge them. It creates a conflict, marking both versions in the file with <<<<<<< and >>>>>>> markers. You must manually edit the file to resolve the conflict, then stage and commit. If a merge goes wrong, git merge --abort cancels it and restores the previous state.",
+    "narrative": "수석 수도승이 팔짱을 끼고 내면의 문 앞에 서 있습니다. 그의 뒤 벽에는 두 개의 두루마리가 걸려 있습니다. 서로 소통하지 않는 두 수도승이 고친 수도원의 주간 식단표입니다.\n\n\"'good-changes' 브랜치에서 월요일 식사를 피자로 바꿨지. 그런데 'bad-changes' 브랜치에서는 여동생 수도승이 제멋대로 월요일 칸에 쓰레기 같은 글을 적어 넣었네.\"\n\n그는 당신을 똑바로 쏘아봅니다. \"좋은 변경은 main에 병합하게. 그건 순조로울 걸세. 그다음은 나쁜 브랜치인데, 병합은 하되 안에 있는 끔찍한 내용을 보면 ABORT 하게. 어떤 병합은 이루어지면 안 되는 법이지.\"\n\n수도원 고양이가 두 식단표를 모두 먹고 있습니다. 충돌은 없다고 합니다.",
+    "concept": "두 브랜치가 같은 파일을 수정하면 Git은 자동으로 병합할 수 없습니다. 그러면 충돌이 생기고, 파일에 두 버전을 <<<<<<< 와 >>>>>>> 표시로 함께 적어 둡니다. 충돌을 풀려면 파일을 직접 고친 뒤 스테이징하고 커밋해야 합니다. 병합이 잘못되면 git merge --abort로 취소하고 이전 상태로 되돌릴 수 있습니다.",
     "objectives": [
-      "Merge the 'good-changes' branch into main (clean merge)",
-      "Attempt to merge 'bad-changes' — see the conflict and abort with 'git merge --abort'",
-      "Delete the bad-changes branch (git branch -d bad-changes)",
-      "The final menu.txt must contain 'Pizza' but NOT 'GARBAGE'"
+      "'good-changes' 브랜치를 main에 병합한다 (충돌 없이)",
+      "'bad-changes' 병합을 시도해 충돌을 확인하고 'git merge --abort'로 취소한다",
+      "bad-changes 브랜치를 삭제한다 (git branch -d bad-changes)",
+      "최종 menu.txt에는 'Pizza'가 있어야 하고 'GARBAGE'는 없어야 한다"
     ],
-    "newCommands": ["git merge <branch>", "git merge --abort"]
+    "newCommands": [
+      "git merge <branch>",
+      "git merge --abort"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "menu.txt", "content": "Monday: Rice\nTuesday: Soup" } },
-      { "command": "add", "args": { "path": "menu.txt" } },
-      { "command": "commit", "args": { "message": "Initial menu" } },
-      { "command": "branch", "args": { "name": "good-changes" } },
-      { "command": "branch", "args": { "name": "bad-changes" } },
-      { "command": "checkout", "args": { "ref": "good-changes" } },
-      { "command": "writeFile", "args": { "path": "menu.txt", "content": "Monday: Pizza\nTuesday: Soup" } },
-      { "command": "add", "args": { "path": "menu.txt" } },
-      { "command": "commit", "args": { "message": "Update Monday to Pizza" } },
-      { "command": "checkout", "args": { "ref": "bad-changes" } },
-      { "command": "writeFile", "args": { "path": "menu.txt", "content": "Monday: GARBAGE\nTuesday: Soup" } },
-      { "command": "add", "args": { "path": "menu.txt" } },
-      { "command": "commit", "args": { "message": "Ruin Monday's meal" } },
-      { "command": "checkout", "args": { "ref": "main" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "menu.txt",
+          "content": "Monday: Rice\nTuesday: Soup"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "menu.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial menu"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "good-changes"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "bad-changes"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "good-changes"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "menu.txt",
+          "content": "Monday: Pizza\nTuesday: Soup"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "menu.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Update Monday to Pizza"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "bad-changes"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "menu.txt",
+          "content": "Monday: GARBAGE\nTuesday: Soup"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "menu.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Ruin Monday's meal"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "file-content", "params": { "path": "menu.txt", "contains": "Pizza", "notContains": "GARBAGE" } },
-      { "type": "commit-count", "params": { "min": 2 } },
-      { "type": "staging-empty", "params": {} },
-      { "type": "no-conflicts", "params": {} },
-      { "type": "branch-deleted", "params": { "name": "bad-changes" } }
+      {
+        "type": "file-content",
+        "params": {
+          "path": "menu.txt",
+          "contains": "Pizza",
+          "notContains": "GARBAGE"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 2
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      },
+      {
+        "type": "no-conflicts",
+        "params": {}
+      },
+      {
+        "type": "branch-deleted",
+        "params": {
+          "name": "bad-changes"
+        }
+      }
     ]
   },
   "constraints": {
@@ -54,13 +156,16 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 5,
-      "text": "The Head Monk nods toward the scrolls: 'Merge wisely. Some branches deserve to be merged. Others deserve to be abandoned. You have all the tools you need.'",
+      "text": "수석 수도승이 두루마리를 가리킵니다: '현명하게 병합하라. 병합할 가치가 있는 브랜치가 있고, 버려야 할 브랜치도 있다. 필요한 도구는 모두 갖추었다.'",
       "penalty": 0.5
     }
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 10, "three": 7 }
+      "maxCommands": {
+        "two": 10,
+        "three": 7
+      }
     },
     "achievement": "act1-complete"
   }

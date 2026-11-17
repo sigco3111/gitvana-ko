@@ -2,18 +2,18 @@
   "id": "act1-03-tea-leaves",
   "act": 1,
   "order": 3,
-  "title": "Reading the Tea Leaves",
-  "subtitle": "The history holds the truth",
+  "title": "찻잎 읽기",
+  "subtitle": "역사가 진실을 품고 있다",
   "difficulty": "beginner",
   "mode": "strict",
   "briefing": {
-    "narrative": "The monastery quartermaster bursts into the scriptorium, wild-eyed. \"Someone has RUINED the price list! Bread was 10 coins and now it says 1000! The kitchen monks are in open revolt!\"\n\nHe slams the ledger on your desk. \"The price list has been changed across four commits. You need to find which commit introduced the bug, fix the file so bread is back to 10 coins, and commit the fix.\"\n\nThe monastery cat sits on the price list. It does not care about bread prices. It eats fish.",
-    "concept": "git log shows the history of all commits \u2014 who changed what and when. git diff lets you compare changes between commits. Together, they're your detective toolkit. When something breaks, you can trace through history to find exactly when and where the problem was introduced.",
+    "narrative": "수도원 식량 담당 수도승이 눈을 부릅뜨고 서기실로 뛰어들어옵니다. \"누군가 가격표를 망쳐 놨어! 빵이 10코인이었는데 지금은 1000이라고 적혀 있다고! 부엌 수도승들이 공공연히 반란을 일으키고 있어!\"\n\n그는 장부를 당신의 책상에 쾅 내려놓습니다. \"가격표는 네 번의 커밋에 걸쳐 바뀌었네. 버그를 들여온 커밋을 찾아서, 빵 가격을 다시 10으로 고치고, 수정 사항을 커밋하게.\"\n\n수도원 고양이가 가격표 위에 앉아 있습니다. 고양이는 빵 가격에는 관심이 없습니다. 생선을 먹으니까요.",
+    "concept": "git log는 모든 커밋의 기록을 보여 줍니다. 누가 무엇을 언제 바꿨는지 알 수 있습니다. git diff는 두 커밋 사이의 변경 사항을 비교합니다. 둘을 함께 쓰면 탐정의 도구가 됩니다. 무언가 망가졌을 때 기록을 거슬러 올라가 문제가 정확히 언제, 어디서 들어왔는지 찾을 수 있습니다.",
     "objectives": [
-      "Use 'git log' to examine the commit history",
-      "Find the commit that changed bread from 10 to 1000",
-      "Fix prices.txt so bread is back to 10",
-      "Commit the fix with a message containing 'Fix'"
+      "'git log'로 커밋 기록을 살펴본다",
+      "빵 가격을 10에서 1000으로 바꾼 커밋을 찾는다",
+      "빵 가격이 다시 10이 되도록 prices.txt를 고친다",
+      "'Fix'가 들어간 메시지로 수정 사항을 커밋한다"
     ],
     "newCommands": [
       "git log",
@@ -160,26 +160,26 @@
     "maxCommands": 8
   },
   "tips": [
-    "Use 'git log --oneline' for a compact view of commit history",
-    "Edit files with: edit filename.txt",
-    "Use 'git diff' to see what changed in your working directory"
+    "'git log --oneline'으로 커밋 기록을 간단히 볼 수 있습니다",
+    "파일 편집: edit 파일명.txt",
+    "'git diff'로 작업 디렉터리에서 무엇이 바뀌었는지 볼 수 있습니다"
   ],
   "hints": [
     {
       "trigger": "after-attempts",
       "triggerValue": 3,
-      "text": "The quartermaster paces nervously: 'Try git log --oneline to see all the commits. Then git diff HEAD~2 HEAD~1 to compare what changed in the suspicious commit.'",
+      "text": "식량 담당 수도승이 초조하게 서성입니다: 'git log --oneline'으로 모든 커밋을 보게. 그다음 'git diff HEAD~2 HEAD~1'로 의심스러운 커밋에서 무엇이 바뀌었는지 비교하게.",
       "penalty": 0.25
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 5,
-      "text": "A monk passing through mutters: 'The third commit \u2014 \"Update prices\" \u2014 that is where the corruption lies. Edit the file, change 1000 back to 10, then add and commit with a message containing Fix.'",
+      "text": "지나가던 수도승이 중얼거립니다: '세 번째 커밋인 \"Update prices\"에서 부패가 시작됐네. 파일을 고쳐 1000을 다시 10으로 바꾸고, Fix가 들어간 메시지로 추가하고 커밋하게.'",
       "penalty": 0.5
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat knocks over an inkwell, which miraculously spells out: Edit prices.txt to fix \"bread: 1000\" back to \"bread: 10\", then git add prices.txt && git commit -m \"Fix bread price\"",
+      "text": "수도원 고양이가 잉크병을 엎지르자, 신기하게도 글자가 나타납니다: prices.txt를 고쳐 \"bread: 1000\"을 \"bread: 10\"으로 바꾸고, 그다음 git add prices.txt && git commit -m \"Fix bread price\"",
       "penalty": 1
     }
   ],

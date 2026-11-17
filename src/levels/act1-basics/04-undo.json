@@ -2,69 +2,122 @@
   "id": "act1-04-undo",
   "act": 1,
   "order": 4,
-  "title": "The Undo Ladder",
-  "subtitle": "Mistakes are just commits waiting to be undone",
+  "title": "되돌리기 사다리",
+  "subtitle": "실수는 아직 되돌려지지 않은 커밋일 뿐이다",
   "difficulty": "beginner",
   "mode": "strict",
   "briefing": {
-    "narrative": "Brother Fumblefingers has done it again. He committed the monastery rules with the message \"WRONG\" instead of something meaningful. The Head Monk is not amused.\n\n\"The commit exists,\" the Head Monk says, pinching the bridge of his nose. \"The changes are fine. The MESSAGE is an embarrassment to this order. I need you to undo that commit — softly, mind you, we want to keep the changes staged — and recommit with a proper message.\"\n\nHe glares at Brother Fumblefingers, who is trying to hide behind a potted plant.",
-    "concept": "git reset --soft HEAD~1 undoes the last commit but keeps all changes staged. It's like saying 'I want a do-over on that commit, but I don't want to lose my work.' The changes stay in the staging area, ready to be committed again with a better message (or different files).",
+    "narrative": "손가락이 서툰 형제가 또 일을 저질렀습니다. 수도원 규칙을 의미 없는 \"WRONG\"이라는 메시지로 커밋해 버린 것입니다. 수석 수도승은 전혀 즐겁지 않습니다.\n\n\"커밋 자체는 있지,\" 수석 수도승이 콧등을 누르며 말합니다. \"변경 내용은 괜찮아. 문제는 메시지야. 이 수도회의 얼굴에 먹칠이지. 그 커밋을 되돌리되 — 부드럽게 해야 하네. 변경 사항은 스테이징된 채로 남겨 두고, 올바른 메시지로 다시 커밋하게.\"\n\n그는 화분 뒤에 숨으려는 손가락 서툰 형제를 노려봅니다.",
+    "concept": "git reset --soft HEAD~1은 마지막 커밋을 되돌리되 모든 변경 사항을 스테이징된 상태로 유지합니다. '그 커밋만 다시 하고 싶지만 작업은 잃고 싶지 않다'는 뜻입니다. 변경 사항은 스테이징 영역에 남아, 더 나은 메시지로(또는 다른 파일 구성으로) 다시 커밋할 수 있습니다.",
     "objectives": [
-      "Use 'git reset --soft HEAD~1' to undo the bad commit",
-      "Verify your changes are still staged (git status)",
-      "Recommit with the message 'Add monastery rules'"
+      "'git reset --soft HEAD~1'로 잘못된 커밋을 되돌린다",
+      "변경 사항이 아직 스테이징되어 있는지 'git status'로 확인한다",
+      "'Add monastery rules' 메시지로 다시 커밋한다"
     ],
-    "newCommands": ["git reset --soft HEAD~1"]
+    "newCommands": [
+      "git reset --soft HEAD~1"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "rules.txt", "content": "Be kind" } },
-      { "command": "add", "args": { "path": "rules.txt" } },
-      { "command": "commit", "args": { "message": "Setup" } },
-      { "command": "writeFile", "args": { "path": "rules.txt", "content": "Be kind\nBe patient\nBe humble" } },
-      { "command": "add", "args": { "path": "rules.txt" } },
-      { "command": "commit", "args": { "message": "WRONG" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "rules.txt",
+          "content": "Be kind"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "rules.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Setup"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "rules.txt",
+          "content": "Be kind\nBe patient\nBe humble"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "rules.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "WRONG"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "commit-count", "params": { "min": 2 } },
-      { "type": "commit-message-contains", "params": { "message": "Add monastery rules" } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 2
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "message": "Add monastery rules"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 4
   },
   "tips": [
-    "git reset --soft keeps your changes staged — only the commit is removed",
-    "Use 'git log --oneline' to verify the commit was undone"
+    "git reset --soft는 변경 사항을 스테이징된 채로 두고 커밋만 제거합니다",
+    "'git log --oneline'으로 커밋이 실제로 되돌려졌는지 확인할 수 있습니다"
   ],
   "hints": [
     {
       "trigger": "after-attempts",
       "triggerValue": 2,
-      "text": "The Head Monk sighs: 'git reset --soft HEAD~1 will undo the last commit but keep your changes staged. Then just commit again with the right message.'",
+      "text": "수석 수도승이 한숨을 쉽니다: 'git reset --soft HEAD~1'은 마지막 커밋을 되돌리되 변경 사항은 스테이징된 상태로 둡니다. 그다음 올바른 메시지로 다시 커밋하면 됩니다.",
       "penalty": 0.25
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 4,
-      "text": "Brother Fumblefingers mouths from behind the plant: 'Reset soft, then commit -m \"Add monastery rules\". Please. My reputation depends on it.'",
+      "text": "화분 뒤의 손가락 서툰 형제가 입모양으로 말합니다: '--soft로 되돌리고, commit -m \"Add monastery rules\"로 다시 커밋하게. 제발. 내 평판이 달려 있다네.'",
       "penalty": 0.5
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat types with one paw: git reset --soft HEAD~1 && git commit -m \"Add monastery rules\"",
+      "text": "수도원 고양이가 발 하나로 입력합니다: git reset --soft HEAD~1 && git commit -m \"Add monastery rules\"",
       "penalty": 1
     }
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 4, "three": 3 }
+      "maxCommands": {
+        "two": 4,
+        "three": 3
+      }
     },
     "achievement": "soft-reset-master"
   }
