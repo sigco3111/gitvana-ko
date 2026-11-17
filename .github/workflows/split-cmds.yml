@@ -1,0 +1,22 @@
+name: split-cmds
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: split commands source
+        run: |
+          mkdir -p tools/dump
+          split -C 2800 -d -a 2 src/docs/commands/index.ts tools/dump/cmds.part
+          ls tools/dump | wc -l > tools/dump/CMDS_INDEX.txt
+      - name: commit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add tools/dump
+          git commit -m 'chore(tmp): commands 원문 조각' || true
+          git push origin HEAD:main
