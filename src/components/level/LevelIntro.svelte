@@ -22,7 +22,6 @@
         <p class="level-subtitle">{level.subtitle}</p>
       </div>
       <div class="intro-art">
-        <PixelArt id={level.id} size={64} />
       </div>
     </div>
 
