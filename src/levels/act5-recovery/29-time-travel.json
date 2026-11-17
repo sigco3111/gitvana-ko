@@ -2,67 +2,198 @@
   "id": "act5-29-time-travel",
   "act": 5,
   "order": 29,
-  "title": "Time Traveler",
-  "subtitle": "Reconstruct the correct config from 5 historical versions",
+  "title": "시간 여행자",
+  "subtitle": "다섯 가지 과거 버전에서 올바른 설정을 복원하라",
   "difficulty": "expert",
   "mode": "strict",
   "briefing": {
-    "narrative": "INCIDENT REPORT: config.txt has been modified 5 times across 4 tagged releases. Each version changed different settings. The current version is a disaster — wrong password, wrong port, and a critical feature flag that was accidentally removed.\n\nThe Head Monk slides you a timeline:\n- v1.0: Initial config with the correct feature flag (enable_backups: true)\n- v2.0: Changed to the correct database password (db_pass: monastery_secure_789)\n- v3.0: Set the correct port (port: 8443)\n- v4.0: Someone broke the password AND removed the backup flag\n- Current: Someone also broke the port\n\n\"Three problems in the current config. Each correct value lives in a DIFFERENT historical version. You must use git show to read each tagged version, find the correct values, and assemble the one true config.\"\n\nThe cat has memorized every version of every config file. But it's not going to help.\n\n\"This is temporal archaeology. Dig through the layers. Find the truth.\"",
-    "concept": "Git stores the complete content of every file at every commit. You can read any historical version:\n\ngit tag — list all tags\ngit show v1.0:config.txt — read config.txt as it was at tag v1.0\ngit log --oneline — see the commit history\n\nWhen the current version has multiple problems, each fix may come from a different point in history. You need to investigate each version to find which one has the correct value for each setting.",
+    "narrative": "사고 보고서: config.txt가 태그된 릴리스 네 개에 걸쳐 다섯 번 수정되었습니다. 각 버전은 서로 다른 설정을 바꿨습니다. 현재 버전은 재앙입니다. 잘못된 비밀번호, 잘못된 포트, 그리고 실수로 지워진 중요한 기능 플래그가 있습니다.\n\n수석 수도승이 타임라인을 건넵니다.\n- v1.0: 올바른 기능 플래그(enable_backups: true)가 있는 초기 설정\n- v2.0: 올바른 데이터베이스 비밀번호(db_pass: monastery_secure_789)로 변경\n- v3.0: 올바른 포트(port: 8443) 설정\n- v4.0: 누군가 비밀번호를 망가뜨리고 백업 플래그를 지움\n- 현재: 누군가 포트도 망가뜨림\n\n\"현재 설정에는 문제가 세 개 있네. 올바른 값은 각각 다른 과거 버전에 있지. git show를 써서 태그된 버전을 하나씩 읽고, 올바른 값을 찾아 하나뿐인 진짜 설정을 조립하게.\"\n\n고양이는 모든 설정 파일의 모든 버전을 외우고 있습니다. 하지만 도움은 되지 않을 겁니다.\n\n\"이것은 시간의 고고학이네. 층을 파헤쳐 진실을 찾게.",
+    "concept": "Git은 커밋마다 모든 파일의 완전한 내용을 저장합니다. 과거 버전은 무엇이든 읽을 수 있습니다:\n\ngit tag — 모든 태그 나열\ngit show v1.0:config.txt — 태그 v1.0 시점의 config.txt 읽기\ngit log --oneline — 커밋 역사 보기\n\n현재 버전에 문제가 여러 개 있을 때, 각 수정은 역사의 서로 다른 지점에서 올 수 있습니다. 각 설정의 올바른 값이 어느 버전에 있는지 버전마다 조사해야 합니다.",
     "objectives": [
-      "Use git log and git tag to understand the history",
-      "Use git show to read config.txt at each tagged version",
-      "Fix the 3 problems: restore password from v2.0, port from v3.0, and backup flag from v1.0",
-      "The final config must have ALL correct values combined"
+      "git log와 git tag로 역사를 파악한다",
+      "git show로 태그된 각 버전의 config.txt를 읽는다",
+      "문제 세 가지를 고친다: v2.0에서 비밀번호, v3.0에서 포트, v1.0에서 백업 플래그를 복원",
+      "최종 설정에는 올바른 값이 모두 합쳐져 있어야 한다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "database: postgres\nhost: prod.monastery.io\nport: 5432\ndb_pass: initial_pass\nmax_connections: 100\nenable_backups: true\nlog_level: info" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "v1.0 initial config" } },
-
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "database: postgres\nhost: prod.monastery.io\nport: 5432\ndb_pass: monastery_secure_789\nmax_connections: 100\nenable_backups: true\nlog_level: info" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "v2.0 secure the database password" } },
-
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "database: postgres\nhost: prod.monastery.io\nport: 8443\ndb_pass: monastery_secure_789\nmax_connections: 200\nenable_backups: true\nlog_level: warn" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "v3.0 update port and connections" } },
-
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "database: postgres\nhost: prod.monastery.io\nport: 8443\ndb_pass: LEAKED_password\nmax_connections: 200\nlog_level: warn" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "v4.0 config cleanup (MISTAKE)" } },
-
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "database: postgres\nhost: prod.monastery.io\nport: 3000\ndb_pass: LEAKED_password\nmax_connections: 200\nlog_level: debug" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "Quick port change for testing (OOPS)" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "database: postgres\nhost: prod.monastery.io\nport: 5432\ndb_pass: initial_pass\nmax_connections: 100\nenable_backups: true\nlog_level: info"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "v1.0 initial config"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "database: postgres\nhost: prod.monastery.io\nport: 5432\ndb_pass: monastery_secure_789\nmax_connections: 100\nenable_backups: true\nlog_level: info"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "v2.0 secure the database password"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "database: postgres\nhost: prod.monastery.io\nport: 8443\ndb_pass: monastery_secure_789\nmax_connections: 200\nenable_backups: true\nlog_level: warn"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "v3.0 update port and connections"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "database: postgres\nhost: prod.monastery.io\nport: 8443\ndb_pass: LEAKED_password\nmax_connections: 200\nlog_level: warn"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "v4.0 config cleanup (MISTAKE)"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "database: postgres\nhost: prod.monastery.io\nport: 3000\ndb_pass: LEAKED_password\nmax_connections: 200\nlog_level: debug"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Quick port change for testing (OOPS)"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "file-content", "params": { "path": "config.txt", "contains": "monastery_secure_789" } },
-      { "type": "file-content", "params": { "path": "config.txt", "contains": "port: 8443" } },
-      { "type": "file-content", "params": { "path": "config.txt", "contains": "enable_backups: true" } },
-      { "type": "file-content", "params": { "path": "config.txt", "notContains": "LEAKED" } },
-      { "type": "file-content", "params": { "path": "config.txt", "notContains": "port: 3000" } },
-      { "type": "commit-count", "params": { "min": 6 } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "file-content",
+        "params": {
+          "path": "config.txt",
+          "contains": "monastery_secure_789"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "config.txt",
+          "contains": "port: 8443"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "config.txt",
+          "contains": "enable_backups: true"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "config.txt",
+          "notContains": "LEAKED"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "config.txt",
+          "notContains": "port: 3000"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 6
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 12
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "Use git log --oneline to see the history. Then git show HEAD~N:config.txt for each version to find which had the correct password, port, and backup flag.", "penalty": 0.25 },
-    { "trigger": "manual", "text": "The password 'monastery_secure_789' is from HEAD~3. The port '8443' is from HEAD~2. The 'enable_backups: true' line is from HEAD~4. Combine them all into the current config.", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "git log --oneline으로 역사를 보게. 그다음 각 버전마다 git show HEAD~N:config.txt를 실행해 올바른 비밀번호, 포트, 백업 플래그가 어느 버전에 있는지 찾게.",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "manual",
+      "text": "비밀번호 'monastery_secure_789'는 HEAD~3에서, 포트 '8443'은 HEAD~2에서, 'enable_backups: true' 줄은 HEAD~4에서 가져오게. 모두 합쳐 현재 설정에 넣게.",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 10, "three": 7 } },
+    "stars": {
+      "maxCommands": {
+        "two": 10,
+        "three": 7
+      }
+    },
     "achievement": "time-traveler"
   }
 }

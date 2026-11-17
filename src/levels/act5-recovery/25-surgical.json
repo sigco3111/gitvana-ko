@@ -2,57 +2,159 @@
   "id": "act5-25-surgical",
   "act": 5,
   "order": 25,
-  "title": "Surgical Staging",
-  "subtitle": "Untangle 5 interleaved changes into 5 atomic commits",
+  "title": "외과적 스테이징",
+  "subtitle": "뒤엉킨 변경 다섯 개를 원자적 커밋 다섯 개로 풀어라",
   "difficulty": "advanced",
   "mode": "strict",
   "briefing": {
-    "narrative": "The Head Monk stares at code.txt with the intensity of a surgeon reviewing an MRI.\n\n\"Someone — and I won't name names — made FIVE different types of changes to this file and never committed ANY of them. A bugfix. A new feature. A refactor. A performance optimization. And documentation updates. All jumbled together like ingredients in a monastery stew.\"\n\nHe slams the desk. The cat doesn't flinch. The cat has seen worse.\n\n\"Each change must become its own commit. With the RIGHT prefix: Fix:, Feature:, Refactor:, Perf:, Docs:. Five changes. Five commits. The changes are interleaved — a bugfix line next to a feature line next to a refactor. You'll need to think about what each line IS before you stage anything.\"\n\nHe hands you the file. It's a mess. But a beautiful mess, if you squint.\n\n\"Atomic commits aren't just good practice. They're how you make history READABLE. How you make reverts SAFE. How you earn the respect of monks who review your code at 3 AM.\"",
-    "concept": "When a file contains multiple interleaved changes, you must carefully construct each version of the file for each commit. Edit the file to contain ONLY one logical change at a time, commit it, then edit again for the next change.\n\nThis requires understanding what each change IS — not just what it looks like. A bugfix, a feature, a refactor, an optimization, and docs all serve different purposes and belong in different commits.",
+    "narrative": "수석 수도승은 MRI를 판독하는 외과의처럼 code.txt를 노려봅니다.\n\n\"누군가 — 이름은 대지 않겠네 — 이 파일에 서로 다른 변경을 다섯 가지나 하고, 그중 어느 하나도 커밋하지 않았다네. 버그 수정. 새 기능. 리팩터링. 성능 최적화. 그리고 문서 갱신. 수도원 스튜의 재료처럼 전부 뒤섞여 있어.\"\n\n그가 책상을 내리칩니다. 고양이는 움찔하지 않습니다. 고양이는 더 심한 것도 봤습니다.\n\n\"각 변경은 자기만의 커밋이 되어야 하네. 올바른 접두어와 함께: Fix:, Feature:, Refactor:, Perf:, Docs:. 변경 다섯 개. 커밋 다섯 개. 변경이 뒤엉켜 있네 — 버그 수정 줄 옆에 기능 줄, 그 옆에 리팩터링 줄. 각 줄이 무엇인지 먼저 생각해야 하네.",
+    "concept": "파일에 여러 변경이 뒤엉켜 있으면, 커밋마다 파일의 버전을 신중하게 만들어야 합니다. 한 번에 하나의 논리적 변경만 담도록 편집하고, 커밋한 뒤 다음 변경을 위해 다시 편집하세요.\n\n이것은 각 변경이 무엇인지 — 겉모습만이 아니라 — 이해해야 한다는 뜻입니다. 버그 수정, 기능, 리팩터링, 최적화, 문서는 각각 다른 목적을 갖습니다.",
     "objectives": [
-      "Separate the 5 interleaved changes into 5 atomic commits",
-      "Each commit message must use the correct prefix: Fix:, Feature:, Refactor:, Perf:, Docs:",
-      "The final file must contain ALL changes applied correctly",
-      "Changes: division-by-zero fix, power function, rename OLD_calc to calc, cache optimization, JSDoc comments"
+      "뒤엉킨 변경 다섯 개를 원자적 커밋 다섯 개로 분리한다",
+      "각 커밋 메시지는 올바른 접두어를 써야 한다: Fix:, Feature:, Refactor:, Perf:, Docs:",
+      "최종 파일에는 모든 변경이 올바르게 적용되어 있어야 한다",
+      "변경 목록: 0으로 나누기 수정, power 함수, OLD_calc를 calc로 이름 변경, 캐시 최적화, JSDoc 주석"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "code.txt", "content": "// Math utilities\nfunction divide(a, b) {\n  return a / b;\n}\n\nfunction OLD_calc(a, b, op) {\n  if (op === 'add') return a + b;\n  if (op === 'sub') return a - b;\n  return 0;\n}\n\nfunction multiply(a, b) {\n  return a * b;\n}" } },
-      { "command": "add", "args": { "path": "code.txt" } },
-      { "command": "commit", "args": { "message": "Initial math utilities" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "code.txt",
+          "content": "// Math utilities\nfunction divide(a, b) {\n  return a / b;\n}\n\nfunction OLD_calc(a, b, op) {\n  if (op === 'add') return a + b;\n  if (op === 'sub') return a - b;\n  return 0;\n}\n\nfunction multiply(a, b) {\n  return a * b;\n}"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "code.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial math utilities"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "commit-count", "params": { "min": 6 } },
-      { "type": "commit-message-contains", "params": { "text": "Fix:" } },
-      { "type": "commit-message-contains", "params": { "text": "Feature:" } },
-      { "type": "commit-message-contains", "params": { "text": "Refactor:" } },
-      { "type": "commit-message-contains", "params": { "text": "Perf:" } },
-      { "type": "commit-message-contains", "params": { "text": "Docs:" } },
-      { "type": "file-content", "params": { "path": "code.txt", "contains": "=== 0" } },
-      { "type": "file-content", "params": { "path": "code.txt", "notContains": "OLD_calc" } },
-      { "type": "file-content", "params": { "path": "code.txt", "contains": "function calc" } },
-      { "type": "file-content", "params": { "path": "code.txt", "contains": "function power" } },
-      { "type": "file-content", "params": { "path": "code.txt", "contains": "cache" } },
-      { "type": "file-content", "params": { "path": "code.txt", "contains": "@param" } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 6
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "text": "Fix:"
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "text": "Feature:"
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "text": "Refactor:"
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "text": "Perf:"
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "text": "Docs:"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "code.txt",
+          "contains": "=== 0"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "code.txt",
+          "notContains": "OLD_calc"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "code.txt",
+          "contains": "function calc"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "code.txt",
+          "contains": "function power"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "code.txt",
+          "contains": "cache"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "code.txt",
+          "contains": "@param"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 20
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "A monk whispers: 'Think about it — each commit should transform the file to add ONLY one type of change. Edit, add, commit. Repeat five times.'", "penalty": 0.25 },
-    { "trigger": "manual", "text": "The Scroll of Five Cuts: Make one change at a time. Fix the divide bug first (add zero check). Then rename OLD_calc to calc. Then add the power function. Then add the cache. Then add JSDoc @param comments. Each gets its own commit with the right prefix.", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "수도승이 속삭입니다: '생각해 보게 — 커밋마다 파일에 딱 한 종류의 변경만 더해야 하네. 편집하고, 추가하고, 커밋하고. 다섯 번 반복하게.'",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "manual",
+      "text": "다섯 번 자르는 두루마리: 한 번에 한 가지씩 바꾸게. 먼저 0 나누기 버그를 고치고(0 검사 추가). 그다음 OLD_calc를 calc로 바꾸고. 그다음 power 함수를 추가하고. 그다음 캐시를 넣고. 마지막으로 JSDoc @param 주석을 넣게. 각각 올바른 접두어로 자기 커밋을 가져야 하네.",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 19, "three": 15 } },
+    "stars": {
+      "maxCommands": {
+        "two": 19,
+        "three": 15
+      }
+    },
     "achievement": "surgical-precision"
   }
 }

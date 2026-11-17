@@ -2,55 +2,137 @@
   "id": "act5-26-orphan",
   "act": 5,
   "order": 26,
-  "title": "The Orphan Branch",
-  "subtitle": "Create a branch with no shared history",
+  "title": "고아 브랜치",
+  "subtitle": "공통 역사가 전혀 없는 브랜치를 만들어라",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "The Head Monk has a vision.\n\n\"The monastery needs documentation. Not IN the app. Not NEXT to the app. A completely separate... dimension of documentation.\"\n\nHe stares into the distance like a pirate captain spotting land after months at sea. \"A branch that shares NOTHING with main. No common ancestor. No shared files. Like a ghost ship sailing alongside us but in a completely different ocean.\"\n\nThe cat looks confused. Honestly, same.\n\n\"Some branches serve a completely different purpose than the main code. GitHub Pages uses this pattern — a branch called 'docs' that contains only documentation, with zero connection to the source code history.\"\n\nHe pauses dramatically. \"Create me an orphan branch. A branch born from the void itself.\"",
-    "concept": "Sometimes you need a branch that has absolutely no relationship to your main codebase — like a GitHub Pages branch for documentation. You can achieve this by creating a branch, removing all tracked files, and starting fresh.\n\nThe key insight: not all branches need to share history. Some branches serve completely different purposes.",
+    "narrative": "수석 수도승에게 환영이 보입니다.\n\n\"수도원에는 문서가 필요하네. 앱 안이 아니라. 앱 옆도 아니라. 완전히 따로 떨어진… 문서의 차원이 필요하네.\"\n\n그는 몇 달 만에 육지를 발견한 해적 선장처럼 먼 곳을 응시합니다. \"main과는 아무것도 공유하지 않는 브랜치. 공통 조상도, 공유 파일도 없이. 완전히 다른 바다에서 우리와 나란히 항해하는 유령선처럼 말이야.\"\n\n고양이는 혼란스러워 보입니다. 솔직히 말해 당신도 그렇습니다.\n\n\"어떤 브랜치는 메인 코드와 완전히 다른 목적을 가지기도 하네. GitHub Pages가 이 패턴을 쓰지 — 문서만 담고 소스 코드 역사와는 전혀 연결되지 않은 'docs'라는 브랜치 말이야.\"\n\n그가 극적으로 멈춥니다. \"나를 위해 고아 브랜치를 만들게.",
+    "concept": "때로는 메인 코드베이스와 전혀 관계없는 브랜치가 필요합니다. 문서용 GitHub Pages 브랜치 같은 것 말이죠. 브랜치를 만든 뒤 추적 중인 파일을 모두 지우고 새로 시작하면 됩니다.\n\n핵심 통찰: 모든 브랜치가 역사를 공유할 필요는 없습니다. 어떤 브랜치는 완전히 다른 목적을 가집니다.",
     "objectives": [
-      "Create a branch called 'docs'",
-      "Remove all application files from the docs branch",
-      "Create documentation files on the docs branch",
-      "Commit the documentation",
-      "The docs branch should have no app files"
+      "'docs'라는 브랜치를 만든다",
+      "docs 브랜치에서 앱 파일을 모두 제거한다",
+      "docs 브랜치에 문서 파일을 만든다",
+      "문서를 커밋한다",
+      "docs 브랜치에는 앱 파일이 없어야 한다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "=== Monastery Application ===\nVersion: 3.0\nStatus: running\nModules: meditation, tea, garden" } },
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "db_host: monastery-db.local\nport: 5432\nenv: production" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "Initial app" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "=== Monastery Application ===\nVersion: 3.0\nStatus: running\nModules: meditation, tea, garden"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "db_host: monastery-db.local\nport: 5432\nenv: production"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial app"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "branch-exists", "params": { "name": "docs" } },
-      { "type": "head-at", "params": { "branch": "docs" } },
-      { "type": "file-exists", "params": { "path": "README.txt" } },
-      { "type": "file-not-exists", "params": { "path": "app.txt" } },
-      { "type": "file-not-exists", "params": { "path": "config.txt" } },
-      { "type": "commit-count", "params": { "min": 2 } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "branch-exists",
+        "params": {
+          "name": "docs"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "branch": "docs"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "README.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 2
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 10
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "A monk suggests: 'Create the docs branch with git branch docs, then git checkout docs. Remove the app files with git rm, then create your documentation.'", "penalty": 0.25 },
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "The cat scribbles: 'git branch docs && git checkout docs, then git rm app.txt config.txt, then create README.txt with your docs, git add README.txt, git commit.'", "penalty": 0.5 },
-    { "trigger": "manual", "text": "The Ancient Scroll: git branch docs, git checkout docs, git rm app.txt, git rm config.txt, write README.txt with documentation, git add README.txt, git commit -m \"Add documentation\".", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "수도승이 제안합니다: 'git branch docs로 docs 브랜치를 만들고 git checkout docs로 옮겨 가게. git rm으로 앱 파일을 지운 뒤 문서를 만들게.'",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "고양이가 끼적입니다: 'git branch docs && git checkout docs, 그다음 git rm app.txt config.txt, 그다음 문서로 README.txt를 만들고, git add README.txt, git commit.'",
+      "penalty": 0.5
+    },
+    {
+      "trigger": "manual",
+      "text": "고대 두루마리: git branch docs, git checkout docs, git rm app.txt, git rm config.txt, 문서로 README.txt를 쓰고, git add README.txt, git commit -m \"Add documentation\".",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 9, "three": 7 } },
+    "stars": {
+      "maxCommands": {
+        "two": 9,
+        "three": 7
+      }
+    },
     "achievement": "orphan-creator"
   }
 }

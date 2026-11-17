@@ -2,92 +2,335 @@
   "id": "act5-30-boss",
   "act": 5,
   "order": 30,
-  "title": "The Open Source Gauntlet",
-  "subtitle": "Examine, split, amend, cherry-pick, rebase, merge, tag — the full workflow",
+  "title": "오픈소스 시련",
+  "subtitle": "살펴보기, 분리, amend, 체리픽, 리베이스, 병합, 태그 — 전체 워크플로",
   "difficulty": "expert",
   "mode": "strict",
   "briefing": {
-    "narrative": "You've been contributing to MonkOS, the legendary open-source operating system written entirely by monks. The maintainer just posted a scathing review:\n\n\"Your feature branch is a MESS. 5 commits: 3 are fine, 1 has a typo in the commit message, and 1 mixes a bugfix with a feature. Meanwhile main moved forward with new releases. Oh, and there's a contributor-fix branch with a dependency you need.\"\n\nThe maintainer's checklist:\n1. Examine the repo — understand what's where\n2. Fix the commit message typo (amend the second commit)\n3. Split the mixed commit into separate bugfix and feature commits\n4. Cherry-pick the contributor's fix\n5. Rebase onto main (conflict expected)\n6. Merge into main and tag v3.0\n\nThe Head Monk watches from the shadows. \"This is what real open-source contribution looks like. Not a tutorial. A battlefield.\"\n\nThe cat has 47 merged PRs. It says nothing.",
-    "concept": "Real open-source contribution requires mastering the full Git workflow in combination:\n- git log/show to understand the repo state\n- git commit --amend to fix commit messages\n- git reset + recommit to split commits\n- git cherry-pick to grab fixes from other branches\n- git rebase to update your branch\n- git merge + git tag for the final release\n\nThe challenge is doing all of these in the right order without creating a mess.",
+    "narrative": "당신은 수도승들이 전부 작성한 전설적인 오픈소스 운영체제 MonkOS에 기여하고 있습니다. 관리자가 신랄한 리뷰를 올렸습니다.\n\n\"당신의 기능 브랜치는 엉망이네. 커밋 5개 중 3개는 괜찮고, 1개는 커밋 메시지에 오타가 있고, 1개는 버그 수정과 기능을 섞어 놓았어. 한편 main은 새 릴리스로 앞서 나갔고. 아, 그리고 contributor-fix 브랜치에 당신이 필요한 의존성이 있네.\"\n\n관리자의 체크리스트:\n1. 저장소를 살펴보고 무엇이 어디에 있는지 파악하기\n2. 커밋 메시지 오타 고치기(두 번째 커밋을 amend)\n3. 섞인 커밋을 버그 수정과 기능 커밋으로 나누기\n4. 기여자의 수정 체리픽하기\n5. main 위로 리베이스하기(충돌 예상)\n6. main에 병합하고 v3.0 태그 달기\n\n수석 수도승이 그늘에서 지켜봅니다. \"이것이 진짜 오픈소스 기여의 모습이네. 튜토리얼이 아니라 전장이지.\"\n\n고양이는 병합된 PR이 47개입니다. 아무 말도 하지 않습니다.",
+    "concept": "실제 오픈소스 기여에는 Git 워크플로 전체를 조합해 익숙해져야 합니다:\n- git log/show로 저장소 상태 파악\n- git commit --amend로 커밋 메시지 고치기\n- git reset + 다시 커밋으로 커밋 나누기\n- git cherry-pick으로 다른 브랜치의 수정 가져오기\n- git rebase로 브랜치 갱신\n- git merge + git tag로 최종 릴리스\n\n이 모든 것을 올바른 순서로, 엉망을 만들지 않고 해내는 것이 과제입니다.",
     "objectives": [
-      "Examine the repo to understand what needs fixing",
-      "Fix the typo in the commit message (the one that says 'Add netwerk module')",
-      "Cherry-pick the contributor's fix from contributor-fix branch",
-      "Rebase your feature branch onto main (resolve the conflict)",
-      "Merge into main and tag as v3.0"
+      "저장소를 살펴 고칠 것이 무엇인지 파악한다",
+      "커밋 메시지의 오타를 고친다('Add netwerk module'이라고 적힌 것)",
+      "contributor-fix 브랜치에서 기여자의 수정을 체리픽한다",
+      "기능 브랜치를 main 위로 리베이스한다(충돌 해결)",
+      "main에 병합하고 v3.0으로 태그한다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "monkos.txt", "content": "MonkOS v1.0\nKernel: meditation-core\nStatus: stable" } },
-      { "command": "writeFile", "args": { "path": "modules.txt", "content": "core\nmeditation" } },
-      { "command": "add", "args": { "path": "monkos.txt" } },
-      { "command": "add", "args": { "path": "modules.txt" } },
-      { "command": "commit", "args": { "message": "MonkOS v1.0 release" } },
-
-      { "command": "writeFile", "args": { "path": "monkos.txt", "content": "MonkOS v1.0\nKernel: meditation-core\nStatus: stable\nTea module: loaded" } },
-      { "command": "writeFile", "args": { "path": "modules.txt", "content": "core\nmeditation\ntea-brewing" } },
-      { "command": "add", "args": { "path": "monkos.txt" } },
-      { "command": "add", "args": { "path": "modules.txt" } },
-      { "command": "commit", "args": { "message": "Add tea-brewing module" } },
-
-      { "command": "writeFile", "args": { "path": "monkos.txt", "content": "MonkOS v2.0\nKernel: meditation-core-v2\nStatus: stable\nTea module: loaded\nScheduler: upgraded" } },
-      { "command": "add", "args": { "path": "monkos.txt" } },
-      { "command": "commit", "args": { "message": "MonkOS v2.0 release" } },
-
-      { "command": "branch", "args": { "name": "feature-garden" } },
-      { "command": "branch", "args": { "name": "contributor-fix" } },
-
-      { "command": "checkout", "args": { "ref": "contributor-fix" } },
-      { "command": "writeFile", "args": { "path": "bugfix.txt", "content": "Fixed: tea timer overflow\nPriority: critical\nContributor: Brother Patch" } },
-      { "command": "add", "args": { "path": "bugfix.txt" } },
-      { "command": "commit", "args": { "message": "Fix tea timer overflow" } },
-
-      { "command": "checkout", "args": { "ref": "main" } },
-      { "command": "writeFile", "args": { "path": "monkos.txt", "content": "MonkOS v2.1\nKernel: meditation-core-v2\nStatus: stable\nTea module: loaded\nScheduler: upgraded\nSecurity: hardened" } },
-      { "command": "add", "args": { "path": "monkos.txt" } },
-      { "command": "commit", "args": { "message": "Security hardening patch" } },
-
-      { "command": "checkout", "args": { "ref": "feature-garden" } },
-      { "command": "writeFile", "args": { "path": "garden.txt", "content": "Garden module v1.0\nFeatures: planting, watering" } },
-      { "command": "add", "args": { "path": "garden.txt" } },
-      { "command": "commit", "args": { "message": "Add garden module" } },
-      { "command": "writeFile", "args": { "path": "network.txt", "content": "Network module\nProtocol: monastery-net" } },
-      { "command": "add", "args": { "path": "network.txt" } },
-      { "command": "commit", "args": { "message": "Add netwerk module" } },
-      { "command": "writeFile", "args": { "path": "modules.txt", "content": "core\nmeditation\ntea-brewing\ngarden\nnetwork" } },
-      { "command": "add", "args": { "path": "modules.txt" } },
-      { "command": "commit", "args": { "message": "Register new modules" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "monkos.txt",
+          "content": "MonkOS v1.0\nKernel: meditation-core\nStatus: stable"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "modules.txt",
+          "content": "core\nmeditation"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "monkos.txt"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "modules.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "MonkOS v1.0 release"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "monkos.txt",
+          "content": "MonkOS v1.0\nKernel: meditation-core\nStatus: stable\nTea module: loaded"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "modules.txt",
+          "content": "core\nmeditation\ntea-brewing"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "monkos.txt"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "modules.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add tea-brewing module"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "monkos.txt",
+          "content": "MonkOS v2.0\nKernel: meditation-core-v2\nStatus: stable\nTea module: loaded\nScheduler: upgraded"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "monkos.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "MonkOS v2.0 release"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "feature-garden"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "contributor-fix"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "contributor-fix"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "bugfix.txt",
+          "content": "Fixed: tea timer overflow\nPriority: critical\nContributor: Brother Patch"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "bugfix.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Fix tea timer overflow"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "monkos.txt",
+          "content": "MonkOS v2.1\nKernel: meditation-core-v2\nStatus: stable\nTea module: loaded\nScheduler: upgraded\nSecurity: hardened"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "monkos.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Security hardening patch"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "feature-garden"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "garden.txt",
+          "content": "Garden module v1.0\nFeatures: planting, watering"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "garden.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add garden module"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "network.txt",
+          "content": "Network module\nProtocol: monastery-net"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "network.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add netwerk module"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "modules.txt",
+          "content": "core\nmeditation\ntea-brewing\ngarden\nnetwork"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "modules.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Register new modules"
+        }
+      }
     ],
     "head": "feature-garden"
   },
   "targetState": {
     "validators": [
-      { "type": "tag-exists", "params": { "name": "v3.0" } },
-      { "type": "head-at", "params": { "ref": "main" } },
-      { "type": "file-exists", "params": { "path": "garden.txt" } },
-      { "type": "file-exists", "params": { "path": "network.txt" } },
-      { "type": "file-exists", "params": { "path": "bugfix.txt" } },
-      { "type": "file-content", "params": { "path": "monkos.txt", "contains": "Security" } },
-      { "type": "file-content", "params": { "path": "modules.txt", "contains": "garden" } },
-      { "type": "file-content", "params": { "path": "modules.txt", "contains": "network" } },
-      { "type": "commit-message-contains", "params": { "text": "network module" } },
-      { "type": "commit-message-contains", "params": { "notMessage": "netwerk" } },
-      { "type": "commit-count", "params": { "min": 7 } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "tag-exists",
+        "params": {
+          "name": "v3.0"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "ref": "main"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "garden.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "network.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "bugfix.txt"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "monkos.txt",
+          "contains": "Security"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "modules.txt",
+          "contains": "garden"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "modules.txt",
+          "contains": "network"
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "text": "network module"
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "notMessage": "netwerk"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 7
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 35
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 8, "text": "Start by examining the repo: git log --oneline, git log contributor-fix. Then fix the typo with git commit --amend. Cherry-pick the contributor fix. Rebase onto main.", "penalty": 0.5 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 8,
+      "text": "먼저 저장소를 살펴보게: git log --oneline, git log contributor-fix. 그다음 git commit --amend로 오타를 고치고. 기여자의 수정을 체리픽하고. main 위로 리베이스하게.",
+      "penalty": 0.5
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 28, "three": 18 } },
+    "stars": {
+      "maxCommands": {
+        "two": 28,
+        "three": 18
+      }
+    },
     "achievement": "open-source-gauntlet"
   }
 }
