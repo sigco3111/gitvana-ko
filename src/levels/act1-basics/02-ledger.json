@@ -2,66 +2,106 @@
   "id": "act1-02-ledger",
   "act": 1,
   "order": 2,
-  "title": "The Monastery Ledger",
-  "subtitle": "Not everything belongs in the sacred scrolls",
+  "title": "수도원 장부",
+  "subtitle": "모든 것이 성스러운 두루마리에 들어가는 것은 아니다",
   "difficulty": "beginner",
   "mode": "strict",
   "briefing": {
-    "narrative": "The monastery bookkeeper — a nervous monk who triple-checks everything — hands you three files and a worried expression.\n\n\"We have data.txt and config.txt, which MUST go into the repository. But that temp.log file? It's garbage. Debug output. Digital refuse. If you commit it, the Head Monk will make you clean the meditation hall with a toothbrush.\"\n\nHe glances around. \"His toothbrush. He's very particular about that punishment.\"",
-    "concept": "git add lets you choose exactly which files to include in your next commit. This is called 'selective staging.' You don't have to commit everything in your working directory — only the files you explicitly add. This is how you keep temporary files, logs, and other junk out of your repository's history.",
+    "narrative": "수도원의 회계 수도승은 모든 것을 세 번씩 확인하는 초조한 수도승인데, 파일 세 개를 건네며 걱정스러운 얼굴을 합니다.\n\n\"data.txt와 config.txt는 반드시 저장소에 넣어야 하네. 그런데 temp.log 파일 말인데? 그건 쓰레기야. 디버그 출력, 디지털 폐기물이지. 그걸 커밋하면 수석 수도승이 칫솔로 명상홀을 청소하게 만들 걸세.\"\n\n그는 주위를 둘러봅니다. \"그 칫솔 말이야. 그 벌에는 아주 까다로운 사람이라네.\"",
+    "concept": "git add를 쓰면 다음 커밋에 넣을 파일을 정확히 고를 수 있습니다. 이를 '선택적 스테이징'이라고 합니다. 작업 디렉터리의 모든 것을 커밋할 필요는 없고, 명시적으로 추가한 파일만 커밋하면 됩니다. 이렇게 임시 파일이나 로그 같은 잡동사니를 저장소 기록에서 빼 둘 수 있습니다.",
     "objectives": [
-      "Stage data.txt and config.txt (but NOT temp.log)",
-      "Commit the staged files",
-      "temp.log must remain in the working directory but untracked"
+      "data.txt와 config.txt를 스테이징한다 (temp.log는 제외)",
+      "스테이징한 파일을 커밋한다",
+      "temp.log는 작업 디렉터리에 그대로 두되 추적하지 않는다"
     ],
-    "newCommands": ["git status"]
+    "newCommands": [
+      "git status"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "data.txt", "content": "Monastery inventory:\n- 47 meditation cushions\n- 12 incense holders\n- 1 suspiciously well-fed cat" } },
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "monastery_name=Order of the Eternal Rebase\nfounded=1987\nmotto=Commit early, commit often" } },
-      { "command": "writeFile", "args": { "path": "temp.log", "content": "[DEBUG] Cat knocked over incense at 3:47 AM\n[DEBUG] Brother Jenkins fell asleep during merge review\n[WARN] Someone pushed to main again" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "data.txt",
+          "content": "Monastery inventory:\n- 47 meditation cushions\n- 12 incense holders\n- 1 suspiciously well-fed cat"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "monastery_name=Order of the Eternal Rebase\nfounded=1987\nmotto=Commit early, commit often"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "temp.log",
+          "content": "[DEBUG] Cat knocked over incense at 3:47 AM\n[DEBUG] Brother Jenkins fell asleep during merge review\n[WARN] Someone pushed to main again"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "commit-count", "params": { "min": 1 } },
-      { "type": "file-exists", "params": { "path": "temp.log", "tracked": false } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 1
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "temp.log",
+          "tracked": false
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 5
   },
   "tips": [
-    "Use 'git status' to see which files are tracked, staged, or untracked",
-    "You can stage multiple files at once: git add file1.txt file2.txt"
+    "'git status'로 파일이 추적, 스테이징, 미추적 중 무엇인지 볼 수 있습니다",
+    "여러 파일을 한 번에 스테이징할 수 있습니다: git add 파일1.txt 파일2.txt"
   ],
   "hints": [
     {
       "trigger": "after-attempts",
       "triggerValue": 2,
-      "text": "The bookkeeper whispers: 'Use git status to see what's what. Then git add only the files you want. Not temp.log. Never temp.log.'",
+      "text": "회계 수도승이 속삭입니다: 'git status'로 상태를 확인하세요. 그다음 원하는 파일만 git add 하세요. temp.log는 절대 안 됩니다. 절대로요.",
       "penalty": 0.25
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 4,
-      "text": "A note taped to the monastery bulletin board reads: 'git add data.txt config.txt — you can add multiple files at once. Then commit.'",
+      "text": "수도원 게시판에 붙은 쪽지: 'git add data.txt config.txt — 여러 파일을 한 번에 추가할 수 있습니다. 그다음 커밋하세요.'",
       "penalty": 0.5
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat, looking smug, types: git add data.txt config.txt && git commit -m \"Add monastery records\"",
+      "text": "수도원 고양이가 의기양양하게 입력합니다: git add data.txt config.txt && git commit -m \"Add monastery records\"",
       "penalty": 1
     }
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 4, "three": 3 }
+      "maxCommands": {
+        "two": 4,
+        "three": 3
+      }
     },
     "achievement": "selective-stager"
   }

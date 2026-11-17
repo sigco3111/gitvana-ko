@@ -2,20 +2,24 @@
   "id": "act1-01-spark",
   "act": 1,
   "order": 1,
-  "title": "The Spark",
-  "subtitle": "Something from nothing",
+  "title": "불꽃",
+  "subtitle": "무에서 유를 만들다",
   "difficulty": "beginner",
   "mode": "strict",
   "briefing": {
-    "narrative": "You arrive at the Monastery of Version Control on a rainy Tuesday. The Head Monk, a weathered figure who claims to have invented the semicolon, blocks the gate.\n\n\"Before you may enter,\" he intones, \"you must prove you can create Something From Nothing. Initialize a repository, write a file, and commit it. The universe began with less.\"\n\nHe pauses. \"Also, the kitchen desperately needs a grocery list. Long story. Don't ask.\"",
-    "concept": "git init creates a new Git repository in the current directory. Think of it as founding a monastery — nothing is tracked until someone takes the first step. git add stages a file, marking it for inclusion in the next commit. git commit saves a permanent snapshot of everything that's staged.",
+    "narrative": "비 오는 화요일, 당신은 버전 관리 수도원의 문 앞에 도착합니다. 세미콜론을 발명했다고 주장하는 노련한 수석 수도승이 문을 막고 있습니다.\n\n\"들어오기 전에,\" 그가 낭랑하게 말합니다. \"무에서 유를 만들 수 있음을 증명해야 하네. 저장소를 만들고, 파일을 쓰고, 커밋하게. 우주도 처음엔 아무것도 없었으니까.\"\n\n그는 잠시 멈춥니다. \"그리고 부엌에 장바구니 목록이 급히 필요하다네. 긴 사연이야. 묻지 말게.\"",
+    "concept": "git init은 현재 디렉터리에 새 Git 저장소를 만듭니다. 수도원을 세우는 일과 같다고 보면 됩니다. 누군가 첫걸음을 떼기 전까지는 아무것도 추적되지 않습니다. git add는 파일을 스테이징하여 다음 커밋에 포함되도록 표시합니다. git commit은 스테이징된 모든 내용의 영구적인 스냅샷을 저장합니다.",
     "objectives": [
-      "Initialize a new git repository with 'git init'",
-      "Create a file (any name, any content)",
-      "Stage the file with 'git add'",
-      "Create your first commit"
+      "'git init'으로 새 git 저장소를 만든다",
+      "아무 이름이나 내용으로 파일을 하나 만든다",
+      "'git add'로 파일을 스테이징한다",
+      "첫 커밋을 만든다"
     ],
-    "newCommands": ["git init", "git add <file>", "git commit -m '<message>'"]
+    "newCommands": [
+      "git init",
+      "git add <file>",
+      "git commit -m '<message>'"
+    ]
   },
   "initialState": {
     "strategy": "replay",
@@ -24,40 +28,51 @@
   },
   "targetState": {
     "validators": [
-      { "type": "commit-count", "params": { "min": 1 } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 1
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 6
   },
   "tips": [
-    "Create files with: echo \"content\" > filename.txt",
-    "Type 'help' anytime to see available commands",
-    "Made a mistake? Click the UNDO button or type 'undo'"
+    "파일 만들기: echo \"내용\" > 파일명.txt",
+    "언제든 'help'를 입력하면 사용 가능한 명령어를 볼 수 있습니다",
+    "실수했나요? UNDO 버튼을 누르거나 'undo'를 입력하세요"
   ],
   "hints": [
     {
       "trigger": "after-attempts",
       "triggerValue": 3,
-      "text": "The Head Monk leans in conspiratorially: 'Start with git init. Then create a file. Any file. echo \"hello\" > hello.txt works fine.'",
+      "text": "수석 수도승이 은밀하게 몸을 기울입니다: 'git init'부터 시작하게. 그다음 파일을 하나 만들게. 아무 파일이나. echo \"hello\" > hello.txt 면 충분하지.",
       "penalty": 0.25
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 5,
-      "text": "A passing monk drops a scroll at your feet: 'git add <file> stages it. git commit -m \"message\" saves it. That is the way.'",
+      "text": "지나가던 수도승이 두루마리를 발치에 떨어뜨립니다: 'git add는 스테이징합니다. git commit -m \"메시지\"는 저장합니다. 그것이 길이지.'",
       "penalty": 0.5
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat walks across your keyboard and somehow types: git init && echo \"hello\" > hello.txt && git add hello.txt && git commit -m \"First commit\"",
+      "text": "수도원 고양이가 키보드를 밟고 지나가다 무심코 입력합니다: git init && echo \"hello\" > hello.txt && git add hello.txt && git commit -m \"First commit\"",
       "penalty": 1
     }
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 5, "three": 4 }
+      "maxCommands": {
+        "two": 5,
+        "three": 4
+      }
     },
     "achievement": "first-commit"
   }
