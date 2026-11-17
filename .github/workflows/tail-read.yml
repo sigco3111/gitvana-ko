@@ -1,0 +1,15 @@
+name: tail-read
+on:
+  workflow_dispatch:
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: print tail
+        run: |
+          L=$(grep -n 'Why push gets rejected' src/docs/guides/index.ts | tail -1 | cut -d: -f1)
+          echo "LINE=$L" >> $GITHUB_STEP_SUMMARY
+          echo 'BEGIN' >> $GITHUB_STEP_SUMMARY
+          tail -n +$L src/docs/guides/index.ts >> $GITHUB_STEP_SUMMARY
+          echo 'END' >> $GITHUB_STEP_SUMMARY
