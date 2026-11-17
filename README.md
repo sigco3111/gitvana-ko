@@ -61,8 +61,11 @@ Gitvana는 38개의 점점 어려워지는 레벨을 통해 git을 가르치는 
 | `src/i18n/ko/ui.json` (화면 문구, 랜딩 페이지) | 번역 완료 |
 | `src/i18n/ko/stages.json` (20단계 이름과 설명) | 번역 완료 |
 | `src/i18n/ko/hints.json` (힌트와 오류 안내) | 번역 완료 |
-| 레벨 내용 `levels.json` (스토리, 목표, 힌트) | **미번역 — 영문 원문 표시** |
-| 문서 `docs-commands.json`, `docs-guides.json` | **미번역 — 영문 원문 표시** |
+| 레벨 내용 `levels.json` (38개 레벨 스토리·목표·힌트) | 번역 완료 |
+| 문서 `docs-commands.json` (명령 설명, 15개 명령) | 일부 번역 — 나머지 명령은 영문 원문 표시 |
+| 문서 `docs-guides.json` (가이드 11개) | 번역 완료 |
+| 변경 기록 `ChangelogPage.svelte` | 번역 완료 |
+| 개발 블로그 `DevBlogPage.svelte` | 번역 완료 |
 
 명령어 자체(`git commit`, `edit <file>` 등)는 번역하지 않았습니다. 설명 문구만 번역했습니다.
 
