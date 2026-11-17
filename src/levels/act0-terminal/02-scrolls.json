@@ -2,19 +2,22 @@
   "id": "act0-02-scrolls",
   "act": 0,
   "order": 2,
-  "title": "The Scroll Keeper",
-  "subtitle": "Files are the scrolls of the digital monastery",
+  "title": "두루마리 수호자",
+  "subtitle": "파일은 디지털 수도원의 두루마리다",
   "difficulty": "beginner",
   "mode": "strict",
   "briefing": {
-    "narrative": "The Scroll Keeper, an elderly monk with ink-stained fingers, maintains the monastery's archives.\n\n\"Every monk must know how to handle scrolls,\" he says, adjusting his spectacles. \"You need to create new ones, read existing ones, and — this is important — add to them without erasing what's already there.\"\n\nHe points to a dusty shelf. \"There's an inventory of supplies that needs updating. Read it first, then add the missing item. And for the love of all that is versioned, don't overwrite the existing entries.\"",
-    "concept": "'touch' creates an empty file. 'echo \"text\" >> file' appends text to an existing file (note the double >>). A single > overwrites the file, but >> adds to the end. This is a crucial difference!",
+    "narrative": "두루마리 수호자는 잉크에 물든 손가락을 가진 연로한 수도승으로, 수도원의 기록보관소를 관리합니다.\n\n\"모든 수도승은 두루마리를 다룰 줄 알아야 하지.\" 그는 안경을 고쳐 쓰며 말합니다. \"새 두루마리를 만들고, 기존 것을 읽고, 그리고 — 이게 중요하네 — 기존 내용을 지우지 않고 덧붙일 줄 알아야 해.\"\n\n그는 먼지 쌓인 선반을 가리킵니다. \"보급품 목록을 갱신해야 하네. 먼저 읽고, 빠진 항목을 추가하게. 버전 관리되는 모든 것의 이름으로 부탁하니, 기존 항목은 덮어쓰지 말게.\"",
+    "concept": "'touch'는 빈 파일을 만듭니다. 'echo \"text\" >> file'은 기존 파일 끝에 텍스트를 덧붙입니다(>> 두 개에 주의). 기호 > 하나는 파일을 덮어쓰고, >>는 끝에 추가합니다. 이 차이가 매우 중요합니다!",
     "objectives": [
-      "Read the supplies list with 'cat supplies.txt'",
-      "Append 'candles: 50' to supplies.txt using >>",
-      "Create a new empty file called 'notes.txt' using touch"
+      "'cat supplies.txt'로 보급품 목록을 읽는다",
+      ">>를 사용해 supplies.txt에 'candles: 50'을 덧붙인다",
+      "touch로 'notes.txt'라는 빈 새 파일을 만든다"
     ],
-    "newCommands": ["touch <file>", "echo \"text\" >> file (append)"]
+    "newCommands": [
+      "touch <file>",
+      "echo \"text\" >> file (append)"
+    ]
   },
   "initialState": {
     "strategy": "mount",
@@ -25,9 +28,26 @@
   },
   "targetState": {
     "validators": [
-      { "type": "file-content", "params": { "path": "supplies.txt", "contains": "ink: 12 bottles" } },
-      { "type": "file-content", "params": { "path": "supplies.txt", "contains": "candles: 50" } },
-      { "type": "file-exists", "params": { "path": "notes.txt" } }
+      {
+        "type": "file-content",
+        "params": {
+          "path": "supplies.txt",
+          "contains": "ink: 12 bottles"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "supplies.txt",
+          "contains": "candles: 50"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "notes.txt"
+        }
+      }
     ]
   },
   "constraints": {
@@ -37,28 +57,31 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 2,
-      "text": "The Scroll Keeper adjusts his spectacles: 'echo \"candles: 50\" >> supplies.txt adds a line. Double arrows >> mean append!'",
+      "text": "두루마리 수호자가 안경을 고쳐 씁니다: 'echo \"candles: 50\" >> supplies.txt'는 한 줄을 추가합니다. 이중 화살표 >>는 덧붙이기라는 뜻입니다!",
       "penalty": 0
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 4,
-      "text": "He taps the shelf: 'touch notes.txt creates an empty file. Simple as that.'",
+      "text": "그가 선반을 두드립니다: 'touch notes.txt'는 빈 파일을 만듭니다. 그게 전부입니다.",
       "penalty": 0.25
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat demonstrates: cat supplies.txt && echo \"candles: 50\" >> supplies.txt && touch notes.txt",
+      "text": "수도원 고양이가 시범을 보입니다: cat supplies.txt && echo \"candles: 50\" >> supplies.txt && touch notes.txt",
       "penalty": 0.5
     }
   ],
   "tips": [
-    ">> appends to a file, > overwrites it — be careful!",
-    "'touch' creates an empty file if it doesn't exist"
+    ">>는 파일 끝에 덧붙이고, >는 파일을 덮어씁니다. 조심하세요!",
+    "'touch'는 파일이 없으면 빈 파일을 만듭니다"
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 6, "three": 4 }
+      "maxCommands": {
+        "two": 6,
+        "three": 4
+      }
     },
     "achievement": "scroll-keeper"
   }

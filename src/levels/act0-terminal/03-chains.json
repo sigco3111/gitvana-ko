@@ -2,19 +2,22 @@
   "id": "act0-03-chains",
   "act": 0,
   "order": 3,
-  "title": "The Chain Master",
-  "subtitle": "True power comes from combining simple commands",
+  "title": "연쇄의 달인",
+  "subtitle": "진정한 힘은 단순한 명령을 조합하는 데서 나온다",
   "difficulty": "beginner",
   "mode": "strict",
   "briefing": {
-    "narrative": "The monk nods approvingly at your progress. \"You're almost ready for the mountain. But there's one more art you must learn — the art of chaining.\"\n\nHe pulls out a thick scroll. \"The monastery library has a catalog of ancient texts. Your task: find the entry about 'meditation' and write it to a new file. You'll need grep to search and the ability to chain commands together.\"\n\nHe winks. \"The monks up at the monastery chain commands like breathing. You'll thank me later.\"",
-    "concept": "'grep' searches for text inside files. 'grep word file.txt' shows lines containing that word. You can chain commands with '&&' — the second command runs only if the first succeeds. For example: 'echo \"hello\" > file.txt && cat file.txt' creates a file then displays it.",
+    "narrative": "수도승이 당신의 진전에 고개를 끄덕입니다. \"산에 오를 준비가 거의 되었군. 하지만 한 가지 기술을 더 배워야 하네. 바로 연쇄의 기술이지.\"\n\n그는 두꺼운 두루마리를 꺼냅니다. \"수도원 도서관에는 고대 문헌 목록이 있다네. 너의 과제는 '명상'에 관한 항목을 찾아 새 파일에 적는 것이다. 검색에는 grep을, 명령을 잇는 데에는 연쇄 기법을 써야 하지.\"\n\n그는 눈을 찡긋합니다. \"산 위의 수도승들은 명령을 숨 쉬듯 잇는다네. 나중에 고마워하게 될 걸세.\"",
+    "concept": "'grep'은 파일 안의 텍스트를 찾습니다. 'grep 단어 파일.txt'는 그 단어가 들어 있는 줄을 보여 줍니다. '&&'로 명령을 연결할 수 있으며, 두 번째 명령은 첫 번째가 성공했을 때만 실행됩니다. 예: 'echo \"hello\" > file.txt && cat file.txt'는 파일을 만든 뒤 그 내용을 보여 줍니다.",
     "objectives": [
-      "Use 'grep' to find the line about meditation in catalog.txt",
-      "Create a file called 'found.txt' containing 'meditation'",
-      "Do it in one line using && to chain commands"
+      "'grep'으로 catalog.txt에서 명상에 관한 줄을 찾는다",
+      "'meditation'이라는 내용을 담은 'found.txt' 파일을 만든다",
+      "&&로 명령을 이어 한 줄에 끝낸다"
     ],
-    "newCommands": ["grep <word> <file>", "command1 && command2"]
+    "newCommands": [
+      "grep <word> <file>",
+      "command1 && command2"
+    ]
   },
   "initialState": {
     "strategy": "mount",
@@ -25,8 +28,19 @@
   },
   "targetState": {
     "validators": [
-      { "type": "file-exists", "params": { "path": "found.txt" } },
-      { "type": "file-content", "params": { "path": "found.txt", "contains": "meditation" } }
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "found.txt"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "found.txt",
+          "contains": "meditation"
+        }
+      }
     ]
   },
   "constraints": {
@@ -36,29 +50,32 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 2,
-      "text": "The monk hints: 'grep meditation catalog.txt will find the line you need.'",
+      "text": "수도승이 힌트를 줍니다: 'grep meditation catalog.txt'를 입력하면 필요한 줄이 나옵니다.",
       "penalty": 0
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 4,
-      "text": "He draws in the sand: 'echo \"meditation\" > found.txt creates the file. Or get fancy: grep meditation catalog.txt > found.txt redirects grep output to a file!'",
+      "text": "그가 모래 위에 그립니다: 'echo \"meditation\" > found.txt'로 파일을 만들 수 있습니다. 또는 grep의 출력을 파일로 보낼 수도 있습니다: grep meditation catalog.txt > found.txt",
       "penalty": 0.25
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat types with practiced ease: grep meditation catalog.txt > found.txt",
+      "text": "수도원 고양이가 능숙하게 입력합니다: grep meditation catalog.txt > found.txt",
       "penalty": 0.5
     }
   ],
   "tips": [
-    "'grep word file' searches for lines containing 'word'",
-    "Chain commands with &&: first && second",
-    "You can redirect output to a file: grep word file.txt > result.txt"
+    "'grep 단어 파일'은 '단어'가 들어 있는 줄을 찾습니다",
+    "&&로 명령 잇기: 첫 번째 && 두 번째",
+    "출력을 파일로 보낼 수 있습니다: grep word file.txt > result.txt"
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 5, "three": 3 }
+      "maxCommands": {
+        "two": 5,
+        "three": 3
+      }
     },
     "achievement": "chain-master"
   }

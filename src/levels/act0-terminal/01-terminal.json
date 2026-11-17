@@ -2,19 +2,23 @@
   "id": "act0-01-terminal",
   "act": 0,
   "order": 1,
-  "title": "The Terminal Awakens",
-  "subtitle": "Every journey begins with a single command",
+  "title": "터미널이 깨어난다",
+  "subtitle": "모든 여정은 하나의 명령에서 시작된다",
   "difficulty": "beginner",
   "mode": "strict",
   "briefing": {
-    "narrative": "At the foot of the Gitvana mountain, you meet a monk sitting cross-legged beside a glowing terminal.\n\n\"Ah, a new seeker! Before you climb to the Monastery of Version Control, you must learn the Way of the Terminal. The monks up there assume you already know this stuff, and trust me, you don't want to look clueless in front of the Head Monk.\"\n\nHe gestures at the screen. \"Let's start simple. Read the welcome scroll, then create a file. Every great journey starts with writing something down.\"",
-    "concept": "The terminal is a text-based way to interact with your computer. 'cat' displays the contents of a file. 'echo \"text\" > file.txt' creates a new file with the given text. 'ls' lists all files in the current directory.",
+    "narrative": "Gitvana 산기슭에서 당신은 빛나는 터미널 곁에 가부좌를 틀고 앉은 수도승을 만납니다.\n\n\"오, 새로운 구도자로군! 버전 관리 수도원에 오르기 전에 터미널의 길을 먼저 배워야 하네. 저 위의 수도승들은 자네가 이미 다 안다고 여기니, 수석 수도승 앞에서 어리숙해 보이고 싶지는 않겠지?\"\n\n그는 화면을 가리킵니다. \"간단한 것부터 시작하지. 환영 두루마리를 읽고, 파일을 하나 만들어 보게. 위대한 여정은 무언가를 적어 두는 데서 시작되니까.\"",
+    "concept": "터미널은 텍스트로 컴퓨터와 상호작용하는 방식입니다. 'cat'은 파일의 내용을 보여 주고, 'echo \"text\" > file.txt'는 주어진 텍스트가 담긴 새 파일을 만듭니다. 'ls'는 현재 디렉터리의 모든 파일을 나열합니다.",
     "objectives": [
-      "Read the welcome scroll with 'cat welcome.txt'",
-      "Create a file called 'journal.txt' with any content",
-      "Verify your file exists with 'ls'"
+      "'cat welcome.txt'로 환영 두루마리를 읽는다",
+      "'journal.txt'라는 파일을 아무 내용으로나 만든다",
+      "'ls'로 파일이 있는지 확인한다"
     ],
-    "newCommands": ["cat <file>", "echo \"text\" > file", "ls"]
+    "newCommands": [
+      "cat <file>",
+      "echo \"text\" > file",
+      "ls"
+    ]
   },
   "initialState": {
     "strategy": "mount",
@@ -25,8 +29,18 @@
   },
   "targetState": {
     "validators": [
-      { "type": "file-exists", "params": { "path": "journal.txt" } },
-      { "type": "file-exists", "params": { "path": "welcome.txt" } }
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "journal.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "welcome.txt"
+        }
+      }
     ]
   },
   "constraints": {
@@ -36,29 +50,32 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 2,
-      "text": "The monk whispers: 'Type cat welcome.txt to read the scroll. It has instructions.'",
+      "text": "수도승이 속삭입니다: 'cat welcome.txt'를 입력해 두루마리를 읽으세요. 지침이 적혀 있습니다.",
       "penalty": 0
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 4,
-      "text": "The monk sighs gently: 'echo \"hello\" > journal.txt will create the file. Just type it!'",
+      "text": "수도승이 조용히 한숨을 쉽니다: 'echo \"hello\" > journal.txt'를 입력하면 파일이 만들어집니다. 그냥 입력해 보세요!",
       "penalty": 0.25
     },
     {
       "trigger": "manual",
-      "text": "The monastery cat walks across the keyboard: cat welcome.txt && echo \"My journey begins\" > journal.txt && ls",
+      "text": "수도원 고양이가 키보드 위를 걸어 다닙니다: cat welcome.txt && echo \"My journey begins\" > journal.txt && ls",
       "penalty": 0.5
     }
   ],
   "tips": [
-    "Type a command and press Enter to run it",
-    "Use 'cat filename' to read what's inside a file",
-    "Use 'echo \"text\" > filename' to create a file with content"
+    "명령어를 입력하고 Enter를 눌러 실행하세요",
+    "'cat 파일명'으로 파일 내용을 읽을 수 있습니다",
+    "'echo \"text\" > 파일명'으로 내용이 담긴 파일을 만들 수 있습니다"
   ],
   "rewards": {
     "stars": {
-      "maxCommands": { "two": 6, "three": 4 }
+      "maxCommands": {
+        "two": 6,
+        "three": 4
+      }
     },
     "achievement": "terminal-awakened"
   }
