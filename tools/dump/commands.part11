@@ -1,0 +1,39 @@
+        output: 'commit a1b2c3d\nAuthor: Ada Lovelace <ada@example.com>\nDate:   Tue Aug 5 14:02:11 2026\n\n    Fix login bug\n\ndiff --git a/app.js b/app.js\n--- a/app.js\n+++ b/app.js\n@@ -10,1 +10,1 @@\n-  return false;\n+  return true;',
+        explanation: 'Show the latest commit -- full metadata plus its diff against its parent',
+      },
+      { command: 'git show HEAD~2', explanation: 'Show the commit two steps back' },
+      { command: 'git show abc1234', explanation: 'Show a specific commit by hash' },
+      { command: 'git show HEAD:README.md', explanation: 'Show README.md as it exists in the latest commit, without checking anything out' },
+      { command: 'git show main:config.json', explanation: 'Peek at a file on another branch entirely, without switching to it first' },
+    ],
+    tip: 'Use "git show <commit>:<file>" when you need to see what a file looked like at a past commit without checking it out. It\'s read-only and completely safe.',
+    related: ['log', 'diff', 'cherry-pick'],
+    seeAlso: ['what-is-a-commit'],
+  },
+
+  revert: {
+    name: 'revert',
+    syntax: 'git revert <commit>',
+    description:
+      '"git revert" creates a NEW commit that undoes the changes of a specified previous commit. Unlike "reset", which moves the branch pointer backward (rewriting history), "revert" moves history forward -- the original commit stays in the log. This makes revert safe for commits that have already been pushed and shared, because it doesn\'t rewrite anything others depend on.',
+    options: [
+      { flag: '<commit>', description: 'The commit hash or ref (e.g., HEAD~1) whose changes should be undone' },
+    ],
+    examples: [
+      { command: 'git revert HEAD', output: '[main f1e2d3c] Revert "Add experimental flag"\n 1 file changed, 1 deletion(-)', explanation: 'Undo the most recent commit by creating a new revert commit' },
+      { command: 'git revert HEAD~2', explanation: 'Undo the commit three steps back (only that specific commit, not the ones after it)' },
+      { command: 'git revert abc1234', explanation: 'Undo a specific commit by its hash' },
+      {
+        command: 'git revert HEAD',
+        output: 'Auto-merging failed; fix conflicts and then commit the result.\nCONFLICT (content): Merge conflict in app.js',
+        explanation: 'A revert can conflict too, if later commits touched the same lines the revert wants to undo -- resolve it like any other conflict',
+      },
+    ],
+    tip: 'Use "revert" instead of "reset" when the commit has already been pushed to a shared repository. Revert adds history; reset erases it.',
+    related: ['reset', 'log', 'cherry-pick', 'commit'],
+    seeAlso: ['rewriting-history', 'undoing-changes'],
+  },
+
+  stash: {
+    name: 'stash',
+    syntax: 'git stash [push|pop|list|drop]',

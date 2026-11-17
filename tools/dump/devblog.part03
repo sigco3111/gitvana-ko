@@ -1,0 +1,106 @@
+  .devblog-subtitle {
+    font-size: 12px;
+    color: #5f574f;
+    margin: 0;
+  }
+
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .entry {
+    padding: 24px 0;
+    border-bottom: 1px solid #1a1a2e;
+  }
+
+  .entry:last-child {
+    border-bottom: none;
+  }
+
+  .entry-date {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: #5f574f;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+
+  .entry-text {
+    font-size: 13px;
+    color: #a09a93;
+    line-height: 1.75;
+  }
+
+  .entry-text :global(p) {
+    margin: 0 0 12px;
+  }
+
+  .entry-text :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .like-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 0 0;
+    color: #5f574f;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    transition: color 0.15s;
+  }
+
+  .like-btn:hover {
+    color: #ff004d;
+  }
+
+  .like-btn.liked {
+    color: #ff004d;
+  }
+
+  .like-heart {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .like-count {
+    font-size: 11px;
+    color: #5f574f;
+  }
+
+  .like-btn.liked .like-count {
+    color: #ff004d88;
+  }
+
+  .devblog-footer {
+    margin-top: 48px;
+    padding: 24px 0;
+    border-top: 1px solid #1a1a2e;
+  }
+
+  .devblog-footer p {
+    font-size: 11px;
+    color: #5f574f55;
+    margin: 0;
+  }
+
+  .devblog-footer a {
+    color: #5f574f88;
+    text-decoration: none;
+  }
+
+  .devblog-footer a:hover {
+    color: #ffa300;
+  }
+
+  @media (max-width: 600px) {
+    .devblog-content {
+      padding: 44px 16px 40px;
+    }
+  }
+</style>

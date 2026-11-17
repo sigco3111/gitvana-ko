@@ -1,0 +1,39 @@
+    tip: 'Never force-push to a shared branch unless you know what you\'re doing. It rewrites remote history and can destroy other people\'s work. If "git push" is rejected, pull first to integrate remote changes.',
+    related: ['fetch', 'pull', 'remote'],
+    seeAlso: ['remotes-and-collaboration'],
+  },
+
+  fetch: {
+    name: 'fetch',
+    syntax: 'git fetch [<remote>] [--all]',
+    description:
+      '"git fetch" downloads new commits from a remote without changing your working directory or current branch. It updates your remote tracking refs (e.g., "origin/main") so you can see what changed on the remote. Fetch is safe -- it only downloads, never modifies your local branches. After fetching, you can inspect the changes with "git log origin/main" and decide whether to merge.',
+    options: [
+      { flag: '--all', description: 'Fetch from all configured remotes' },
+    ],
+    examples: [
+      { command: 'git fetch', output: 'From origin\n   a1b2c3d..e4f5g6h  main     -> origin/main', explanation: 'Fetch from the default remote (origin) -- only origin/main moved, your local main is untouched' },
+      { command: 'git fetch origin', explanation: 'Fetch new commits from "origin" explicitly' },
+      { command: 'git fetch --all', explanation: 'Fetch from every configured remote at once' },
+      { command: 'git log origin/main', explanation: 'After fetching, inspect what changed before deciding whether to merge it in' },
+    ],
+    tip: 'Prefer "git fetch" + "git merge" over "git pull" when you want to inspect changes before integrating them. Fetch is always safe; it never changes your local work.',
+    related: ['pull', 'push', 'merge', 'remote'],
+    seeAlso: ['remotes-and-collaboration'],
+  },
+
+  pull: {
+    name: 'pull',
+    syntax: 'git pull [<remote>] [<branch>]',
+    description:
+      '"git pull" is shorthand for "git fetch" followed by "git merge". It downloads new commits from the remote and immediately merges them into your current branch. If your branch hasn\'t diverged from the remote, the merge is a fast-forward (just moving the pointer). If both sides have new commits, git creates a merge commit. If both changed the same lines, you\'ll get a merge conflict to resolve.',
+    options: [
+      { flag: '--rebase', description: 'Rebase instead of merge (replay your commits on top of the remote)' },
+    ],
+    examples: [
+      {
+        command: 'git pull',
+        output: 'From origin\n   a1b2c3d..e4f5g6h  main     -> origin/main\nUpdating...\nFast-forward',
+        explanation: 'Pull from the upstream remote -- here nothing diverged locally, so it\'s just a fast-forward',
+      },
+      { command: 'git pull origin main', explanation: 'Pull the "main" branch from "origin" explicitly and merge it' },

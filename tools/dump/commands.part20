@@ -1,0 +1,22 @@
+      '"git mv" renames or moves a tracked file and stages the result in one step -- a convenience wrapper around a plain filesystem move plus "git add" of the new path and "git rm" of the old one. Under the hood git doesn\'t actually store a "rename" as its own kind of operation: it just notices the old blob is gone and an identical blob exists at a new path, and infers the rename afterward by comparing content. Which means "git mv old.ts new.ts" and a plain shell "mv old.ts new.ts" followed by "git add -A" produce the exact same result in the end -- "git mv" only saves you the two extra commands.',
+    options: [
+      { flag: '-f, --force', description: 'Overwrite the destination if it already exists' },
+      { flag: '-n, --dry-run', description: 'Show what would happen without doing it' },
+    ],
+    examples: [
+      { command: 'git mv old-name.ts new-name.ts', output: 'old-name.ts -> new-name.ts', explanation: 'Rename a file and stage the rename in one step' },
+      { command: 'git mv utils.ts src/lib/utils.ts', output: 'utils.ts -> src/lib/utils.ts', explanation: 'Move a file into a different directory' },
+      { command: 'git status', output: 'Changes to be committed:\n  renamed:    old-name.ts -> new-name.ts', explanation: 'Git recognized it as a rename, not a delete-plus-add -- this is the whole reason "git mv" is worth reaching for' },
+      { command: 'git mv README.md docs/README.md', output: 'fatal: destination exists, source=README.md, destination=docs/README.md', explanation: 'Git refuses to silently overwrite an existing file -- move the conflicting file first, or use -f if you really mean it' },
+    ],
+    tip: 'You never strictly need this command -- a plain "mv" plus "git add -A" gets detected as a rename anyway, by content similarity. Use "git mv" when you\'d rather stage the rename deliberately in one step than trust the heuristic.',
+    related: ['add', 'rm', 'status'],
+    seeAlso: ['how-git-stores-data'],
+  },
+
+  restore: {
+    name: 'restore',
+    syntax: 'git restore [--staged] <file> | git restore --source <commit> <file>',
+    description:
+      '"git restore" (added in Git 2.23) undoes changes to files, and only to files -- it never touches branches or HEAD. It exists because "git checkout" historically did two unrelated jobs at once (switch branches, AND discard file changes), which has confused nearly everyone who\'s used git long enough. "git restore <file>" discards uncommitted changes in your working directory, replacing the file with the version from HEAD. "git restore --staged <file>" does the opposite end of the pipeline: it un-stages a file without touching your edits, moving it back from the staging area to "modified but not staged."',
+    options: [

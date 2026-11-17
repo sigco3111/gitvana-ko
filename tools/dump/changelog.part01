@@ -1,0 +1,62 @@
+      tags: ['feature', 'engine'],
+      content: 'Git push, fetch, and pull now work via simulated remote repositories running entirely in the browser. 3 new levels teaching remote collaboration. Remote tracking branches visible in the commit graph. Dev blog page added.'
+    },
+    {
+      date: '2026-04-02',
+      title: 'v1.0 \u2014 The Grand Opening',
+      tags: ['release'],
+      content: 'Gitvana launches with 35 levels across 6 acts, 21 git commands, pixel art, chiptune sounds, and a monastery full of questionable life choices. The cat is pleased.'
+    },
+    {
+      date: '2026-04-02',
+      title: 'Proper 3-Way Merge Engine',
+      tags: ['engine'],
+      content: 'Replaced file-level conflict detection with line-level diff3 merging. Changes in different regions of the same file now auto-merge correctly. Merge, cherry-pick, rebase, and revert all benefit.'
+    },
+    {
+      date: '2026-04-01',
+      title: 'Level Difficulty Rework',
+      tags: ['content'],
+      content: 'Rewrote levels 15-35 to be genuinely challenging. Later levels now require investigation (blame, bisect, reflog) before acting. Boss levels have cascading problems. Level 35 has zero hints.'
+    },
+    {
+      date: '2026-04-01',
+      title: '9 New Git Commands',
+      tags: ['feature'],
+      content: 'Added tag, cherry-pick, show, revert, stash, reflog, rebase, blame, and bisect. The monastery now teaches real git mastery, not just basics.'
+    },
+    {
+      date: '2026-04-01',
+      title: 'Conceptual Guides',
+      tags: ['docs'],
+      content: '9 in-depth guides explaining how git actually works: content-addressable filesystem, the three areas, merge vs rebase, the reflog safety net, and more. Available in-game and at /docs.'
+    },
+    {
+      date: '2026-03-31',
+      title: 'The Monastery Opens Its Gates',
+      tags: ['milestone'],
+      content: 'First playable version with 6 levels, a terminal, and a judgmental cat. The Head Monk is skeptical but willing to give you a chance.'
+    },
+  ];
+
+  function getBorderColor(tags: string[]): string {
+    return tagColors[tags[0]] ?? '#5f574f';
+  }
+</script>
+
+<div class="changelog-page">
+  <Navbar currentPage="changelog" />
+
+  <div class="changelog-content">
+    <header class="changelog-header">
+      <h1 class="changelog-title">CHANGELOG</h1>
+      <p class="changelog-subtitle">The monastery's development log</p>
+    </header>
+
+    <div class="entries">
+      {#each entries as entry}
+        <article class="entry" style="border-left-color: {getBorderColor(entry.tags)}">
+          <div class="entry-meta">
+            <span class="entry-date">{entry.date}</span>
+            <div class="entry-tags">
+              {#each entry.tags as tag}

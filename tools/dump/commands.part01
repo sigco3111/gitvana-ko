@@ -1,0 +1,34 @@
+      { command: 'git add src/*.ts', explanation: 'Stage all TypeScript files in the src directory' },
+      {
+        command: 'git add -p',
+        output: '@@ -1,3 +1,4 @@\n line one\n+line two (new)\n line three\nStage this hunk [y,n,q,a,d,s,e,?]?',
+        explanation: 'Review changes one hunk at a time -- say yes to the parts you want in this commit, no to the rest',
+      },
+    ],
+    tip: 'Use "git add -p" to stage parts of a file. It\'s the secret weapon for making clean, focused commits instead of dumping everything in at once.',
+    related: ['status', 'commit', 'reset', 'diff'],
+    seeAlso: ['the-three-areas'],
+  },
+
+  commit: {
+    name: 'commit',
+    syntax: 'git commit [-m <message>]',
+    description:
+      '"git commit" takes everything in the staging area and creates a permanent snapshot -- a commit object containing a tree (all files), parent pointer(s), author/committer info, and your message. The commit hash is computed from all of these fields, which is why you can\'t edit a commit -- any change produces a different hash. Each commit forms a link in the history chain, pointing back to its parent.',
+    options: [
+      { flag: '-m, --message <message>', description: 'Provide the commit message inline' },
+      { flag: '-a, --all', description: 'Automatically stage all modified/deleted files before committing (skips untracked)' },
+      { flag: '--amend', description: 'Replace the last commit with a new one (rewrite history -- use with care)' },
+      { flag: '--allow-empty', description: 'Create a commit even with no staged changes' },
+    ],
+    examples: [
+      {
+        command: 'git commit -m "Add user login feature"',
+        output: '[main a1b2c3d] Add user login feature\n 1 file changed, 12 insertions(+)',
+        explanation: 'Commit staged changes with a message',
+      },
+      { command: 'git commit -am "Fix typo in README"', explanation: 'Stage all tracked changes and commit in one step' },
+      { command: 'git commit --amend -m "Better message"', explanation: 'Replace the last commit message (only if you haven\'t pushed!)' },
+      { command: 'git commit --allow-empty -m "Trigger CI rebuild"', explanation: 'Create a commit with no file changes at all -- a real trick for nudging a CI pipeline or marking a point in history' },
+    ],
+    tip: 'Write commit messages in the imperative mood: "Add feature" not "Added feature". Think of it as completing the sentence: "If applied, this commit will ___."',

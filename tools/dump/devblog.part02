@@ -1,0 +1,104 @@
+      const serverLiked = data.liked || {};
+      likedByMe = { ...likedByMe, ...serverLiked };
+      saveLocalLikes(likedByMe);
+    } catch { /* offline — local state is fine */ }
+  }
+
+  async function toggleLike(postId: string) {
+    const wasLiked = !!likedByMe[postId];
+    // Optimistic update
+    likedByMe = { ...likedByMe, [postId]: !wasLiked };
+    likeCounts = { ...likeCounts, [postId]: (likeCounts[postId] || 0) + (wasLiked ? -1 : 1) };
+    saveLocalLikes(likedByMe);
+
+    try {
+      const res = await fetch('/api/blog/likes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          postId,
+          sessionId: getSessionId(),
+          unlike: wasLiked,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        likeCounts = { ...likeCounts, [postId]: data.count };
+      }
+    } catch {
+      // Keep local state — server will sync next time
+    }
+  }
+
+  onMount(() => {
+    fetchLikes();
+  });
+</script>
+
+<div class="devblog-page">
+  <Navbar currentPage="devblog" />
+
+  <div class="devblog-content">
+    <header class="devblog-header">
+      <h1 class="devblog-title">GITVANA DEV LOG</h1>
+      <p class="devblog-subtitle">Raffaele Pizzari</p>
+    </header>
+
+    <div class="entries">
+      {#each entries as entry}
+        <div class="entry">
+          <div class="entry-date">{entry.date}</div>
+          <div class="entry-text">{@html entry.text.replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>')}</div>
+          <button
+            class="like-btn"
+            class:liked={likedByMe[entry.id]}
+            onclick={() => toggleLike(entry.id)}
+            aria-label="Like this post"
+          >
+            <span class="like-heart">{likedByMe[entry.id] ? '\u2665' : '\u2661'}</span>
+            {#if likeCounts[entry.id]}
+              <span class="like-count">{likeCounts[entry.id]}</span>
+            {/if}
+          </button>
+        </div>
+      {/each}
+    </div>
+
+    <footer class="devblog-footer">
+      <p>&copy; 2026 Raffaele Pizzari &mdash; <a href="https://github.com/pixari/gitvana">github</a></p>
+    </footer>
+  </div>
+</div>
+
+<style>
+  .devblog-page {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 200;
+    color: #c2c3c7;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .devblog-content {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 44px 24px 60px;
+  }
+
+  .devblog-header {
+    padding: 56px 0 40px;
+    border-bottom: 1px solid #1a1a2e;
+    margin-bottom: 32px;
+  }
+
+  .devblog-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(12px, 3vw, 16px);
+    color: #ffa300;
+    margin: 0 0 10px;
+    letter-spacing: 3px;
+  }
+
