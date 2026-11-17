@@ -3,112 +3,433 @@
   "act": 6,
   "order": 35,
   "title": "Gitvana",
-  "subtitle": "THE FINAL EXAM — Recover, clean, cherry-pick, merge, tag",
+  "subtitle": "최후의 시험 — 복구하고, 정리하고, 체리픽하고, 병합하고, 태그하라",
   "difficulty": "expert",
   "mode": "strict",
   "briefing": {
-    "narrative": "The Hall of Ancestors is silent. Every monk in the monastery has gathered. The cat sits on the highest shelf, wearing a crown made of ethernet cables.\n\nThe Head Monk steps forward. His voice echoes through the chamber.\n\n\"You have walked the path of init. You have weathered merge conflicts that would break lesser souls. You have traveled through time, recovered the lost, and split the unsplittable.\"\n\nHe gestures to a massive screen showing a repository in ABSOLUTE CRISIS:\n\n- A dev branch with 3 critical commits (network, monitoring, backup) was DELETED. Those commits exist only in the reflog now.\n- The feature-enlightenment branch has 7 commits: 3 good (enlightenment module, wisdom DB, zen mode), 2 WIP, 1 leaked secret, and 1 hotfix that belongs on the hotfix branch.\n- The hotfix branch exists but has nothing on it yet.\n- Main needs ALL the good work: recovered dev commits, cleaned feature, and the hotfix.\n\nFive cascading problems. Each depends on solving the previous one.\n\n\"Recover the lost commits. Clean the feature branch. Move the hotfix. Merge everything. Tag v3.0.\"\n\nThe cat purrs. It already believes in you.\n\n\"Do all of this... and you will have achieved GITVANA.\"\n\nHe sits in lotus position. \"Total mastery of version control. The end of suffering. Or at least, the end of Git suffering.\"",
-    "concept": "This final challenge combines every skill you've learned:\n\n- Reflog: recover lost commits from deleted branches\n- Reset + cherry-pick: clean up messy branches, remove secrets\n- Cherry-pick: move commits between branches\n- Merge: bring branches together\n- Tag: mark the final release\n\nThe key is to triage: assess all damage first, plan your approach, then execute one step at a time. Every step depends on the previous one being correct. There is no shortcut.",
+    "narrative": "조상의 방은 고요합니다. 수도원의 모든 수도승이 모였습니다. 고양이는 가장 높은 선반에 앉아 이더넷 케이블로 만든 왕관을 쓰고 있습니다.\n\n수석 수도승이 앞으로 나섭니다. 그의 목소리가 방 안을 울립니다.\n\n\"그대는 init의 길을 걸었다. 약한 영혼을 부러뜨릴 병합 충돌을 견뎌 냈다. 시간을 여행했고, 잃어버린 것을 되찾았으며, 나눌 수 없는 것을 나누었다.\"\n\n그가 거대한 화면을 가리킵니다. 저장소가 완전한 위기에 처해 있습니다.\n\n- dev 브랜치에 있던 핵심 커밋 3개(네트워크, 모니터링, 백업)가 삭제되었다. 그 커밋들은 이제 리플로그에만 있다.\n- feature-enlightenment 브랜치에는 커밋 7개가 있다. 그중 3개는 좋다(깨달음 모듈, 지혜 데이터베이스, 선 모드). 2개는 WIP, 1개는 유출된 비밀, 1개는 hotfix 브랜치에 속해야 할 hotfix 커밋이다.\n- hotfix 브랜치는 있지만 아직 아무것도 없다.\n- main에는 좋은 작업이 모두 필요하다: 복구된 dev 커밋, 정리된 feature, 그리고 hotfix.\n\n연쇄된 다섯 가지 문제입니다. 각각은 앞의 문제를 풀어야 풀립니다.\n\n\"잃어버린 커밋을 복구하라. feature 브랜치를 정리하라. hotfix를 옮겨라. 모든 것을 병합하라. v3.0으로 태그하라.\"\n\n고양이가 가르랑거립니다. 이미 당신을 믿고 있습니다.\n\n\"이 모든 것을 해내면... 그대는 GITVANA에 도달한 것이다.\"\n\n그는 연화좌로 앉습니다. \"버전 관리의 완전한 숙달. 고통의 끝. 적어도 Git 고통의 끝이지.\"",
+    "concept": "이 마지막 도전은 지금까지 배운 모든 기술을 결합합니다:\n\n- 리플로그: 삭제된 브랜치에서 잃어버린 커밋 복구\n- reset + 체리픽: 엉킨 브랜치를 정리하고 비밀 제거\n- 체리픽: 브랜치 사이로 커밋 옮기기\n- 병합: 브랜치 합치기\n- 태그: 최종 릴리스 표시\n\n핵심은 분류입니다. 모든 피해를 먼저 파악하고, 계획을 세운 뒤, 한 번에 한 단계씩 실행하십시오. 모든 단계가 앞 단계에 의존합니다.",
     "objectives": [
-      "Recover the 3 lost dev commits from reflog (network, monitoring, backup)",
-      "Clean the feature branch: keep only the 3 good enlightenment commits",
-      "Move the hotfix commit from feature to the hotfix branch",
-      "Merge recovery, hotfix, and cleaned feature branches into main",
-      "Tag the final result as v3.0",
-      "No secrets or WIP files in the final result"
+      "리플로그에서 잃어버린 dev 커밋 3개(네트워크, 모니터링, 백업)를 복구한다",
+      "feature 브랜치를 정리한다: 좋은 깨달음 커밋 3개만 남긴다",
+      "feature에 있던 hotfix 커밋을 hotfix 브랜치로 옮긴다",
+      "복구, hotfix, 정리된 feature 브랜치를 main에 병합한다",
+      "최종 결과를 v3.0으로 태그한다",
+      "최종 결과에 비밀이나 WIP 파일이 없어야 한다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "MonasteryOS v0.1\nCore: initialized" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "Initial commit" } },
-
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "MonasteryOS v0.2\nCore: initialized\nMeditation: loaded" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "Add meditation module" } },
-
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "MonasteryOS v1.0\nCore: initialized\nMeditation: loaded\nTea: brewing" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "v1.0 release" } },
-
-      { "command": "writeFile", "args": { "path": "app.txt", "content": "MonasteryOS v2.0\nCore: initialized\nMeditation: loaded\nTea: brewing\nGarden: planted\nScheduler: active\nSecurity: hardened" } },
-      { "command": "add", "args": { "path": "app.txt" } },
-      { "command": "commit", "args": { "message": "v2.0 release" } },
-
-      { "command": "branch", "args": { "name": "feature-enlightenment" } },
-      { "command": "branch", "args": { "name": "hotfix" } },
-
-      { "command": "branch", "args": { "name": "dev" } },
-      { "command": "checkout", "args": { "ref": "dev" } },
-
-      { "command": "writeFile", "args": { "path": "network.txt", "content": "Network module\nProtocol: monastery-net\nStatus: connected" } },
-      { "command": "add", "args": { "path": "network.txt" } },
-      { "command": "commit", "args": { "message": "Add network module" } },
-
-      { "command": "writeFile", "args": { "path": "monitor.txt", "content": "Monitoring system\nMetrics: cpu, memory, disk\nAlerts: enabled" } },
-      { "command": "add", "args": { "path": "monitor.txt" } },
-      { "command": "commit", "args": { "message": "Add monitoring system" } },
-
-      { "command": "writeFile", "args": { "path": "backup.txt", "content": "Backup module\nSchedule: daily\nRetention: 30 days" } },
-      { "command": "add", "args": { "path": "backup.txt" } },
-      { "command": "commit", "args": { "message": "Add backup system" } },
-
-      { "command": "checkout", "args": { "ref": "feature-enlightenment" } },
-
-      { "command": "writeFile", "args": { "path": "enlightenment.txt", "content": "Enlightenment Module v1.0\nKoan generator: active" } },
-      { "command": "add", "args": { "path": "enlightenment.txt" } },
-      { "command": "commit", "args": { "message": "Add enlightenment module" } },
-
-      { "command": "writeFile", "args": { "path": "enlightenment.txt", "content": "Enlightenment Module v1.0\nKoan generator: active\nWisdom database: connected" } },
-      { "command": "add", "args": { "path": "enlightenment.txt" } },
-      { "command": "commit", "args": { "message": "Connect wisdom database" } },
-
-      { "command": "writeFile", "args": { "path": "wip1.txt", "content": "WIP: half-finished meditation tracker\nTODO: everything" } },
-      { "command": "add", "args": { "path": "wip1.txt" } },
-      { "command": "commit", "args": { "message": "WIP meditation tracker" } },
-
-      { "command": "writeFile", "args": { "path": "enlightenment.txt", "content": "Enlightenment Module v1.0\nKoan generator: active\nWisdom database: connected\nZen mode: enabled" } },
-      { "command": "add", "args": { "path": "enlightenment.txt" } },
-      { "command": "commit", "args": { "message": "Add zen mode" } },
-
-      { "command": "writeFile", "args": { "path": "wip2.txt", "content": "WIP: unfinished logging\nTODO: clean up" } },
-      { "command": "add", "args": { "path": "wip2.txt" } },
-      { "command": "commit", "args": { "message": "WIP more unfinished work" } },
-
-      { "command": "writeFile", "args": { "path": "secrets.txt", "content": "API_KEY=sk_live_LEAKED_monastery_12345\nDB_PASSWORD=SuperSecret_Never_Commit" } },
-      { "command": "add", "args": { "path": "secrets.txt" } },
-      { "command": "commit", "args": { "message": "Add config (CONTAINS SECRETS)" } },
-
-      { "command": "writeFile", "args": { "path": "timer-fix.txt", "content": "HOTFIX: meditation timer overflow\nFix: prevent infinite loop in zen mode\nPriority: URGENT" } },
-      { "command": "add", "args": { "path": "timer-fix.txt" } },
-      { "command": "commit", "args": { "message": "Fix meditation timer overflow" } },
-
-      { "command": "checkout", "args": { "ref": "main" } },
-      { "command": "deleteBranch", "args": { "name": "dev" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "MonasteryOS v0.1\nCore: initialized"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial commit"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "MonasteryOS v0.2\nCore: initialized\nMeditation: loaded"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add meditation module"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "MonasteryOS v1.0\nCore: initialized\nMeditation: loaded\nTea: brewing"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "v1.0 release"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "app.txt",
+          "content": "MonasteryOS v2.0\nCore: initialized\nMeditation: loaded\nTea: brewing\nGarden: planted\nScheduler: active\nSecurity: hardened"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "app.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "v2.0 release"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "feature-enlightenment"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "hotfix"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "dev"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "dev"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "network.txt",
+          "content": "Network module\nProtocol: monastery-net\nStatus: connected"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "network.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add network module"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "monitor.txt",
+          "content": "Monitoring system\nMetrics: cpu, memory, disk\nAlerts: enabled"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "monitor.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add monitoring system"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "backup.txt",
+          "content": "Backup module\nSchedule: daily\nRetention: 30 days"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "backup.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add backup system"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "feature-enlightenment"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "enlightenment.txt",
+          "content": "Enlightenment Module v1.0\nKoan generator: active"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "enlightenment.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add enlightenment module"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "enlightenment.txt",
+          "content": "Enlightenment Module v1.0\nKoan generator: active\nWisdom database: connected"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "enlightenment.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Connect wisdom database"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "wip1.txt",
+          "content": "WIP: half-finished meditation tracker\nTODO: everything"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "wip1.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "WIP meditation tracker"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "enlightenment.txt",
+          "content": "Enlightenment Module v1.0\nKoan generator: active\nWisdom database: connected\nZen mode: enabled"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "enlightenment.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add zen mode"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "wip2.txt",
+          "content": "WIP: unfinished logging\nTODO: clean up"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "wip2.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "WIP more unfinished work"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "secrets.txt",
+          "content": "API_KEY=sk_live_LEAKED_monastery_12345\nDB_PASSWORD=SuperSecret_Never_Commit"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "secrets.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add config (CONTAINS SECRETS)"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "timer-fix.txt",
+          "content": "HOTFIX: meditation timer overflow\nFix: prevent infinite loop in zen mode\nPriority: URGENT"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "timer-fix.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Fix meditation timer overflow"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      },
+      {
+        "command": "deleteBranch",
+        "args": {
+          "name": "dev"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "tag-exists", "params": { "name": "v3.0" } },
-      { "type": "head-at", "params": { "ref": "main" } },
-      { "type": "file-exists", "params": { "path": "enlightenment.txt" } },
-      { "type": "file-exists", "params": { "path": "timer-fix.txt" } },
-      { "type": "file-exists", "params": { "path": "network.txt" } },
-      { "type": "file-exists", "params": { "path": "monitor.txt" } },
-      { "type": "file-exists", "params": { "path": "backup.txt" } },
-      { "type": "file-not-exists", "params": { "path": "wip1.txt" } },
-      { "type": "file-not-exists", "params": { "path": "wip2.txt" } },
-      { "type": "file-not-exists", "params": { "path": "secrets.txt" } },
-      { "type": "file-content", "params": { "path": "enlightenment.txt", "contains": "Zen mode" } },
-      { "type": "file-content", "params": { "path": "timer-fix.txt", "contains": "meditation timer" } },
-      { "type": "file-content", "params": { "path": "app.txt", "contains": "v2.0" } },
-      { "type": "staging-empty", "params": {} },
-      { "type": "commit-count", "params": { "min": 15 } }
+      {
+        "type": "tag-exists",
+        "params": {
+          "name": "v3.0"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "ref": "main"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "enlightenment.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "timer-fix.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "network.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "monitor.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "backup.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "wip1.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "wip2.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "secrets.txt"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "enlightenment.txt",
+          "contains": "Zen mode"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "timer-fix.txt",
+          "contains": "meditation timer"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "app.txt",
+          "contains": "v2.0"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 15
+        }
+      }
     ]
   },
   "constraints": {
@@ -118,23 +439,28 @@
     {
       "trigger": "after-attempts",
       "triggerValue": 8,
-      "text": "The Head Monk clears his throat: 'Triage first. The five problems don't need solving in the order I named them. Start with git reflog to find dev's last commit before it was deleted -- everything else can wait.'",
+      "text": "수석 수도승이 목을 가다듬습니다: '먼저 분류하게. 내가 말한 순서대로 다섯 문제를 풀 필요는 없네. git reflog로 시작해서 삭제되기 전 dev의 마지막 커밋을 찾게. 나머지는 기다려도 된다네.'",
       "penalty": 0.5
     },
     {
       "trigger": "after-attempts",
       "triggerValue": 15,
-      "text": "The cat stops purring and looks directly at you: '1) git reflog, find the commit \"Add backup system\" -- that is dev's tip -- and branch it off as recovered. 2) On feature-enlightenment, cherry-pick the timer-fix commit onto hotfix. 3) Back on feature-enlightenment, git reset --hard to \"Connect wisdom database\", then find \"Add zen mode\" in the reflog and cherry-pick it back on -- that drops the WIP files and the leaked secret. 4) Merge recovered, hotfix, and the cleaned feature-enlightenment into main. 5) Tag it v3.0.'",
+      "text": "고양이가 가르랑거리기를 멈추고 당신을 똑바로 봅니다: '1) git reflog에서 \"Add backup system\" 커밋 — dev의 끝 — 을 찾아 recovered로 브랜치를 만들게. 2) feature-enlightenment에서 timer-fix 커밋을 hotfix에 체리픽하게. 3) 다시 feature-enlightenment로 돌아가 \"Connect wisdom database\"로 git reset --hard 하고, 리플로그에서 \"Add zen mode\"를 찾아 다시 체리픽하게 — 그러면 WIP 파일과 유출된 비밀이 빠진다네. 4) recovered, hotfix, 정리된 feature-enlightenment를 main에 병합하게. 5) v3.0으로 태그하게.'",
       "penalty": 0.75
     },
     {
       "trigger": "manual",
-      "text": "The cat takes pity, one final time: git reflog, find 'Add backup system' (dev's last commit) and run git branch recovered <hash>. Then git checkout hotfix && git cherry-pick feature-enlightenment (grabs the timer-fix commit). Then git checkout feature-enlightenment && git reset --hard HEAD~5 (lands on 'Connect wisdom database', dropping the WIP files, the leaked secret, and the hotfix commit). Find 'Add zen mode' in git reflog and cherry-pick it back on. Finally: git checkout main && git merge recovered && git merge hotfix && git merge feature-enlightenment && git tag v3.0.",
+      "text": "고양이가 마지막으로 한 번 더 자비를 베풉니다: git reflog에서 'Add backup system'(dev의 마지막 커밋)을 찾아 git branch recovered를 실행하게. 그다음 git checkout hotfix && git cherry-pick feature-enlightenment(timer-fix 커밋을 가져온다). 그다음 git checkout feature-enlightenment && git reset --hard HEAD~5(\"Connect wisdom database\"에 도달하며 WIP 파일, 유출된 비밀, hotfix 커밋을 버린다). reflog에서 'Add zen mode'를 찾아 다시 체리픽하게. 마지막으로: git checkout main && git merge recovered && git merge hotfix && git merge feature-enlightenment && git tag v3.0.",
       "penalty": 1
     }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 35, "three": 25 } },
+    "stars": {
+      "maxCommands": {
+        "two": 35,
+        "three": 25
+      }
+    },
     "achievement": "gitvana-achieved"
   }
 }

@@ -2,78 +2,253 @@
   "id": "act6-31-wrong-branch",
   "act": 6,
   "order": 31,
-  "title": "The Wrong Branch",
-  "subtitle": "5 interleaved commits on main — sort them onto the right branches",
+  "title": "잘못된 브랜치",
+  "subtitle": "main에 뒤섞인 커밋 다섯 개 — 올바른 브랜치로 나눠 옮겨라",
   "difficulty": "advanced",
   "mode": "strict",
   "briefing": {
-    "narrative": "Five commits on main. Every single one is a feature commit. None belong here.\n\nBut it gets worse: they're interleaved. Three commits belong on feature-ui (they modify UI files), and two belong on feature-api (they modify API files). They're NOT in a convenient order — UI, API, UI, UI, API.\n\nThe Head Monk looks at the git log like a disappointed parent reading a report card. \"You need to EXAMINE each commit. Read the log. Use git show if you must. Figure out which commits are UI work and which are API work.\"\n\n\"Then: create both feature branches, cherry-pick the right commits to each, and reset main back to where it belongs.\"\n\nThe cat has already sorted its yarn by color, texture, and philosophical significance. It finds your chaos offensive.",
-    "concept": "When commits are on the wrong branch, you need to:\n1. Examine each commit with git log or git show to understand what it does\n2. Create the correct branches\n3. Cherry-pick each commit to the right branch\n4. Reset the original branch to remove them\n\nThe key skill is INVESTIGATION — you must determine where each commit belongs before acting.",
+    "narrative": "main에 커밋이 다섯 개 있습니다. 모두 기능 커밋입니다. 어느 것도 여기에 있으면 안 됩니다.\n\n더 나쁜 것은 뒤섞여 있다는 점입니다. 세 개는 feature-ui에 속하고(UI 파일을 수정), 두 개는 feature-api에 속합니다(API 파일을 수정). 편리한 순서로 놓여 있지 않습니다 — UI, API, UI, UI, API.\n\n수석 수도승은 성적표를 읽는 실망한 부모처럼 git log를 봅니다. \"커밋을 하나하나 살펴봐야 하네. 로그를 읽고, 꼭 필요하면 git show도 쓰게. 어떤 커밋이 UI 작업이고 어떤 것이 API 작업인지 알아내게.\"\n\n\"그다음 두 기능 브랜치를 만들고, 각각에 맞는 커밋을 체리픽하고, main은 원래 있어야 할 자리로 되돌리게.\"\n\n고양이는 이미 실뭉치를 색깔, 질감, 철학적 의미별로 정리해 두었습니다. 당신의 혼돈을 못마땅해합니다.",
+    "concept": "커밋이 잘못된 브랜치에 있을 때는 다음이 필요합니다:\n1. git log나 git show로 각 커밋이 무엇을 하는지 살펴본다\n2. 올바른 브랜치를 만든다\n3. 각 커밋을 올바른 브랜치에 체리픽한다\n4. 원래 브랜치를 reset해서 커밋을 제거한다\n\n핵심 기술은 조사입니다. 행동하기 전에 각 커밋이 어디에 속하는지 알아내야 합니다.",
     "objectives": [
-      "Examine the commits on main to determine which are UI and which are API",
-      "Create feature-ui branch and cherry-pick the 3 UI commits to it",
-      "Create feature-api branch and cherry-pick the 2 API commits to it",
-      "Reset main back to only the base commit",
-      "All feature files must exist on their correct branches"
+      "main의 커밋을 살펴 어느 것이 UI이고 어느 것이 API인지 판단한다",
+      "feature-ui 브랜치를 만들고 UI 커밋 3개를 체리픽한다",
+      "feature-api 브랜치를 만들고 API 커밋 2개를 체리픽한다",
+      "main을 기본 커밋까지만 남도록 reset한다",
+      "모든 기능 파일이 올바른 브랜치에 있어야 한다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "base.txt", "content": "monastery application base" } },
-      { "command": "add", "args": { "path": "base.txt" } },
-      { "command": "commit", "args": { "message": "Base application" } },
-
-      { "command": "writeFile", "args": { "path": "header.txt", "content": "UI: header component\nlogo: monastery.png\nnav: home, about, contact" } },
-      { "command": "add", "args": { "path": "header.txt" } },
-      { "command": "commit", "args": { "message": "Add header component" } },
-
-      { "command": "writeFile", "args": { "path": "users-api.txt", "content": "API: /users endpoint\nGET: list all users\nPOST: create user" } },
-      { "command": "add", "args": { "path": "users-api.txt" } },
-      { "command": "commit", "args": { "message": "Add users API endpoint" } },
-
-      { "command": "writeFile", "args": { "path": "sidebar.txt", "content": "UI: sidebar navigation\nlinks: dashboard, settings\ncollapsible: true" } },
-      { "command": "add", "args": { "path": "sidebar.txt" } },
-      { "command": "commit", "args": { "message": "Add sidebar navigation" } },
-
-      { "command": "writeFile", "args": { "path": "footer.txt", "content": "UI: footer component\ncopyright: monastery 2026\nlinks: privacy, terms" } },
-      { "command": "add", "args": { "path": "footer.txt" } },
-      { "command": "commit", "args": { "message": "Add footer component" } },
-
-      { "command": "writeFile", "args": { "path": "posts-api.txt", "content": "API: /posts endpoint\nGET: list posts\nPOST: create post\nDELETE: remove post" } },
-      { "command": "add", "args": { "path": "posts-api.txt" } },
-      { "command": "commit", "args": { "message": "Add posts API endpoint" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "base.txt",
+          "content": "monastery application base"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "base.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Base application"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "header.txt",
+          "content": "UI: header component\nlogo: monastery.png\nnav: home, about, contact"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "header.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add header component"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "users-api.txt",
+          "content": "API: /users endpoint\nGET: list all users\nPOST: create user"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "users-api.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add users API endpoint"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "sidebar.txt",
+          "content": "UI: sidebar navigation\nlinks: dashboard, settings\ncollapsible: true"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "sidebar.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add sidebar navigation"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "footer.txt",
+          "content": "UI: footer component\ncopyright: monastery 2026\nlinks: privacy, terms"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "footer.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add footer component"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "posts-api.txt",
+          "content": "API: /posts endpoint\nGET: list posts\nPOST: create post\nDELETE: remove post"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "posts-api.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add posts API endpoint"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "branch-exists", "params": { "name": "feature-ui" } },
-      { "type": "branch-exists", "params": { "name": "feature-api" } },
-      { "type": "head-at", "params": { "ref": "main" } },
-      { "type": "file-content", "params": { "path": "base.txt", "contains": "base" } },
-      { "type": "commit-count", "params": { "min": 1, "max": 1 } },
-      { "type": "commit-count", "params": { "branch": "feature-ui", "min": 4 } },
-      { "type": "commit-count", "params": { "branch": "feature-api", "min": 3 } },
-      { "type": "file-not-exists", "params": { "path": "header.txt" } },
-      { "type": "file-not-exists", "params": { "path": "sidebar.txt" } },
-      { "type": "file-not-exists", "params": { "path": "footer.txt" } },
-      { "type": "file-not-exists", "params": { "path": "users-api.txt" } },
-      { "type": "file-not-exists", "params": { "path": "posts-api.txt" } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "branch-exists",
+        "params": {
+          "name": "feature-ui"
+        }
+      },
+      {
+        "type": "branch-exists",
+        "params": {
+          "name": "feature-api"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "ref": "main"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "base.txt",
+          "contains": "base"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 1,
+          "max": 1
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "branch": "feature-ui",
+          "min": 4
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "branch": "feature-api",
+          "min": 3
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "header.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "sidebar.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "footer.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "users-api.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "posts-api.txt"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 18
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "Use git log --oneline to see all commits. The header, sidebar, and footer are UI. The users-api and posts-api are API work. Cherry-pick by referencing HEAD~N.", "penalty": 0.25 },
-    { "trigger": "manual", "text": "1) git log --oneline to identify commits. 2) git branch feature-ui, git branch feature-api. 3) git checkout feature-ui, cherry-pick the 3 UI commits. 4) git checkout feature-api, cherry-pick the 2 API commits. 5) git checkout main, git reset --hard HEAD~5.", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "git log --oneline으로 모든 커밋을 보게. 헤더, 사이드바, 푸터는 UI이고, users-api와 posts-api는 API 작업이네. HEAD~N을 참조해 체리픽하게.",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "manual",
+      "text": "1) git log --oneline으로 커밋을 식별하게. 2) git branch feature-ui, git branch feature-api. 3) git checkout feature-ui 후 UI 커밋 3개를 체리픽하게. 4) git checkout feature-api 후 API 커밋 2개를 체리픽하게. 5) git checkout main 후 git reset --hard HEAD~5.",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 18, "three": 14 } },
+    "stars": {
+      "maxCommands": {
+        "two": 18,
+        "three": 14
+      }
+    },
     "achievement": "branch-surgeon"
   }
 }

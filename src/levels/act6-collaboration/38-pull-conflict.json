@@ -2,56 +2,148 @@
   "id": "act6-38-pull-conflict",
   "act": 6,
   "order": 38,
-  "title": "Divergent Paths",
-  "subtitle": "Your work and the remote have diverged — resolve the conflict",
+  "title": "갈라진 길",
+  "subtitle": "당신의 작업과 원격이 갈라졌다 — 충돌을 해결하라",
   "difficulty": "advanced",
   "mode": "strict",
   "briefing": {
-    "narrative": "Disaster. While you changed Monday to 'Kung Fu', Brother Guybrush changed Monday to 'Calligraphy' on the remote. You both edited the SAME LINE.\n\nThe Head Monk sighs deeply. \"This is the most common pain in collaborative work. You both changed the same line. When you pull, Git cannot decide whose change wins — you'll see conflict markers.\"\n\n\"Resolve the conflict by choosing what Monday should be — or combine both. Edit the file, remove the conflict markers, then add and commit.\"\n\nThe cat watches two birds fight over the same worm. It finds the parallel amusing.",
-    "concept": "When local and remote diverge on the same file, 'git pull' creates a merge conflict.\n\nConflict markers look like:\n<<<<<<< HEAD\nyour changes\n=======\ntheir changes\n>>>>>>> origin/main\n\nResolve by editing the file to combine both changes, then 'git add' and 'git commit'.",
+    "narrative": "재앙입니다. 당신이 월요일을 'Kung Fu'로 바꾸는 동안, Guybrush 형제는 원격에서 월요일을 'Calligraphy'로 바꿨습니다. 둘이 같은 줄을 고친 것입니다.\n\n수석 수도승이 깊이 한숨을 쉽니다. \"이것은 협업에서 가장 흔한 고통이네. 둘이 같은 줄을 바꿨지. 당신이 pull하면 Git은 누구의 변경이 이길지 결정할 수 없고, 충돌 표시가 보일 걸세.\"\n\n\"월요일이 무엇이어야 할지 골라서 충돌을 해결하게. 또는 둘을 합치게. 파일을 편집하고, 충돌 표시를 지우고, add하고 commit하게.\"\n\n고양이는 두 마리 새가 같은 벌레를 두고 싸우는 것을 봅니다. 그 평행 관계가 재미있다고 생각합니다.",
+    "concept": "로컬과 원격이 같은 파일에서 갈라지면, 'git pull'은 병합 충돌을 만듭니다.\n\n충돌 표시는 다음처럼 보입니다:\n<<<<<<< HEAD\n당신의 변경\n=======\n상대의 변경\n>>>>>>> origin/main\n\n파일을 편집해 두 변경을 합친 뒤, 'git add'와 'git commit'으로 해결하세요.",
     "objectives": [
-      "Pull from origin to see the conflict",
-      "Resolve the conflict in schedule.txt",
-      "The file must contain 'Kung Fu' (your Monday choice)",
-      "Add and commit the resolved merge"
+      "origin에서 pull해서 충돌을 확인한다",
+      "schedule.txt의 충돌을 해결한다",
+      "파일에는 'Kung Fu'(당신이 고른 월요일)가 있어야 한다",
+      "해결된 병합을 추가하고 커밋한다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "schedule.txt", "content": "Monastery Weekly Schedule:\nMonday: Meditation\nWednesday: Tea Ceremony" } },
-      { "command": "add", "args": { "path": "schedule.txt" } },
-      { "command": "commit", "args": { "message": "Initial schedule" } },
-      { "command": "remote-add", "args": { "name": "origin", "url": "origin" } },
-      { "command": "push", "args": { "remote": "origin", "branch": "main" } },
-
-      { "command": "remote-commit", "args": { "remote": "origin", "path": "schedule.txt", "content": "Monastery Weekly Schedule:\nMonday: Calligraphy\nWednesday: Tea Ceremony", "message": "Update Monday to Calligraphy", "author": "Brother Guybrush" } },
-
-      { "command": "writeFile", "args": { "path": "schedule.txt", "content": "Monastery Weekly Schedule:\nMonday: Kung Fu\nWednesday: Tea Ceremony" } },
-      { "command": "add", "args": { "path": "schedule.txt" } },
-      { "command": "commit", "args": { "message": "Update Monday to Kung Fu" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "schedule.txt",
+          "content": "Monastery Weekly Schedule:\nMonday: Meditation\nWednesday: Tea Ceremony"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "schedule.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial schedule"
+        }
+      },
+      {
+        "command": "remote-add",
+        "args": {
+          "name": "origin",
+          "url": "origin"
+        }
+      },
+      {
+        "command": "push",
+        "args": {
+          "remote": "origin",
+          "branch": "main"
+        }
+      },
+      {
+        "command": "remote-commit",
+        "args": {
+          "remote": "origin",
+          "path": "schedule.txt",
+          "content": "Monastery Weekly Schedule:\nMonday: Calligraphy\nWednesday: Tea Ceremony",
+          "message": "Update Monday to Calligraphy",
+          "author": "Brother Guybrush"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "schedule.txt",
+          "content": "Monastery Weekly Schedule:\nMonday: Kung Fu\nWednesday: Tea Ceremony"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "schedule.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Update Monday to Kung Fu"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "merge-commit-exists", "params": {} },
-      { "type": "no-conflicts", "params": {} },
-      { "type": "file-content", "params": { "path": "schedule.txt", "contains": "Kung Fu", "notContains": "<<<<<<<" } },
-      { "type": "head-at", "params": { "branch": "main" } }
+      {
+        "type": "merge-commit-exists",
+        "params": {}
+      },
+      {
+        "type": "no-conflicts",
+        "params": {}
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "schedule.txt",
+          "contains": "Kung Fu",
+          "notContains": "<<<<<<<"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "branch": "main"
+        }
+      }
     ]
   },
   "constraints": {
     "maxCommands": 20
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "Start by pulling: git pull origin main", "penalty": 0 },
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "Check the conflict: cat schedule.txt — you'll see <<<<<<< markers", "penalty": 0 },
-    { "trigger": "after-attempts", "triggerValue": 7, "text": "Edit the file to keep both Kung Fu AND Calligraphy, remove conflict markers, then: git add schedule.txt && git commit -m \"Resolve merge\"", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "먼저 pull하세요: git pull origin main",
+      "penalty": 0
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "충돌을 확인하세요: cat schedule.txt — <<<<<<< 표시가 보일 겁니다",
+      "penalty": 0
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 7,
+      "text": "파일을 편집해 Kung Fu와 Calligraphy를 모두 남기고, 충돌 표시를 지운 뒤: git add schedule.txt && git commit -m \"Resolve merge\"",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 10, "three": 6 } }
+    "stars": {
+      "maxCommands": {
+        "two": 10,
+        "three": 6
+      }
+    }
   }
 }

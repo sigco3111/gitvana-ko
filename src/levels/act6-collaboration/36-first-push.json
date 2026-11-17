@@ -2,49 +2,120 @@
   "id": "act6-36-first-push",
   "act": 6,
   "order": 36,
-  "title": "First Push",
-  "subtitle": "Share your work with the remote monastery",
+  "title": "첫 푸시",
+  "subtitle": "원격 수도원과 작업을 나누라",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "The chanting in the Hall of Ancestors fades. You achieved Gitvana. The cat has taken off its ethernet-cable crown and gone back to napping on the windowsill.\n\nBut enlightenment, it turns out, was never the last lesson — just the last one you had to face alone. The Head Monk finds you the next morning. \"Every commit you have ever made lived in your repository, and your repository alone. It's time you learned to work with others.\"\n\nThe Monastery of Version Control has expanded. There is now a REMOTE monastery — a mirror of your repository that other monks can access.\n\nThe Head Monk hands you a scroll: \"A remote repository named 'origin' has been set up. Your task is simple, young monk: create meaningful work, then PUSH it to origin so all may benefit from your wisdom.\"\n\nThe cat stretches lazily. It has already pushed its napping schedule to three remote locations.\n\n\"Remember: first you commit locally, then you push. The remote only receives what you explicitly share.\"",
-    "concept": "Remote repositories are copies of your repo that live elsewhere. 'git push' sends your commits to a remote. Before pushing, you need a remote configured with 'git remote add'.\n\nThe workflow: commit locally, then push to share.\n\n'git push origin main' pushes your main branch to the remote named 'origin'.",
+    "narrative": "조상의 방에서 들리던 독송이 잦아듭니다. 당신은 Gitvana를 이루었습니다. 고양이는 이더넷 케이블 왕관을 벗고 창가에서 다시 낮잠을 자고 있습니다.\n\n하지만 깨달음은 마지막 배움이 아니었습니다. 당신이 혼자 마주해야 했던 마지막 배움이었을 뿐입니다. 다음 날 아침 수석 수도승이 당신을 찾아옵니다. \"그대가 지금까지 만든 모든 커밋은 그대의 저장소, 오직 그대의 저장소에만 있었네. 이제 다른 수도승들과 함께 일하는 법을 배울 때가 되었다네.\"\n\n버전 관리의 수도원이 확장되었습니다. 이제 원격 수도원이 있습니다. 다른 수도승들이 접근할 수 있는 저장소의 복사본입니다.\n\n수석 수도승이 두루마리를 건넵니다. \"'origin'이라는 원격 저장소가 설정되었네. 그대의 일은 간단하다네, 젊은 수도승아: 의미 있는 작업을 만들고, 그것을 origin에 PUSH해서 모두가 그대의 지혜에서 이익을 얻도록 하게.\"\n\n고양이가 느긋하게 기지개를 켭니다. 이미 낮잠 일정을 세 개의 원격 장소에 푸시해 두었습니다.\n\n\"기억하게: 먼저 로컬에서 커밋하고, 그다음에 푸시하는 것이네. 원격은 그대가 명시적으로 공유한 것만 받는다네.\"",
+    "concept": "원격 저장소는 다른 곳에 살고 있는 저장소의 복사본입니다. 'git push'는 커밋을 원격으로 보냅니다. 푸시하기 전에 'git remote add'로 원격을 설정해야 합니다.\n\n작업 흐름: 로컬에서 커밋한 뒤 푸시해 공유합니다.\n\n'git push origin main'은 main 브랜치를 'origin'이라는 원격으로 보냅니다.",
     "objectives": [
-      "Create a file called 'scroll.txt' with any content",
-      "Add and commit it with a meaningful message",
-      "Push your main branch to origin",
-      "Verify with 'git branch -r' that origin/main exists"
+      "'scroll.txt'라는 파일을 만든다(내용은 자유)",
+      "파일을 추가하고 의미 있는 메시지로 커밋한다",
+      "main 브랜치를 origin에 푸시한다",
+      "'git branch -r'로 origin/main이 있는지 확인한다"
     ],
-    "newCommands": ["remote", "push"]
+    "newCommands": [
+      "remote",
+      "push"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "welcome.txt", "content": "Welcome to the Monastery of Version Control" } },
-      { "command": "add", "args": { "path": "welcome.txt" } },
-      { "command": "commit", "args": { "message": "Initial monastery setup" } },
-      { "command": "remote-add", "args": { "name": "origin", "url": "origin" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "welcome.txt",
+          "content": "Welcome to the Monastery of Version Control"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "welcome.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial monastery setup"
+        }
+      },
+      {
+        "command": "remote-add",
+        "args": {
+          "name": "origin",
+          "url": "origin"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "file-exists", "params": { "path": "scroll.txt" } },
-      { "type": "commit-count", "params": { "min": 2 } },
-      { "type": "pushed-to-remote", "params": { "remote": "origin", "branch": "main" } },
-      { "type": "remote-branch-exists", "params": { "remote": "origin", "branch": "main" } }
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "scroll.txt"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 2
+        }
+      },
+      {
+        "type": "pushed-to-remote",
+        "params": {
+          "remote": "origin",
+          "branch": "main"
+        }
+      },
+      {
+        "type": "remote-branch-exists",
+        "params": {
+          "remote": "origin",
+          "branch": "main"
+        }
+      }
     ]
   },
   "constraints": {
     "maxCommands": 20
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "Create a file first: echo \"wisdom\" > scroll.txt", "penalty": 0 },
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "Stage and commit: git add scroll.txt && git commit -m \"Add scroll\"", "penalty": 0 },
-    { "trigger": "after-attempts", "triggerValue": 7, "text": "Push to remote: git push origin main", "command": "git push origin main", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "먼저 파일을 만드세요: echo \"wisdom\" > scroll.txt",
+      "penalty": 0
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "스테이징하고 커밋하세요: git add scroll.txt && git commit -m \"Add scroll\"",
+      "penalty": 0
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 7,
+      "text": "원격에 푸시하세요: git push origin main",
+      "command": "git push origin main",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 8, "three": 5 } }
+    "stars": {
+      "maxCommands": {
+        "two": 8,
+        "three": 5
+      }
+    }
   }
 }

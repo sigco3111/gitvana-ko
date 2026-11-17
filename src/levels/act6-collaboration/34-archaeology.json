@@ -2,97 +2,376 @@
   "id": "act6-34-archaeology",
   "act": 6,
   "order": 34,
-  "title": "Archaeology Expedition",
-  "subtitle": "Two deleted branches in reflog — find the right one, skip the reverted commits",
+  "title": "고고학 탐사",
+  "subtitle": "리플로그에 있는 삭제된 브랜치 두 개 — 올바른 것을 찾고 되돌린 커밋은 건너뛰어라",
   "difficulty": "expert",
   "mode": "strict",
   "briefing": {
-    "narrative": "Two branches were deleted. Both show up in the reflog. One is the treasure — three months of critical work. The other is an abandoned experiment that should stay buried.\n\nBut the treasure branch had a rocky history: 5 commits were made, but 2 were reverted before deletion. That means only 3 commits contain 'real work' — the reverted ones are noise.\n\nThe Head Monk sits in the artifact vault, brushing dust off ancient scrolls. \"Two deleted branches. Two sets of commits in the reflog. You must:\n1. Find BOTH branches\n2. Examine each to determine which is the real work\n3. From the correct branch, cherry-pick only the 3 good commits — not the reverted ones\n4. Get them onto a recovery branch in the right order\"\n\nThe cat adjusts its archaeology hat. \"The reflog remembers everything. Even the things you wish it would forget.\"\n\nThe Head Monk adds grimly: \"The experiment branch has similar-looking commit messages. You'll need to actually READ the content to tell them apart.\"",
-    "concept": "When branches are deleted, the reflog preserves where they pointed. But recovering the right commits requires investigation:\n\n1. git reflog — find the tip of deleted branches\n2. git show <hash> — examine each commit's content\n3. git log <hash> — see the full history of a deleted branch\n4. git cherry-pick — selectively recover only the good commits\n\nNot every commit is worth recovering. Reverted commits and abandoned experiments should be left behind.",
+    "narrative": "브랜치 두 개가 삭제되었습니다. 둘 다 리플로그에 나타납니다. 하나는 보물입니다 — 석 달 동안의 핵심 작업. 다른 하나는 묻혀 있어야 할 버려진 실험입니다.\n\n그런데 보물 브랜치에는 험난한 역사가 있습니다. 커밋은 5개가 만들어졌지만, 삭제 전에 2개가 되돌려졌습니다. 즉 '진짜 작업'이 담긴 커밋은 3개뿐이고, 되돌린 것들은 잡음입니다.\n\n수석 수도승이 유물 보관실에서 오래된 두루마리의 먼지를 털고 있습니다. \"삭제된 브랜치 두 개. 리플로그에 커밋 두 묶음. 이렇게 하게:\n1. 두 브랜치를 모두 찾고\n2. 각각을 살펴 어느 쪽이 진짜 작업인지 판단하고\n3. 올바른 브랜치에서 좋은 커밋 3개만 체리픽하고 — 되돌린 것은 빼고\n4. 올바른 순서로 복구 브랜치에 옮겨 두게\"\n\n고양이가 고고학자 모자를 고쳐 씁니다. \"리플로그는 모든 것을 기억하지. 잊었으면 하는 것까지도.\"\n\n수석 수도승이 음울하게 덧붙입니다. \"실험 브랜치에도 비슷하게 생긴 커밋이 있으니 조심하게.",
+    "concept": "브랜치가 삭제되면 리플로그는 그 브랜치가 가리켰던 위치를 보존합니다. 하지만 올바른 커밋을 되살리려면 조사가 필요합니다:\n\n1. git reflog — 삭제된 브랜치의 끝 지점을 찾는다\n2. git show — 각 커밋의 내용을 살펴본다\n3. git log — 삭제된 브랜치의 전체 역사를 본다\n4. git cherry-pick — 좋은 커밋만 선택해 되살린다\n\n모든 커밋을 되살릴 가치는 없습니다. 되돌린 커밋과 버려진 실험은 남겨 두어야 합니다.",
     "objectives": [
-      "Find both deleted branches in the reflog",
-      "Determine which branch has the real work (not the experiment)",
-      "Cherry-pick ONLY the 3 good commits (skip the reverted ones) onto a recovery branch",
-      "The recovery branch should contain artifact1.txt, artifact2.txt, and artifact3.txt"
+      "리플로그에서 삭제된 브랜치 두 개를 모두 찾는다",
+      "어느 브랜치에 진짜 작업이 있는지 판단한다(실험이 아닌 쪽)",
+      "좋은 커밋 3개만 체리픽해 복구 브랜치에 옮긴다(되돌린 커밋은 건너뛴다)",
+      "복구 브랜치에는 artifact1.txt, artifact2.txt, artifact3.txt가 있어야 한다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "base.txt", "content": "monastery base code" } },
-      { "command": "add", "args": { "path": "base.txt" } },
-      { "command": "commit", "args": { "message": "Base" } },
-
-      { "command": "branch", "args": { "name": "experiment" } },
-      { "command": "checkout", "args": { "ref": "experiment" } },
-      { "command": "writeFile", "args": { "path": "proto1.txt", "content": "EXPERIMENT: prototype approach A\nstatus: abandoned\ndo not use" } },
-      { "command": "add", "args": { "path": "proto1.txt" } },
-      { "command": "commit", "args": { "message": "Add prototype artifact" } },
-      { "command": "writeFile", "args": { "path": "proto2.txt", "content": "EXPERIMENT: prototype approach B\nstatus: failed\nalso abandoned" } },
-      { "command": "add", "args": { "path": "proto2.txt" } },
-      { "command": "commit", "args": { "message": "Add second prototype" } },
-      { "command": "writeFile", "args": { "path": "proto3.txt", "content": "EXPERIMENT: prototype approach C\nstatus: hopeless" } },
-      { "command": "add", "args": { "path": "proto3.txt" } },
-      { "command": "commit", "args": { "message": "Add third prototype" } },
-
-      { "command": "checkout", "args": { "ref": "main" } },
-
-      { "command": "branch", "args": { "name": "real-work" } },
-      { "command": "checkout", "args": { "ref": "real-work" } },
-      { "command": "writeFile", "args": { "path": "artifact1.txt", "content": "=== Artifact 1: The Golden Keyboard ===\nPurpose: enlightened typing\nLocation: Temple of Version Control" } },
-      { "command": "add", "args": { "path": "artifact1.txt" } },
-      { "command": "commit", "args": { "message": "Add artifact 1: Golden Keyboard" } },
-      { "command": "writeFile", "args": { "path": "mistake1.txt", "content": "wrong approach\nthis was reverted" } },
-      { "command": "add", "args": { "path": "mistake1.txt" } },
-      { "command": "commit", "args": { "message": "Add broken implementation (later reverted)" } },
-      { "command": "writeFile", "args": { "path": "artifact2.txt", "content": "=== Artifact 2: The Silver Mouse ===\nPurpose: precise navigation\nLocation: Cave of Merge Conflicts" } },
-      { "command": "add", "args": { "path": "artifact2.txt" } },
-      { "command": "commit", "args": { "message": "Add artifact 2: Silver Mouse" } },
-      { "command": "writeFile", "args": { "path": "mistake2.txt", "content": "another wrong turn\nalso reverted" } },
-      { "command": "add", "args": { "path": "mistake2.txt" } },
-      { "command": "commit", "args": { "message": "Add failed optimization (later reverted)" } },
-      { "command": "writeFile", "args": { "path": "artifact3.txt", "content": "=== Artifact 3: The Bronze Monitor ===\nPurpose: clarity of vision\nLocation: Ruins of Spaghetti Code" } },
-      { "command": "add", "args": { "path": "artifact3.txt" } },
-      { "command": "commit", "args": { "message": "Add artifact 3: Bronze Monitor" } },
-
-      { "command": "checkout", "args": { "ref": "main" } },
-      { "command": "writeFile", "args": { "path": "update.txt", "content": "main branch maintenance\nroutine update" } },
-      { "command": "add", "args": { "path": "update.txt" } },
-      { "command": "commit", "args": { "message": "Update main" } },
-
-      { "command": "deleteBranch", "args": { "name": "experiment" } },
-      { "command": "deleteBranch", "args": { "name": "real-work" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "base.txt",
+          "content": "monastery base code"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "base.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Base"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "experiment"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "experiment"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "proto1.txt",
+          "content": "EXPERIMENT: prototype approach A\nstatus: abandoned\ndo not use"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "proto1.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add prototype artifact"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "proto2.txt",
+          "content": "EXPERIMENT: prototype approach B\nstatus: failed\nalso abandoned"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "proto2.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add second prototype"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "proto3.txt",
+          "content": "EXPERIMENT: prototype approach C\nstatus: hopeless"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "proto3.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add third prototype"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "real-work"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "real-work"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "artifact1.txt",
+          "content": "=== Artifact 1: The Golden Keyboard ===\nPurpose: enlightened typing\nLocation: Temple of Version Control"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "artifact1.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add artifact 1: Golden Keyboard"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "mistake1.txt",
+          "content": "wrong approach\nthis was reverted"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "mistake1.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add broken implementation (later reverted)"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "artifact2.txt",
+          "content": "=== Artifact 2: The Silver Mouse ===\nPurpose: precise navigation\nLocation: Cave of Merge Conflicts"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "artifact2.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add artifact 2: Silver Mouse"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "mistake2.txt",
+          "content": "another wrong turn\nalso reverted"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "mistake2.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add failed optimization (later reverted)"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "artifact3.txt",
+          "content": "=== Artifact 3: The Bronze Monitor ===\nPurpose: clarity of vision\nLocation: Ruins of Spaghetti Code"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "artifact3.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add artifact 3: Bronze Monitor"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "update.txt",
+          "content": "main branch maintenance\nroutine update"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "update.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Update main"
+        }
+      },
+      {
+        "command": "deleteBranch",
+        "args": {
+          "name": "experiment"
+        }
+      },
+      {
+        "command": "deleteBranch",
+        "args": {
+          "name": "real-work"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "branch-exists", "params": { "name": "recovered" } },
-      { "type": "head-at", "params": { "branch": "recovered" } },
-      { "type": "file-exists", "params": { "path": "artifact1.txt" } },
-      { "type": "file-exists", "params": { "path": "artifact2.txt" } },
-      { "type": "file-exists", "params": { "path": "artifact3.txt" } },
-      { "type": "file-not-exists", "params": { "path": "mistake1.txt" } },
-      { "type": "file-not-exists", "params": { "path": "mistake2.txt" } },
-      { "type": "file-not-exists", "params": { "path": "proto1.txt" } },
-      { "type": "file-content", "params": { "path": "artifact1.txt", "contains": "Golden Keyboard" } },
-      { "type": "file-content", "params": { "path": "artifact2.txt", "contains": "Silver Mouse" } },
-      { "type": "file-content", "params": { "path": "artifact3.txt", "contains": "Bronze Monitor" } },
-      { "type": "commit-count", "params": { "branch": "recovered", "min": 5 } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "branch-exists",
+        "params": {
+          "name": "recovered"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "branch": "recovered"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "artifact1.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "artifact2.txt"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "artifact3.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "mistake1.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "mistake2.txt"
+        }
+      },
+      {
+        "type": "file-not-exists",
+        "params": {
+          "path": "proto1.txt"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "artifact1.txt",
+          "contains": "Golden Keyboard"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "artifact2.txt",
+          "contains": "Silver Mouse"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "artifact3.txt",
+          "contains": "Bronze Monitor"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "branch": "recovered",
+          "min": 5
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 16
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 6, "text": "git reflog will show commits from both deleted branches. Use git show <hash> to examine each one. The real-work branch has 'Artifact' in the commit messages. The experiment has 'prototype'.", "penalty": 0.25 },
-    { "trigger": "manual", "text": "Find the real-work branch tip in reflog (commit 'Add artifact 3'). Use git log <hash> to see its 5 commits. Cherry-pick only the 3 artifact commits (skip the 'broken implementation' and 'failed optimization' commits) onto a new 'recovered' branch.", "penalty": 1 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 6,
+      "text": "git reflog에 두 삭제된 브랜치의 커밋이 보일 걸세. git show로 각각을 살펴보게. 진짜 작업 브랜치의 커밋 메시지에는 'Artifact'가 있고, 실험에는 'prototype'이 있네.",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "manual",
+      "text": "리플로그에서 진짜 작업 브랜치의 끝('Add artifact 3' 커밋)을 찾게. git log로 그 5개 커밋을 보게. 아티팩트 커밋 3개만 체리픽하고('broken implementation'과 'failed optimization' 커밋은 건너뛰게), 새 'recovered' 브랜치에 올리게.",
+      "penalty": 1
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 14, "three": 10 } },
+    "stars": {
+      "maxCommands": {
+        "two": 14,
+        "three": 10
+      }
+    },
     "achievement": "git-archaeologist"
   }
 }
