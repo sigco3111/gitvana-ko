@@ -21,10 +21,10 @@
   });
 
   const monkTiers = [
-    { sprite: '/sprites/monk-tier1.png', nameKey: 'ui.landing_tier1_name', descKey: 'ui.landing_tier1_desc', color: '#5f574f' },
-    { sprite: '/sprites/monk-tier2.png', nameKey: 'ui.landing_tier2_name', descKey: 'ui.landing_tier2_desc', color: '#29adff' },
-    { sprite: '/sprites/monk-tier3.png', nameKey: 'ui.landing_tier3_name', descKey: 'ui.landing_tier3_desc', color: '#00e436' },
-    { sprite: '/sprites/monk-tier4.png', nameKey: 'ui.landing_tier4_name', descKey: 'ui.landing_tier4_desc', color: '#ffa300' },
+    { sprite: 'sprites/monk-tier1.png', nameKey: 'ui.landing_tier1_name', descKey: 'ui.landing_tier1_desc', color: '#5f574f' },
+    { sprite: 'sprites/monk-tier2.png', nameKey: 'ui.landing_tier2_name', descKey: 'ui.landing_tier2_desc', color: '#29adff' },
+    { sprite: 'sprites/monk-tier3.png', nameKey: 'ui.landing_tier3_name', descKey: 'ui.landing_tier3_desc', color: '#00e436' },
+    { sprite: 'sprites/monk-tier4.png', nameKey: 'ui.landing_tier4_name', descKey: 'ui.landing_tier4_desc', color: '#ffa300' },
   ];
 </script>
 
@@ -35,7 +35,7 @@
   <!-- Hero: Full-bleed monastery background -->
   <section class="hero">
     <img
-      src="/sprites/landing-monastery.png"
+      src="sprites/landing-monastery.png"
       alt="Monastery of Version Control"
       class="hero-bg"
     />
@@ -128,7 +128,7 @@
   <!-- Section 6: Final CTA + Author -->
   <section class="final-cta">
     <div class="section-inner">
-      <img src="/sprites/landing-monk.png" alt="Meditating monk" class="cta-monk" />
+      <img src="sprites/landing-monk.png" alt="Meditating monk" class="cta-monk" />
       <h2 class="cta-title">{$translate('ui.landing_final_cta_title')}</h2>
       <button class="play-btn" onclick={onPlay}>
         <span>{isReturning ? $translate('ui.landing_continue') : $translate('ui.landing_play')}</span>
