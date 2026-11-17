@@ -1,0 +1,23 @@
+name: diag-play
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install playwright
+        run: |
+          npm init -y >/dev/null
+          npm i --no-save playwright@1.47.2
+          npx playwright install --with-deps chromium
+      - name: Diagnose play button
+        env:
+          TARGET_URL: https://sigco3111.github.io/gitvana-ko/
+        run: node tools/diag-play.mjs
