@@ -2,59 +2,178 @@
   "id": "act4-23-diff-detective",
   "act": 4,
   "order": 23,
-  "title": "Diff Detective",
-  "subtitle": "Compare branches, combine the truth",
+  "title": "차이 탐정",
+  "subtitle": "브랜치를 비교하고 진실을 합친다",
   "difficulty": "intermediate",
   "mode": "strict",
   "briefing": {
-    "narrative": "The monastery's quarterly report is a mess. Three branches, three different versions of the truth.\n\nMain has the original report: Q1: 100, Q2: 200, Q3: 300, Q4: 400.\n\nBranch 'update-a' updated Q1 to 150. Branch 'update-b' updated Q2 to 250 and Q3 to 350. Both branches are correct -- they just updated different quarters.\n\nThe Head Monk needs the FINAL report on main with ALL the correct numbers combined. \"Use diff,\" he says. \"Compare the branches. Understand what changed. Then create the definitive version.\"\n\nYou are the Diff Detective. Examine the evidence across branches, deduce the correct combined state, and commit the truth.",
-    "concept": "git diff can compare branches: 'git diff main..update-a' shows what changed. By examining diffs between branches, you can understand what each branch modified and manually combine the changes into the correct final state.",
+    "narrative": "수도원의 분기 보고서가 엉망입니다. 브랜치가 세 개이고, 진실의 버전도 세 가지입니다.\n\nmain에는 원본 보고서가 있습니다. Q1: 100, Q2: 200, Q3: 300, Q4: 400.\n\n브랜치 'update-a'는 Q1을 150으로 고쳤습니다. 브랜치 'update-b'는 Q2를 250으로, Q3를 350으로 고쳤습니다. 두 브랜치 모두 옳습니다. 단지 서로 다른 분기를 고쳤을 뿐입니다.\n\n수석 수도승은 모든 올바른 숫자가 합쳐진 최종 보고서를 main에 원합니다. \"diff를 써 보게.\" 그가 말합니다.",
+    "concept": "git diff는 브랜치끼리 비교할 수 있습니다. 'git diff main..update-a'는 무엇이 바뀌었는지 보여 줍니다. 브랜치 사이의 diff를 살펴보면 각 브랜치가 무엇을 고쳤는지 알 수 있고, 그 변경을 손으로 합쳐 올바른 최종 상태를 만들 수 있습니다.",
     "objectives": [
-      "Use git diff to examine changes on update-a and update-b",
-      "Create the correct combined report on main",
-      "Commit the final version"
+      "git diff로 update-a와 update-b의 변경을 살펴본다",
+      "main에 올바르게 합쳐진 보고서를 만든다",
+      "최종본을 커밋한다"
     ],
-    "newCommands": ["git diff <branch1>..<branch2>"]
+    "newCommands": [
+      "git diff <branch1>..<branch2>"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "report.txt", "content": "Q1: 100\nQ2: 200\nQ3: 300\nQ4: 400" } },
-      { "command": "add", "args": { "path": "report.txt" } },
-      { "command": "commit", "args": { "message": "Initial report" } },
-      { "command": "branch", "args": { "name": "update-a" } },
-      { "command": "branch", "args": { "name": "update-b" } },
-      { "command": "checkout", "args": { "ref": "update-a" } },
-      { "command": "writeFile", "args": { "path": "report.txt", "content": "Q1: 150\nQ2: 200\nQ3: 300\nQ4: 400" } },
-      { "command": "add", "args": { "path": "report.txt" } },
-      { "command": "commit", "args": { "message": "Update Q1" } },
-      { "command": "checkout", "args": { "ref": "update-b" } },
-      { "command": "writeFile", "args": { "path": "report.txt", "content": "Q1: 100\nQ2: 250\nQ3: 350\nQ4: 400" } },
-      { "command": "add", "args": { "path": "report.txt" } },
-      { "command": "commit", "args": { "message": "Update Q2 Q3" } },
-      { "command": "checkout", "args": { "ref": "main" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "report.txt",
+          "content": "Q1: 100\nQ2: 200\nQ3: 300\nQ4: 400"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "report.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial report"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "update-a"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "update-b"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "update-a"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "report.txt",
+          "content": "Q1: 150\nQ2: 200\nQ3: 300\nQ4: 400"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "report.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Update Q1"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "update-b"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "report.txt",
+          "content": "Q1: 100\nQ2: 250\nQ3: 350\nQ4: 400"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "report.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Update Q2 Q3"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "file-content", "params": { "path": "report.txt", "contains": "Q1: 150" } },
-      { "type": "file-content", "params": { "path": "report.txt", "contains": "Q2: 250" } },
-      { "type": "file-content", "params": { "path": "report.txt", "contains": "Q3: 350" } },
-      { "type": "commit-count", "params": { "min": 2 } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "file-content",
+        "params": {
+          "path": "report.txt",
+          "contains": "Q1: 150"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "report.txt",
+          "contains": "Q2: 250"
+        }
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "report.txt",
+          "contains": "Q3: 350"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 2
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 10
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "The report auditor suggests: 'Try git diff main..update-a and git diff main..update-b to see what each branch changed.'", "penalty": 0.25 },
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "A sticky note on the report reads: 'Each branch updated different quarters. Combine the correct values from both branches into one definitive report.'", "penalty": 0.5 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "보고서 감사관이 제안합니다: 'git diff main..update-a와 git diff main..update-b를 실행해 각 브랜치가 무엇을 바꿨는지 보게.'",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "보고서 위의 포스트잇: '각 브랜치는 서로 다른 분기를 고쳤다. 두 브랜치의 올바른 값을 하나의 확정 보고서로 합치게.'",
+      "penalty": 0.5
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 8, "three": 5 } },
+    "stars": {
+      "maxCommands": {
+        "two": 8,
+        "three": 5
+      }
+    },
     "achievement": "diff-detective"
   }
 }

@@ -2,58 +2,170 @@
   "id": "act4-20-force-push",
   "act": 4,
   "order": 20,
-  "title": "Force Push Recovery",
-  "subtitle": "Someone overwrote your work, but the reflog knows",
+  "title": "강제 푸시에서 복구하기",
+  "subtitle": "누군가 당신의 작업을 덮어썼지만 리플로그는 알고 있다",
   "difficulty": "advanced",
   "mode": "strict",
   "briefing": {
-    "narrative": "You come back from lunch. Three commits of careful, beautiful work -- gone. The git log shows only your first commit. Someone (Brother Linus swears it wasn't him) force-pushed over your branch.\n\nYour v2 and v3 changes have vanished from the branch. The current state is back to v1. You stare at the screen in disbelief.\n\nBut wait. You remember the Head Monk's teaching: \"The reflog remembers ALL.\" Your local reflog still has entries for when HEAD pointed at those commits. They're still in the object store, just unreachable by any branch.\n\nTime to dig through the reflog, find your v3 commit, and bring your work back from the dead.",
-    "concept": "When someone force-pushes (or when you accidentally reset), commits don't actually disappear from the local repository immediately. The reflog keeps a record of where HEAD pointed. You can find 'lost' commits there and create new branches to recover them.",
+    "narrative": "점심을 먹고 돌아오니 세 커밋 분량의 정성스러운 작업이 사라져 있습니다. git log에는 첫 커밋만 보입니다. 누군가(링거스 형제는 자기가 아니라고 맹세합니다) 브랜치에 강제 푸시를 해서 덮어쓴 것입니다.\n\nv2와 v3 변경이 브랜치에서 사라졌습니다. 지금 상태는 v1으로 되돌아가 있습니다. 당신은 믿기지 않는 듯 화면을 바라봅니다.\n\n하지만 잠깐. 수석 수도승의 가르침을 기억하세요. \"리플로그는 모든 것을 기억한다.\" 로컬 리플로그에는 HEAD가 그 커밋들을 가리키던 기록이 아직 남아 있습니다. 커밋은 여전히 객체 저장소에 있지만 어떤 브랜치로도 닿지 않을 뿐입니다.\n\n리플로그를 뒤져 v3 커밋을 찾고, 죽은 작업을 되살릴 시간입니다.",
+    "concept": "누군가 강제 푸시를 하거나 실수로 reset을 하면, 커밋은 로컬 저장소에서 즉시 사라지지 않습니다. 리플로그가 HEAD가 가리킨 위치를 기록하고 있어서, 그곳에서 '사라진' 커밋을 찾아 새 브랜치로 되살릴 수 있습니다.",
     "objectives": [
-      "Use git reflog to find the lost v3 commit",
-      "Create a branch called 'recovered' at that commit",
-      "Verify your work is restored"
+      "git reflog로 사라진 v3 커밋을 찾는다",
+      "그 커밋에 'recovered'라는 브랜치를 만든다",
+      "작업이 복구되었는지 확인한다"
     ],
     "newCommands": []
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "a.txt", "content": "v1" } },
-      { "command": "add", "args": { "path": "a.txt" } },
-      { "command": "commit", "args": { "message": "v1" } },
-      { "command": "writeFile", "args": { "path": "a.txt", "content": "v2" } },
-      { "command": "add", "args": { "path": "a.txt" } },
-      { "command": "commit", "args": { "message": "Your important work - v2" } },
-      { "command": "writeFile", "args": { "path": "a.txt", "content": "v3" } },
-      { "command": "add", "args": { "path": "a.txt" } },
-      { "command": "commit", "args": { "message": "Your important work - v3" } },
-      { "command": "checkout", "args": { "ref": "HEAD~2" } },
-      { "command": "deleteBranch", "args": { "name": "main" } },
-      { "command": "branch", "args": { "name": "main" } },
-      { "command": "checkout", "args": { "ref": "main" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "a.txt",
+          "content": "v1"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "a.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "v1"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "a.txt",
+          "content": "v2"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "a.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Your important work - v2"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "a.txt",
+          "content": "v3"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "a.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Your important work - v3"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "HEAD~2"
+        }
+      },
+      {
+        "command": "deleteBranch",
+        "args": {
+          "name": "main"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "main"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "file-content", "params": { "path": "a.txt", "contains": "v3" } },
-      { "type": "branch-exists", "params": { "name": "recovered" } },
-      { "type": "head-at", "params": { "branch": "recovered" } },
-      { "type": "commit-count", "params": { "min": 3 } },
-      { "type": "commit-message-contains", "params": { "message": "v3" } }
+      {
+        "type": "file-content",
+        "params": {
+          "path": "a.txt",
+          "contains": "v3"
+        }
+      },
+      {
+        "type": "branch-exists",
+        "params": {
+          "name": "recovered"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "branch": "recovered"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 3
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "message": "v3"
+        }
+      }
     ]
   },
   "constraints": {
     "maxCommands": 8
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "The monastery backup monk hints: 'git reflog will show entries from when you made those commits. Look for the v3 commit hash.'", "penalty": 0.25 },
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "A note on the backup drive reads: 'The reflog remembers everything. Find the lost commit and give it a branch name.'", "penalty": 0.5 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "수도원 백업 수도승이 힌트를 줍니다: 'git reflog에 그 커밋들을 만들던 때의 항목이 보일 걸세. v3 커밋의 해시를 찾게.'",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "백업 드라이브의 메모: '리플로그는 모든 것을 기억한다. 사라진 커밋을 찾아 브랜치 이름을 붙여 주게.'",
+      "penalty": 0.5
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 6, "three": 4 } },
+    "stars": {
+      "maxCommands": {
+        "two": 6,
+        "three": 4
+      }
+    },
     "achievement": "force-push-survivor"
   }
 }

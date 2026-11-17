@@ -2,71 +2,247 @@
   "id": "act4-22-bisect",
   "act": 4,
   "order": 22,
-  "title": "The Bisect Hunt",
-  "subtitle": "Binary search through time itself",
+  "title": "이분 탐색 사냥",
+  "subtitle": "시간 자체에 대한 이진 탐색",
   "difficulty": "advanced",
   "mode": "strict",
   "briefing": {
-    "narrative": "Something broke. The monastery's test suite says \"FAIL\" but nobody knows when it started failing. There are 8 commits. Checking each one would take forever (well, eight steps, but monks are impatient).\n\nThe Head Monk pulls out an ancient scroll titled \"The Art of Bisection.\" \"Binary search,\" he says reverently. \"Divide and conquer. Git can do this automatically.\"\n\nYou tell Git: the current commit is BAD (tests fail). The first commit was GOOD (tests passed). Git picks the middle commit. You check if it's good or bad. Git narrows the range. In just 3 steps, you find the exact commit that broke everything.\n\nThe test file is simple: if it says \"PASS\", the commit is good. If it says \"FAIL\", the commit is bad. The break happened at commit 5.\n\nFind the breaking commit, then revert it to fix the tests.",
-    "concept": "git bisect performs a binary search through your commit history to find which commit introduced a bug. Start with 'git bisect start', mark the current state as bad and an old known-good state as good, then Git checks out midpoints for you to test.",
+    "narrative": "무언가 망가졌습니다. 수도원의 테스트 스위트는 \"FAIL\"이라고 말하지만, 언제부터 실패했는지 아무도 모릅니다. 커밋은 여덟 개입니다. 하나씩 확인하면 끝이 없을 겁니다(여덟 단계이긴 하지만, 수도승들은 참을성이 없으니까요).\n\n수석 수도승이 \"이분법의 기술\"이라는 오래된 두루마리를 꺼냅니다. \"이진 탐색이라네.\" 그가 경건하게 말합니다. \"나누어 정복하라. Git이 이것을 자동으로 할 수 있다네.\"\n\n당신은 Git에게 알려 줍니다. 현재 커밋은 나쁨(테스트 실패)이고, 첫 커밋은 좋음(테스트 통과)입니다. Git은 가운데 커밋을 고릅니다. 당신이 그것이 좋은지 나쁜지 확인하면, Git은 범위를 좁힙니다. 단 세 단계 만에 모든 것을 망가뜨린 정확한 커밋을 찾을 수 있습니다.\n\n테스트 파일은 단순합니다. \"PASS\"라고 적혀 있으면 커밋은 좋음이고, \"FAIL\"이라고 적혀 있으면 나쁨입니다. 문제는 5번 커밋에서 시작되었습니다.\n\n망가뜨린 커밋을 찾은 다음, 되돌려서 테스트를 고치세요.",
+    "concept": "git bisect는 커밋 역사를 이진 탐색해 어느 커밋이 버그를 넣었는지 찾습니다. 'git bisect start'로 시작하고, 현재 상태를 나쁨으로, 오래된 알려진 좋음 상태를 좋음으로 표시하세요. 그러면 Git이 테스트할 중간 지점을 차례로 체크아웃해 줍니다.",
     "objectives": [
-      "Start a bisect session",
-      "Mark the current commit as bad and the first commit as good",
-      "Test each midpoint commit by checking test.txt",
-      "Let bisect identify the breaking commit",
-      "Reset bisect and revert the bad commit"
+      "bisect 세션을 시작한다",
+      "현재 커밋을 나쁨으로, 첫 커밋을 좋음으로 표시한다",
+      "각 중간 커밋을 test.txt로 확인한다",
+      "bisect가 망가뜨린 커밋을 찾도록 한다",
+      "bisect를 리셋하고 나쁜 커밋을 되돌린다"
     ],
-    "newCommands": ["git bisect start", "git bisect bad", "git bisect good", "git bisect reset", "git revert <hash>"]
+    "newCommands": [
+      "git bisect start",
+      "git bisect bad",
+      "git bisect good",
+      "git bisect reset",
+      "git revert <hash>"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "test.txt", "content": "PASS" } },
-      { "command": "add", "args": { "path": "test.txt" } },
-      { "command": "commit", "args": { "message": "Commit 1" } },
-      { "command": "writeFile", "args": { "path": "test.txt", "content": "PASS" } },
-      { "command": "add", "args": { "path": "test.txt" } },
-      { "command": "commit", "args": { "message": "Commit 2" } },
-      { "command": "writeFile", "args": { "path": "test.txt", "content": "PASS" } },
-      { "command": "add", "args": { "path": "test.txt" } },
-      { "command": "commit", "args": { "message": "Commit 3" } },
-      { "command": "writeFile", "args": { "path": "test.txt", "content": "PASS" } },
-      { "command": "add", "args": { "path": "test.txt" } },
-      { "command": "commit", "args": { "message": "Commit 4" } },
-      { "command": "writeFile", "args": { "path": "test.txt", "content": "FAIL" } },
-      { "command": "add", "args": { "path": "test.txt" } },
-      { "command": "commit", "args": { "message": "Commit 5" } },
-      { "command": "writeFile", "args": { "path": "test.txt", "content": "FAIL" } },
-      { "command": "add", "args": { "path": "test.txt" } },
-      { "command": "commit", "args": { "message": "Commit 6" } },
-      { "command": "writeFile", "args": { "path": "test.txt", "content": "FAIL" } },
-      { "command": "add", "args": { "path": "test.txt" } },
-      { "command": "commit", "args": { "message": "Commit 7" } },
-      { "command": "writeFile", "args": { "path": "test.txt", "content": "FAIL" } },
-      { "command": "add", "args": { "path": "test.txt" } },
-      { "command": "commit", "args": { "message": "Commit 8" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "test.txt",
+          "content": "PASS"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "test.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Commit 1"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "test.txt",
+          "content": "PASS"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "test.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Commit 2"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "test.txt",
+          "content": "PASS"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "test.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Commit 3"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "test.txt",
+          "content": "PASS"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "test.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Commit 4"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "test.txt",
+          "content": "FAIL"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "test.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Commit 5"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "test.txt",
+          "content": "FAIL"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "test.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Commit 6"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "test.txt",
+          "content": "FAIL"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "test.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Commit 7"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "test.txt",
+          "content": "FAIL"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "test.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Commit 8"
+        }
+      }
     ],
     "head": "main"
   },
   "targetState": {
     "validators": [
-      { "type": "file-content", "params": { "path": "test.txt", "contains": "PASS" } },
-      { "type": "commit-count", "params": { "min": 9 } },
-      { "type": "commit-message-contains", "params": { "message": "revert" } },
-      { "type": "head-at", "params": { "branch": "main" } },
-      { "type": "staging-empty", "params": {} }
+      {
+        "type": "file-content",
+        "params": {
+          "path": "test.txt",
+          "contains": "PASS"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 9
+        }
+      },
+      {
+        "type": "commit-message-contains",
+        "params": {
+          "message": "revert"
+        }
+      },
+      {
+        "type": "head-at",
+        "params": {
+          "branch": "main"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      }
     ]
   },
   "constraints": {
     "maxCommands": 15
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "The monastery librarian suggests: 'git bisect start, then mark the current as bad and the first commit as good. Git will guide you from there.'", "penalty": 0.25 },
-    { "trigger": "after-attempts", "triggerValue": 6, "text": "A search manual reads: 'At each midpoint, check test.txt. Mark good or bad accordingly. Once the culprit is found, reset bisect and undo the damage.'", "penalty": 0.5 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "수도원 사서가 제안합니다: 'git bisect start를 실행하고, 현재를 나쁨으로, 첫 커밋을 좋음으로 표시하게. 그 뒤로는 Git이 안내해 줄 걸세.'",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 6,
+      "text": "검색 안내서: '중간 지점마다 test.txt를 확인해 좋음이나 나쁨으로 표시하게. 범인을 찾으면 bisect를 리셋하고 피해를 되돌리게.'",
+      "penalty": 0.5
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 12, "three": 8 } },
+    "stars": {
+      "maxCommands": {
+        "two": 12,
+        "three": 8
+      }
+    },
     "achievement": "bisect-hunter"
   }
 }
