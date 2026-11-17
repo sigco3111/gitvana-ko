@@ -28,14 +28,14 @@
 
 ## 게임 소개
 
-Gitvana는 35개의 점점 어려워지는 레벨을 통해 git을 가르치는 브라우저 게임입니다. 슬라이드나 영상 없이, 실제 git 명령어를 입력하고 결과를 실시간으로 확인합니다. 당신은 깨달음을 향해 산을 오르는 수도승이 됩니다. 수석 수도승이 임무를 내리고, 고양이가 당신의 커밋을 심사합니다.
+Gitvana는 38개의 점점 어려워지는 레벨을 통해 git을 가르치는 브라우저 게임입니다. 슬라이드나 영상 없이, 실제 git 명령어를 입력하고 결과를 실시간으로 확인합니다. 당신은 깨달음을 향해 산을 오르는 수도승이 됩니다. 수석 수도승이 임무를 내리고, 고양이가 당신의 커밋을 심사합니다.
 
 **실제 git, 브라우저 안에서**
 - isomorphic-git + lightning-fs 기반의 완전한 git 엔진이 클라이언트에서 실행됩니다.
 - `git add`, `git rebase`, `git bisect` 등 입력한 명령어가 실제로 실행됩니다.
 - 원작 기준 git 명령어 21종 구현 (init, add, commit, status, log, diff, branch, checkout, merge, reset, rm, tag, cherry-pick, show, revert, stash, reflog, rebase, blame, bisect, update-ref).
 
-**6막 35개 레벨**
+**6막 38개 레벨**
 - 1막: 각성 — 기초
 - 2막: 중도 — tag, cherry-pick, revert, stash
 - 3막: 현실 다시 쓰기 — rebase, amend, squash, 비밀 제거

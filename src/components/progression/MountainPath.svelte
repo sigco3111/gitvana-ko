@@ -43,10 +43,10 @@
 
   // Monk sprite changes based on stage tier
   const monkSprite = $derived(
-    currentStage.id >= 16 ? '/sprites/monk-tier4.png'  // Enlightened (golden robe, halo)
-    : currentStage.id >= 9 ? '/sprites/monk-tier3.png' // Adept (blue robe, staff)
-    : currentStage.id >= 4 ? '/sprites/monk-tier2.png' // Student (brown robe, book)
-    : '/sprites/monk-tier1.png'                          // Novice (grey robe, confused)
+    currentStage.id >= 16 ? import.meta.env.BASE_URL + 'sprites/monk-tier4.png'  // Enlightened (golden robe, halo)
+    : currentStage.id >= 9 ? import.meta.env.BASE_URL + 'sprites/monk-tier3.png' // Adept (blue robe, staff)
+    : currentStage.id >= 4 ? import.meta.env.BASE_URL + 'sprites/monk-tier2.png' // Student (brown robe, book)
+    : import.meta.env.BASE_URL + 'sprites/monk-tier1.png'                          // Novice (grey robe, confused)
   );
 
   // Window: show 2 before current, current, 2 after
@@ -118,7 +118,7 @@
     <!-- Right: Level sprite -->
     {#if levelId}
       <div class="hud-level-art">
-        <img src="/sprites/{levelId}.png" alt="" class="level-sprite" onerror={(e) => (e.currentTarget as HTMLImageElement).style.display = 'none'} />
+        <img src="{import.meta.env.BASE_URL}sprites/{levelId}.png" alt="" class="level-sprite" onerror={(e) => (e.currentTarget as HTMLImageElement).style.display = 'none'} />
       </div>
     {/if}
   </div>
