@@ -2,61 +2,190 @@
   "id": "act3-16-rebase-conflict",
   "act": 3,
   "order": 16,
-  "title": "Rebase Conflict",
-  "subtitle": "The straight line has a bump in it",
+  "title": "리베이스 충돌",
+  "subtitle": "곧은 선에도 혹이 있다",
   "difficulty": "advanced",
   "mode": "strict",
   "briefing": {
-    "narrative": "You thought rebasing was all smooth sailing after the last level. The Head Monk smiles that knowing smile.\n\n\"Now do it again,\" he says, \"but this time, both branches touched config.txt.\"\n\nYour blood runs cold. You changed the port to 8080. Someone on main changed it to 4000. When you rebase, Git won't know which port to keep. It will stop mid-rebase, drop conflict markers in the file, and wait for you to decide.\n\nThis is the rebase conflict. It's like a merge conflict, but it happens commit-by-commit as Git replays your work. Resolve it, then continue the rebase.\n\nThe monastery's server is waiting for the correct port number. No pressure.",
-    "concept": "During a rebase, if a replayed commit conflicts with the target branch, Git pauses and asks you to resolve. After fixing the file: git add the resolved file, then git rebase --continue to resume replaying the remaining commits.",
+    "narrative": "지난 레벨에서는 리베이스가 순풍에 돛 단 듯 쉬웠습니다. 수석 수도승이 아는 듯한 미소를 짓습니다.\n\n\"이번에는 다시 해 보게.\" 그가 말합니다. \"그런데 이번에는 두 브랜치가 모두 config.txt를 건드렸어.\"\n\n등골이 서늘해집니다. 당신은 포트를 8080으로 바꿨습니다. main의 누군가는 그것을 4000으로 바꿨고요. 리베이스하면 Git은 어느 포트를 남길지 알 수 없습니다. 리베이스 도중에 멈추고, 파일에 충돌 표시를 남긴 채 당신의 결정을 기다릴 겁니다.\n\n이것이 리베이스 충돌입니다. 병합 충돌과 비슷하지만, Git이 작업을 커밋 단위로 재생하는 동안 한 커밋씩 일어납니다. 해결한 뒤 리베이스를 이어 가세요.\n\n수도원 서버는 올바른 포트 번호를 기다리고 있습니다. 부담은 갖지 마세요.",
+    "concept": "리베이스 중에 재생되는 커밋이 대상 브랜치와 충돌하면 Git은 멈추고 해결을 요청합니다. 파일을 고친 뒤 해결된 파일을 git add하고, git rebase --continue로 남은 커밋 재생을 이어 가세요.",
     "objectives": [
-      "Attempt to rebase feature onto main",
-      "Resolve the conflict in config.txt",
-      "Stage the resolved file and continue the rebase"
+      "feature를 main 위로 리베이스를 시도한다",
+      "config.txt의 충돌을 해결한다",
+      "해결한 파일을 스테이징하고 리베이스를 이어 간다"
     ],
-    "newCommands": ["git rebase --continue", "git rebase --abort"]
+    "newCommands": [
+      "git rebase --continue",
+      "git rebase --abort"
+    ]
   },
   "initialState": {
     "strategy": "replay",
     "replayScript": [
-      { "command": "init", "args": {} },
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "port: 3000" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "Initial config" } },
-      { "command": "branch", "args": { "name": "feature" } },
-      { "command": "checkout", "args": { "ref": "feature" } },
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "port: 8080" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "Change port to 8080" } },
-      { "command": "writeFile", "args": { "path": "feature.txt", "content": "feature" } },
-      { "command": "add", "args": { "path": "feature.txt" } },
-      { "command": "commit", "args": { "message": "Add feature" } },
-      { "command": "checkout", "args": { "ref": "main" } },
-      { "command": "writeFile", "args": { "path": "config.txt", "content": "port: 4000" } },
-      { "command": "add", "args": { "path": "config.txt" } },
-      { "command": "commit", "args": { "message": "Change port to 4000" } },
-      { "command": "checkout", "args": { "ref": "feature" } }
+      {
+        "command": "init",
+        "args": {}
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "port: 3000"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Initial config"
+        }
+      },
+      {
+        "command": "branch",
+        "args": {
+          "name": "feature"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "feature"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "port: 8080"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Change port to 8080"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "feature.txt",
+          "content": "feature"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "feature.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Add feature"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "main"
+        }
+      },
+      {
+        "command": "writeFile",
+        "args": {
+          "path": "config.txt",
+          "content": "port: 4000"
+        }
+      },
+      {
+        "command": "add",
+        "args": {
+          "path": "config.txt"
+        }
+      },
+      {
+        "command": "commit",
+        "args": {
+          "message": "Change port to 4000"
+        }
+      },
+      {
+        "command": "checkout",
+        "args": {
+          "ref": "feature"
+        }
+      }
     ],
     "head": "feature"
   },
   "targetState": {
     "validators": [
-      { "type": "head-at", "params": { "ref": "feature" } },
-      { "type": "file-exists", "params": { "path": "feature.txt" } },
-      { "type": "staging-empty", "params": {} },
-      { "type": "file-content", "params": { "path": "config.txt", "notContains": "<<<<<<" } },
-      { "type": "commit-count", "params": { "min": 4 } }
+      {
+        "type": "head-at",
+        "params": {
+          "ref": "feature"
+        }
+      },
+      {
+        "type": "file-exists",
+        "params": {
+          "path": "feature.txt"
+        }
+      },
+      {
+        "type": "staging-empty",
+        "params": {}
+      },
+      {
+        "type": "file-content",
+        "params": {
+          "path": "config.txt",
+          "notContains": "<<<<<<"
+        }
+      },
+      {
+        "type": "commit-count",
+        "params": {
+          "min": 4
+        }
+      }
     ]
   },
   "constraints": {
     "maxCommands": 8
   },
   "hints": [
-    { "trigger": "after-attempts", "triggerValue": 3, "text": "The server room monk mutters: 'Start with git rebase main. When it stops with a conflict, edit config.txt to pick the right port.'", "penalty": 0.25 },
-    { "trigger": "after-attempts", "triggerValue": 5, "text": "A note on the server reads: 'After resolving config.txt, run git add config.txt && git rebase --continue.'", "penalty": 0.5 }
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 3,
+      "text": "서버실 수도승이 중얼거립니다: 'git rebase main으로 시작하게. 충돌로 멈추면 config.txt를 고쳐서 맞는 포트를 고르게.'",
+      "penalty": 0.25
+    },
+    {
+      "trigger": "after-attempts",
+      "triggerValue": 5,
+      "text": "서버의 쪽지: 'config.txt를 해결한 뒤 git add config.txt && git rebase --continue를 실행하게.'",
+      "penalty": 0.5
+    }
   ],
   "rewards": {
-    "stars": { "maxCommands": { "two": 6, "three": 4 } },
+    "stars": {
+      "maxCommands": {
+        "two": 6,
+        "three": 4
+      }
+    },
     "achievement": "rebase-survivor"
   }
 }
