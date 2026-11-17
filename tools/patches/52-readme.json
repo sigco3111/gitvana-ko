@@ -1,0 +1,14 @@
+[
+  {
+    "file": "README.md",
+    "type": "text",
+    "old": "| 레벨 내용 `levels.json` (스토리, 목표, 힌트) | **미번역 — 영문 원문 표시** |",
+    "new": "| 레벨 내용 `levels.json` (38개 레벨 스토리·목표·힌트) | 번역 완료 |"
+  },
+  {
+    "file": "README.md",
+    "type": "text",
+    "old": "| 문서 `docs-commands.json`, `docs-guides.json` | **미번역 — 영문 원문 표시** |",
+    "new": "| 문서 `docs-commands.json` (명령 설명, 15개 명령) | 일부 번역 — 나머지 명령은 영문 원문 표시 |\n| 문서 `docs-guides.json` (가이드 11개) | 번역 완료 |\n| 변경 기록 `ChangelogPage.svelte` | 번역 완료 |\n| 개발 블로그 `DevBlogPage.svelte` | 번역 완료 |"
+  }
+]
